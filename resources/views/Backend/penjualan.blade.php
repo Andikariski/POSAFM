@@ -355,16 +355,23 @@
                     processData : false,
                     contentType : false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
-                        $('#modalAction').modal('hide');
-                        window.LaravelDataTables["temptransaksi-table"].ajax.reload()
-                        $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
-                        $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
-                        $('#reloadFaktur').load(window.location.href + " #reloadFaktur")
+                        if(res.status == "Berhasil"){
+                            Toast.fire({
+                                icon    : res.icon,
+                                title   :  res.message,
+                            })
+                            $('#modalAction').modal('hide');
+                            window.LaravelDataTables["temptransaksi-table"].ajax.reload()
+                            $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
+                            $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
+                            $('#reloadFaktur').load(window.location.href + " #reloadFaktur")
+                        }
+                        else{
+                            Toast.fire({
+                                icon    : res.icon,
+                                title   :  res.message,
+                            })
+                        }
                     }
                 })
             })

@@ -91,8 +91,6 @@ class TransaksiController extends Controller
     }
 
     public function transaksiPenjualan(TempTransaksiDataTable $dataTable){
-        //  $date = Carbon::now();
-        // dd($date);
         $headPage = 'Transaksi Penjualan';
         $DataProduk = Produk::all();
         $tempPenjualan = TempTransaksiPenjualan::all();
@@ -125,8 +123,6 @@ class TransaksiController extends Controller
             $data=[
                 'fkid_barcode_produk' => $request->fkid_barcode_produk,
                 'fkid_faktur'         => $request->faktur,
-                // 'fkid_pelanggan' => $request->fkid_pelanggan,
-                // 'fkid_user' => $request->fkid_user,
                 'jumlah_produk' => $request->jumlah_produk,
                 'sub_total' => $getHarga['harga_jual_produk'] * $request->jumlah_produk,
                 'tanggal' => $request->tanggal,
@@ -148,7 +144,6 @@ class TransaksiController extends Controller
             }
         }
         else{
-            // dd($cekBarcodeProduk['stok_produk']);
             if($cekBarcodeProduk['stok_produk'] >= $cekProdukTemp['jumlah_produk']+$request->jumlah_produk){
             if($cekProdukTemp){
                 $addJumlahProduk = $cekProdukTemp['jumlah_produk'] + $request->jumlah_produk;
@@ -214,7 +209,6 @@ class TransaksiController extends Controller
     }
 
     public function hapusItemTransaksi(Request $request){
-        // dd($request->id);
         TempTransaksiPenjualan::where('id_temp_transaksi_penjualan',$request->id)->delete();
         return response()->json([
             'icon' => 'success',
@@ -244,7 +238,6 @@ class TransaksiController extends Controller
     }
     
     public function showModalPembayarn(Request $request){
-        // dd($request->all());
         $totalBayar = $request->totalBayar;
         $faktur     = $request->faktur;
         $pelanggan  = $request->fkid_pelanggan;
@@ -265,7 +258,6 @@ class TransaksiController extends Controller
     }
     
     public function simpanTransaksi(Request $request){
-        // dd($request->all());
         // $dataCreate = $request->all();
         $dataCreate = [
             'faktur'            => $request->faktur,
@@ -312,23 +304,30 @@ class TransaksiController extends Controller
         }
         
         public function showModalTambahJumlah(Request $request){
-            // dd($request->id);
             $dataTemp = TempTransaksiPenjualan::where('id_temp_transaksi_penjualan',$request->id)->first();
             return view('Backend.modal.modal-transaksi-tambahJumlah',compact('dataTemp'));
         }
 
         public function tambahJumlahProduk(Request $request){
-            // dd($request->all());
             $getProduk = TempTransaksiPenjualan::where('id_temp_transaksi_penjualan',$request->id)->first();
             $getHarga  = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
-            $getProduk->update([
-                'jumlah_produk' => $request->jumlah_produk,
-                'sub_total' => $getHarga['harga_jual_produk'] * $request->jumlah_produk
-            ]);
-            return response()->json([
-                'icon' => 'success',
-                'status' =>  'Berhasil',
-                'message' => 'Produk Telah Ditamh',
-            ]);
+            if($getHarga['stok_produk']>=$request->jumlah_produk){
+                $getProduk->update([
+                    'jumlah_produk' => $request->jumlah_produk,
+                    'sub_total' => $getHarga['harga_jual_produk'] * $request->jumlah_produk
+                ]);
+                return response()->json([
+                    'icon' => 'success',
+                    'status' =>  'Berhasil',
+                    'message' => 'Berhasil, Jumlah produk telah diubah.',
+                ]);
+            }
+            else{
+                return response()->json([
+                    'icon' => 'error',
+                    'status' =>  'Gagal',
+                    'message' => 'Gagal, Stok produk tidak mencukupi.',
+                ]);
+            }
         }
 }
