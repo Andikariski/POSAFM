@@ -22,7 +22,7 @@ class JenisProdukController extends Controller
     public function index(DataTablesJenisProdukDataTable $dataTable)
     {
         $headPage = 'Jenis Produk';
-        return $dataTable->render('Backend.jenisProduk', compact('headPage'));
+        return $dataTable->render('Backend.pages.jenisProduk', compact('headPage'));
     }
 
     /**
@@ -32,7 +32,7 @@ class JenisProdukController extends Controller
      */
     public function create(Request $request)
     {
-        return view('Backend.modal.modal-jenisProduk', ['jenisProduk' => new JenisProduk()]);
+        return view('Backend.pages.modal.modal-jenisProduk', ['jenisProduk' => new JenisProduk()]);
     }
 
     /**
@@ -72,7 +72,7 @@ class JenisProdukController extends Controller
         // dd($id);
         $jenisProduk = JenisProduk::where('id_jenis_produk',$id)->first();
         // dd($jenisProduk);
-        return view('Backend.modal.modal-jenisProduk', compact('jenisProduk'));
+        return view('Backend.pages.modal.modal-jenisProduk', compact('jenisProduk'));
     }
 
     /**

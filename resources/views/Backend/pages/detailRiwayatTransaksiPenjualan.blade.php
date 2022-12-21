@@ -141,8 +141,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <h6 style="color: red"><i>*Terbilang</i></h6>
-                    <h5><i>Satu Juta Dua Puluh Ribu Rupiah</i></h5>
+                    <button class="btn btn-primary">PRINT</button>
                 </div>
             </div>
         </div>

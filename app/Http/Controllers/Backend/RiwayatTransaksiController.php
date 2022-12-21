@@ -21,7 +21,7 @@ class RiwayatTransaksiController extends Controller
         $headPage = 'Riwayat Transaksi Penjualan';
         // $dataTransaksi = TransaksiPenjualan::all();
         // return view('Backend.riwayatTransaksiPenjualan',compact('dataTransaksi','headPage'));
-        return $dataTable->render('Backend.riwayatTransaksiPenjualan', compact('headPage'));
+        return $dataTable->render('Backend.pages.riwayatTransaksiPenjualan', compact('headPage'));
     }
 
     /**
@@ -99,7 +99,7 @@ class RiwayatTransaksiController extends Controller
         $dataSubTransaksi = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->get();
         $dataTransaksi = TransaksiPenjualan::where('faktur',$idDec)->first();
         $totalPembayaran = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->sum('sub_total');
-        return view('Backend.detailRiwayatTransaksiPenjualan',compact('dataSubTransaksi','dataTransaksi','headPage','totalPembayaran'));
+        return view('Backend.pages.detailRiwayatTransaksiPenjualan',compact('dataSubTransaksi','dataTransaksi','headPage','totalPembayaran'));
     }
 
     public function hapusRiwayatTransaksi(Request $request){

@@ -30,7 +30,7 @@ class ProdukController extends Controller
         $totalProduk        = count($data);
         $totalJenisProduk   = count($jenisProduk);
 
-        return $dataTable->render('Backend.produk', compact(
+        return $dataTable->render('Backend.pages.produk', compact(
                 'data',
                 'headPage',
                 'jenisProduk',

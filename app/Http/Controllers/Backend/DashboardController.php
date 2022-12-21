@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlahPelanggan = 10;
-        return view('Backend.dashboard', compact('jumlahPelanggan'));
+        return view('Backend.pages.dashboard', compact('jumlahPelanggan'));
     }
 
     /**

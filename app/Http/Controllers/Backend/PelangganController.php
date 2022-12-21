@@ -30,7 +30,7 @@ class PelangganController extends Controller
 
         // return view('Backend.pelanggan', compact('headPage', 'data', 'alamatPelanggan'));
 
-        return $dataTable->render('Backend.pelanggan', compact('headPage', 'data', 'alamatPelanggan'));
+        return $dataTable->render('Backend.pages.pelanggan', compact('headPage', 'data', 'alamatPelanggan'));
     }
 
     /**
@@ -133,7 +133,7 @@ class PelangganController extends Controller
     {
         $headPage = 'Data Alamat';
         $data = AlamatPelanggan::all();
-        return view('Backend.alamatPelanggan', compact('data', 'headPage'));
+        return view('Backend.pages.alamatPelanggan', compact('data', 'headPage'));
     }
 
     public function simpanDataAlamat(Request $request)
@@ -180,7 +180,7 @@ class PelangganController extends Controller
         }
         $dataPelanggan = Pelanggan::whereNotIn('id_pelanggan', $data)->get();
         // dd($dataPelanggan);
-        return $dataTable->render('Backend.pelangganPLN', compact('headPage', 'dataPelanggan', 'alamatPelanggan'));
+        return $dataTable->render('Backend.pages.pelangganPLN', compact('headPage', 'dataPelanggan', 'alamatPelanggan'));
     }
 
     public function storePelangganPLN(Request $request){

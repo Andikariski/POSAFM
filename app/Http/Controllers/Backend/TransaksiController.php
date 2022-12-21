@@ -98,7 +98,7 @@ class TransaksiController extends Controller
         $totalProdukTerpilih = TempTransaksiPenjualan::count();
         $faktur = $this->buatFaktur();
         $pelanggan = Pelanggan::all();
-        return $dataTable->render('Backend.penjualan',compact('headPage','DataProduk','tempPenjualan','totalBelanja','totalProdukTerpilih','faktur','pelanggan'));
+        return $dataTable->render('Backend.pages.penjualan',compact('headPage','DataProduk','tempPenjualan','totalBelanja','totalProdukTerpilih','faktur','pelanggan'));
        
 
     }
