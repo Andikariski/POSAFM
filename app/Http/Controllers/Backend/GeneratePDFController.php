@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pelanggan;
-use App\Models\TransaksiPenjualan;
 use Illuminate\Http\Request;
+use App\Models\Pelanggan;
+use App\Models\Produk;
+use App\Models\TransaksiPenjualan;
+// use Barryvdh\DomPDF\PDF as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
-class DashboardController extends Controller
+class GeneratePDFController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +19,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $jumlahPelanggan = Pelanggan::pluck('id_pelanggan')->count();
-        $totalTransaksi = TransaksiPenjualan::pluck('faktur')->count();
-        return view('Backend.pages.dashboard', compact('jumlahPelanggan','totalTransaksi'));
+        //
     }
 
     /**
@@ -89,5 +86,19 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function generatePDFPelanggan(){
+        $title = 'Data Pelanggan Andika Maros';
+        $dataPelanggan = Pelanggan::all();
+        $pdf = PDF::loadView('Backend.pdf.PDFpelanggan',['data'=>$dataPelanggan,'title'=>$title]);
+        return $pdf->stream();
+    }
+    
+    public function generatePDFProduk(){
+        $title = 'Data Produk Andika Maros';
+        $data = Produk::all();
+        $pdf = PDF::loadView('Backend.pdf.PDFproduk',['data'=>$data,'title'=>$title])->setPaper('a4', 'landscape');
+        return $pdf->stream();
     }
 }

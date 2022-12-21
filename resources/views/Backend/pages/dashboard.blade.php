@@ -52,7 +52,7 @@
                                 <span
                                     class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">Orang</span>
                             </div>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Pelanggan</h6>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate text-purple">Total Pelanggan</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="user-plus"></i></span>
@@ -96,11 +96,11 @@
                 <div class="card-body">
                     <div class="d-flex d-lg-flex d-md-block align-items-center">
                         <div>
-                            <h2 class="text-dark mb-1 font-weight-medium">864</h2>
-                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Penjualan Hari Ini</h6>
+                            <h2 class="text-dark mb-1 font-weight-medium">{{ $totalTransaksi }}</h2>
+                            <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Transaksi Penjualan</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
-                            <span class="opacity-7 text-muted"><i data-feather="globe"></i></span>
+                            <span class="opacity-7 text-muted"><i data-feather="shopping-cart"></i></span>
                         </div>
                     </div>
                 </div>

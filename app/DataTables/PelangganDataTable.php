@@ -63,7 +63,7 @@ class PelangganDataTable extends DataTable
                     ->setTableId('pelanggan-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    ->dom('frtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('export')->className('btn btn-primary'),
@@ -82,14 +82,14 @@ class PelangganDataTable extends DataTable
         return [
             Column::make('id_pelanggan')->visible(false)->searchable(false)->printable(false),
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
-            Column::make('nama_pelanggan'),
-            Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->data('alamat.alamat_detail')->name('alamat.alamat_detail'),
+            Column::make('nama_pelanggan')->width(50),
+            Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->data('alamat.alamat_detail')->name('alamat.alamat_detail')->width(50),
             // Print Column
             Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->visible(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(150)
+                ->width(80)
                 ->addClass('text-center'),
         ];
     }

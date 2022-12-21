@@ -231,7 +231,7 @@ class TransaksiController extends Controller
             foreach($dataProduk as $produk){
                 $response[] = array(
                     "id" => $produk->barcode_produk,
-                    "text" => $produk->nama_produk
+                    "text" => strtoupper($produk->nama_produk)
                 );
             }
             return response()->json($response);

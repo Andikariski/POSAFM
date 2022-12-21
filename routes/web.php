@@ -83,3 +83,8 @@ Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganContr
 Route::post('storeAlamat', [App\Http\Controllers\Backend\PelangganController::class, 'simpanDataAlamat'])->name('storeDataAlamat');
 Route::post('ubahAlamat/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'updateDataAlamat'])->name('updateDataAlamat');
 Route::get('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'destroyAlamat'])->name('hapusDataAlamat');
+
+
+// Route Generate PDF
+Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFPelanggan'])->name('PDF.pelanggan');
+Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');

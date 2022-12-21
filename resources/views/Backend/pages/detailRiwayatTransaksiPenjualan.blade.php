@@ -26,7 +26,7 @@
             <div class="col-5 align-self-center">
                 <div class="customize-input float-right">
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
-                        <a href="{{ route('riwayatTransaksiPenjualan') }}" class="btn btn-info">Kembali</a>
+                        <a href="{{ route('riwayatTransaksiPenjualan') }}" class="btn btn-info"><i class="fas fa-arrow-left"></i> Kembali</a>
                     </h4>
                 </div>
             </div>
@@ -120,7 +120,7 @@
                             @foreach ($dataSubTransaksi as $item)    
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $item->produk->nama_produk }}</td>
+                                <td>{{ strtoupper($item->produk->nama_produk) }}</td>
                                 <td>{{ number_format($item->produk->harga_jual_produk) }}</td>
                                 <td>{{ $item->jumlah_produk }}</td>
                                 <td>{{ number_format($item->sub_total) }}</td>
@@ -141,7 +141,12 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary">PRINT</button>
+                    <div class="div float-right">
+                        <button class="btn btn-success waves-effect waves-light" type="button">
+                            <span class="btn-label"><i class="fas fa-print"></i></span>
+                            Print Faktur
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

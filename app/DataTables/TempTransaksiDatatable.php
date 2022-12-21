@@ -25,6 +25,9 @@ class TempTransaksiDatatable extends DataTable
             ->editColumn('harga_produk', function(TempTransaksiPenjualan $temp){
                 return number_format($temp->produk->harga_jual_produk);
             })
+            ->editColumn('fkid_barcode_produk',function(TempTransaksiPenjualan $namaProduk){
+                return strtoupper($namaProduk->produk->nama_produk);
+            })
             ->editColumn('sub_total', function(TempTransaksiPenjualan $produk){
                 return number_format($produk->sub_total);
             })
@@ -83,7 +86,7 @@ class TempTransaksiDatatable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
-            Column::make('fkid_barcode_produk')->Title('Nama Produk')->data('produk.nama_produk')->name('produk.nama_produk')->orderable(false),
+            Column::make('fkid_barcode_produk')->Title('Nama Produk')->orderable(false),
             Column::make('harga_produk')->Title('Harga Satuan')->orderable(false),
             Column::make('jumlah_produk')->title('Jumlah(Qty)')->orderable(false),
             Column::make('sub_total')->title('Sub Total')->orderable(false),

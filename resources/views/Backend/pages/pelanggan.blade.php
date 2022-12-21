@@ -31,7 +31,7 @@
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
                         {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
                         {{-- {{ date("F j, Y") }} --}}
-                        <button type="button" class="btn btn-info btn-add">Tambah Pelanggan</button>
+                        <button type="button" class="btn btn-info btn-add"><i class="fas fa-plus"></i> Tambah Pelanggan</button>
                     </h4>
                 </div>
             </div>
@@ -48,7 +48,15 @@
                     <h4 class="card-title">Daftar {{ $headPage }}</h4>
                     <h6 class="card-subtitle">Data pelanggan digunakan untuk keperluan pembelian token listrik, pulsa HP dan Kasbond.</h6>
                     <div class="table-responsive">
-                        {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
+                        <div class="div mt-2">
+                            <a href="{{ route('PDF.pelanggan') }}" class="btn btn-danger" target="_blank">
+                                <i class="far fa-file-pdf"></i> Cetak PDF
+                            </a>
+                            <button class="btn btn-success ml-1">
+                                <i class="fas fa-file-excel"></i> Cetak CSV
+                            </button>
+                        </div>
+                            {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
                 </div>
             </div>

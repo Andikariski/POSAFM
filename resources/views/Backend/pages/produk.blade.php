@@ -87,6 +87,14 @@
                     </div>
                     <hr>
                     <div class="table-responsive">
+                        <div class="div mt-2">
+                            <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
+                                <i class="far fa-file-pdf"></i> Cetak PDF
+                            </a>
+                            <button class="btn btn-success ml-1">
+                                <i class="fas fa-file-excel"></i> Cetak CSV
+                            </button>
+                        </div>
                             {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
                 </div>
