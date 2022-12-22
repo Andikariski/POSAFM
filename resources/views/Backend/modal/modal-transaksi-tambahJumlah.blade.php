@@ -8,7 +8,7 @@
             <div class="mb-3">
                 <input type="hidden" name="id" id="" value="{{ $dataTemp->id_temp_transaksi_penjualan }}">
                 <input type="hidden" name="fkid_barcode_produk" id="" value="{{ $dataTemp->fkid_barcode_produk}}">
-                <label for="exampleFormControlInput1" class="form-label"><strong style="color:black"><font color="red">{{ $dataTemp->produk->nama_produk }}</font></strong></label>
+                <label for="exampleFormControlInput1" class="form-label"><strong style="color:black"><font color="red">{{ strtoupper($dataTemp->produk->nama_produk) }}</font></strong></label>
                 <input type="number" class="form-control form-control-lg" id="jumlahProduk" name="jumlah_produk"
                         style="font-weight: bold; font-size:25pt; text-align:right; color:rgb(51, 51, 51)" value="{{ $dataTemp->jumlah_produk }}">
             </div>

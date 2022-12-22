@@ -32,7 +32,7 @@
                         {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
                         {{-- {{ date("F j, Y") }} --}}
                         {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg" onclick="tambahData()">Tambah Produk</button> --}}
-                        <button type="button" class="btn btn-info btn-add">Tambah Produk</button>
+                        <button type="button" class="btn btn-info btn-add"><i class="fas fa-plus"></i> Tambah Produk</button>
                     </h4>
                 </div>
             </div>

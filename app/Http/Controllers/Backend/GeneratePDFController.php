@@ -12,6 +12,10 @@ use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class GeneratePDFController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -98,7 +102,7 @@ class GeneratePDFController extends Controller
     public function generatePDFProduk(){
         $title = 'Data Produk Andika Maros';
         $data = Produk::all();
-        $pdf = PDF::loadView('Backend.pdf.PDFproduk',['data'=>$data,'title'=>$title])->setPaper('a4', 'landscape');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFproduk',['data'=>$data,'title'=>$title])->setPaper('a4', 'landscape');
         return $pdf->stream();
     }
 }
