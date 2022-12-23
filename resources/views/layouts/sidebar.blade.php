@@ -80,7 +80,7 @@
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pengaturan</span></li>
                      <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="settings" class="feather-icon"></i><span class="hide-menu">Pengaturan Lainya </span></a>
+                        <i data-feather="settings" class="feather-icon"></i><span class="hide-menu">Pengaturan</span></a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
                             <li class="sidebar-item"><a href="{{ route('dataAlamat') }}" class="sidebar-link">
                                 <span class="hide-menu">Alamat Pelanggan</span></a>

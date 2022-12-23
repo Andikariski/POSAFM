@@ -47,6 +47,5 @@
 	<script src="{{ url('js/select2.js') }}"></script>
     <!-- ============================================================== -->
     <footer class="footer text-center text-muted">
-       All Rights Reserved by Adminmart. Designed and Developed by <a
-           href="https://wrappixel.com">WrapPixel</a>.
+       All Rights Reserved by AndikaRiski.
    </footer>

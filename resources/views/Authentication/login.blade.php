@@ -26,7 +26,7 @@
 <div class="container text-center mt-5">
     <div class="row gx-lg-5">
       <div class="card" style="width: 38rem;">
-      <h3 class="display-3 fw-bold mb-2 mt-4" style="font-size: 55px;color: #0394ae">
+      <h3 class="display-3 fw-bold mb-2 mt-4" style="font-size: 53px;color: #0394ae">
         AGRO FARM MANDIRI
       </h3>
       
@@ -43,7 +43,7 @@
         aria-controls="pills-register" aria-selected="false"><strong>Registrasi</strong></a>
     </li>
   </ul>
-  <hr>
+  <hr class="">
   <!-- Pills navs -->
   
   <!-- Pills content -->
