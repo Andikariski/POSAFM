@@ -150,11 +150,11 @@
                                 <div class="col">
                                     <div style="text-align:right">
                                         <button class="btn btn-danger m-2" id="btn_reset">
-                                            <i data-feather="repeat" class="feather-icon" style="width: 18px; height: 18px;"></i> 
+                                            <i class="fas fa-recycle"></i> 
                                              Reset Transaksi
                                         </button>
                                         <button class="btn btn-success" id="pembayaran">
-                                            <i data-feather="shopping-cart" class="feather-icon" style="width: 18px; height: 18px;"></i>  
+                                            <i class="fas fa-cart-plus"></i> 
                                              Pembayaran
                                         </button>
                                     </div>
