@@ -5,7 +5,7 @@
             <strong>
                 @if ($jenisProduk->id_jenis_produk) Ubah
                 @else Tambah
-                @endif Jenis Barang
+                @endif Jenis Produk
             </strong>
         </h3>
     </div>
@@ -22,8 +22,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+            <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Simpan</button>
         </div>
     </form>
 </div>

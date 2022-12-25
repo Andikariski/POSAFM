@@ -64,8 +64,8 @@
                             <label for="exampleFormControlSelect1">ID Pelanggan PLN</label>
                             <input type="number" class="form-control" placeholder="Ketik disini" name="nomer_pelanggan_pln" value="" required>
                         </div>
-                        <button class="btn btn-primary" type="submit" id="simpan">Simpan</button>
-                        <button class="btn btn-danger" type="button" id="resets">Reset</button>
+                        <button class="btn btn-primary" type="submit" id="simpan"><i class="far fa-save"></i> Simpan</button>
+                        <button class="btn btn-danger" type="button" id="resets"><i class="fas fa-recycle"></i> Reset</button>
                     </form>
                 {{-- </div> --}}
                 </div>

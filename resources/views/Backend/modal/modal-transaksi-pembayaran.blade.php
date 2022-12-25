@@ -36,8 +36,8 @@
             </div>
         </div>
         <div class="modal-footer mt-2">
-            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close" id="buttonBatal">Batal</button>
-            <button type="submit" class="btn btn-success" arial-label="Close">Selesai</button>
+            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+            <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Simpan</button>
         </div>
     </form>
 </div>

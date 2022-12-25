@@ -1,3 +1,10 @@
+<style>
+    .modal-content{
+        /* -webkit-border-radius: 0px !important;
+        -moz-border-radius: 0px !important; */
+        border-radius: 9px !important; 
+    }
+</style>
 <div class="modal-content">
     <form class="" id="formAction" action="{{ $pelangganToko->id_pelanggan ? route('updateDataPelangganToko',$pelangganToko->id_pelanggan) : route('simpanDataPelanggan') }}" method="POST">
         <div class="modal-header">
@@ -57,8 +64,8 @@
                </div>
            </div>
            <div class="modal-footer mt-2">
-            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+            <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Simpan</button>
            </div>
        </form>
    </div>

@@ -5,7 +5,12 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
-
+{{-- <style>
+    .table-responsive {
+        overflow-x: auto;
+        overflow-y: hidden;
+}
+</style> --}}
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -13,11 +18,11 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3> --}}
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('dataPelanggan') }}">Admin / {{ $headPage }}</a>
+                            <li class="breadcrumb-item "><a href="{{ route('dataPelanggan') }}">Admin / {{ $headPage }}</a>
                             </li>
                         </ol>
                     </nav>
@@ -45,7 +50,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar {{ $headPage }}</h4>
+                    {{-- <h4 class="card-title">Daftar {{ $headPage }}</h4> --}}
                     <h6 class="card-subtitle">Data pelanggan digunakan untuk keperluan pembelian token listrik, pulsa HP dan Kasbond.</h6>
                     <div class="table-responsive">
                         <div class="div mt-2">
@@ -65,8 +70,6 @@
     </div>
     </div>
 </div>
-
-
 
 {{-- Modal Ubah Data --}}
 <div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

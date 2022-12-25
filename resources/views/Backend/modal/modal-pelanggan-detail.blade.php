@@ -33,6 +33,6 @@
             </div>
         </div>
         <div class="modal-footer mt-2">
-            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close" id="buttonBatal">Tutup</button>
+            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close" id="buttonBatal"><i class="fas fa-times"></i> Tutup</button>
         </div>
 </div>

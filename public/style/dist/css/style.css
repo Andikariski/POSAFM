@@ -1762,8 +1762,8 @@ textarea.form-control {
     color: #7c8798;
     text-decoration: none; }
   .btn:focus, .btn.focus {
-    outline: 0;
-    box-shadow: transparent; }
+    outline: none;
+    box-shadow: none; }
   .btn.disabled, .btn:disabled {
     opacity: 0.65; }
 

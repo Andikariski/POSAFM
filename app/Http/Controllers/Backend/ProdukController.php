@@ -22,7 +22,7 @@ class ProdukController extends Controller
      */
     public function index(ProdukDatatable $dataTable)
     {
-        $headPage           = 'Produk';
+        $headPage           = 'Data Produk';
         $data               = Produk::all();
         $jenisProduk        = JenisProduk::all();
         $totalDataAsset     = Produk::sum('harga_beli_produk');

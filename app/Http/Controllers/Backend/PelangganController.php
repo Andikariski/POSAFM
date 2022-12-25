@@ -143,7 +143,7 @@ class PelangganController extends Controller
         ];
 
         AlamatPelanggan::create($data);
-        return redirect('dataAlamat')->with('alert-success', 'Data Berhasil Disimpan');
+        return redirect('data-alamat-pelanggan')->with('alert-success', 'Data Berhasil Disimpan');
     }
 
     public function updateDataAlamat(Request $request, $id)

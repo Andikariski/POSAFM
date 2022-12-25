@@ -82,14 +82,14 @@ class PelangganDataTable extends DataTable
         return [
             Column::make('id_pelanggan')->visible(false)->searchable(false)->printable(false),
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
-            Column::make('nama_pelanggan')->width(50),
-            Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->data('alamat.alamat_detail')->name('alamat.alamat_detail')->width(50),
+            Column::make('nama_pelanggan'),
+            Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->data('alamat.alamat_detail')->name('alamat.alamat_detail'),
             // Print Column
             Column::make('fkid_alamat_pelanggan')->title('Alamat Pelanggan')->visible(false),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(80)
+                ->width(10)
                 ->addClass('text-center'),
         ];
     }

@@ -28,7 +28,7 @@
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
                         {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
                         {{-- {{ date("F j, Y") }} --}}
-                        <button type="button" class="btn btn-primary btn-add" id="btn-add">Tambah Jenis Produk</button>
+                        <button type="button" class="btn btn-primary btn-add" id="btn-add"><i class="fas fa-plus"></i> Tambah Jenis Produk</button>
                     </h4>
                 </div>
             </div>
@@ -39,7 +39,6 @@
     <!-- Container fluid  -->
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Daftar Jenis Produk</h4>
                     <h6 class="card-subtitle">Daftar Jenis produk merupakan pembagian barang berdasarkan kategorinya</h6>
                     <div class="table-responsive">
                         {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
