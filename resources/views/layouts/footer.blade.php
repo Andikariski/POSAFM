@@ -48,6 +48,11 @@
     <script src="{{  url('style/assets/libs/fullcalendar/dist/fullcalendar.min.js')}}"></script>
     <script src="{{  url('style/dist/js/pages/calendar/cal-init.js')}}"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    
+    {{-- Costume JS --}}
+    <script src="{{  url('style/dist/js/custom.min.js')}}"></script>
+
+    
 
     {{-- DataTables --}}
     <script src="{{ mix('js/app.js') }}"></script>

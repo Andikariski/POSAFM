@@ -28,14 +28,12 @@ class JenisProdukDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 // $action = '';
                 // if (Gate::allows('update role')) {
-                return '<a href="#" class="m-3 action" data-jenis="edit" data-id=' . $row->id_jenis_produk . ' data-toggle="modal" data-placement="top">
-                                <i style="color:rgb(41, 228, 94)" class="fas fa-edit fa-1x" data-toggle="tooltip" data-placement="top" title="Ubah jenis produk"></i>
+                return '<a href="#" class="m-2 action" data-jenis="edit" data-id=' . $row->id_jenis_produk . ' data-toggle="modal" data-placement="top">
+                            <span class="badge badge-success"> <i style="color:(255,255,255)" class="fas fa-edit fa-1.5x" data-toggle="tooltip" data-placement="top" title="Ubah Data Jenis Produk"></i></span>
                         </a>' .
-                    '<a class="tombolhapus m-3 action" href="#" data-jenis="delete" data-id=' . $row->id_jenis_produk . '>
-                                <i style="color:rgb(249, 37, 37)" class="fas fa-trash fa-1x" data-toggle="tooltip" data-placement="top" title="Hapus jenis produk"></i>
+                        '<a class="tombolhapus m-2 action" href="#" data-jenis="delete" data-id=' . $row->id_jenis_produk . '>
+                            <span class="badge badge-danger"><i style="color:rgb(255,255,255)" class="fas fa-trash fa-1x" data-toggle="tooltip" data-placement="top" title="Hapus Data Jenis Produk"></i></span>
                         </a>';
-                // }
-                // return $action;
             })
             ->setRowId('id');
     }

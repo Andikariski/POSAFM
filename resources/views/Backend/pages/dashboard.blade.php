@@ -1,7 +1,14 @@
 @extends('layouts.main')
 @section('container')
 <link href="{{ url('style/assets/libs/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet" />
-
+<link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
+<!-- This Page CSS -->
+<link href="{{  url('style/assets/libs/morris.js/morris.css')}}" rel="stylesheet">
+{{-- <style>
+    .card-header{
+        background-color: #0093ad;
+    }
+</style> --}}
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -21,12 +28,8 @@
             </div>
             <div class="col-5 align-self-center">
                 <div class="customize-input float-right">
-                    {{-- <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                        <option selected>Aug 19</option>
-                    </select> --}}
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
-                        {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
-                        {{ date('y d m') }}
+                        <strong>{{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('D MMMM YYYY') }}</strong>
                     </h4>
                 </div>
             </div>
@@ -115,103 +118,25 @@
         <div class="row">
             <div class="col-lg-4 col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><font color="white">Status Transaksi</font></h4>
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-title">Total Sales</h4>
-                        <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                        <ul class="list-style-none mb-0">
-                            <li>
-                                <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                                <span class="text-muted">Direct Sales</span>
-                                <span class="text-dark float-right font-weight-medium">$2346</span>
-                            </li>
-                            <li class="mt-3">
-                                <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                                <span class="text-muted">Referral Sales</span>
-                                <span class="text-dark float-right font-weight-medium">$2108</span>
-                            </li>
-                            <li class="mt-3">
-                                <i class="fas fa-circle text-cyan font-10 mr-2"></i>
-                                <span class="text-muted">Affiliate Sales</span>
-                                <span class="text-dark float-right font-weight-medium">$1204</span>
-                            </li>
-                        </ul>
+                        <div id="morris-donut-chart"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-8 col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><font color="white">Grafik Pendapatan</font></h4>
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-title">Net Income</h4>
-                        <div class="net-income mt-4 position-relative" style="height:294px;"></div>
+                        {{-- <div class="net-income mt-4 position-relative" style="height:294px;"></div>
                         <ul class="list-inline text-center mt-5 mb-2">
                             <li class="list-inline-item text-muted font-italic">Sales for this month</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-4">Earning by Location</h4>
-                        <div class="" style="height:180px">
-                            <div id="visitbylocate" style="height:100%"></div>
-                        </div>
-                        <div class="row mb-3 align-items-center mt-1 mt-5">
-                            <div class="col-4 text-right">
-                                <span class="text-muted font-14">India</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-right">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">28%</span>
-                            </div>
-                        </div>
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-4 text-right">
-                                <span class="text-muted font-14">UK</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 74%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-right">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">21%</span>
-                            </div>
-                        </div>
-                        <div class="row mb-3 align-items-center">
-                            <div class="col-4 text-right">
-                                <span class="text-muted font-14">USA</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-cyan" role="progressbar" style="width: 60%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-right">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">18%</span>
-                            </div>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-4 text-right">
-                                <span class="text-muted font-14">China</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-3 text-right">
-                                <span class="mb-0 font-14 text-dark font-weight-medium">12%</span>
-                            </div>
-                        </div>
+                        </ul> --}}
+                        <div id="morris-bar-chart"></div>
                     </div>
                 </div>
             </div>
@@ -353,8 +278,77 @@
             </div>
     </div>
 </div>
-  {{-- CALENDAR --}}
-  <script src="{{  url('style/assets/libs/moment/min/moment.min.js')}}"></script>
-  <script src="{{  url('style/assets/libs/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-  <script src="{{  url('style/dist/js/pages/calendar/cal-init.js')}}"></script>
-@endsection
+  {{-- Chart Moriss--}}
+  <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
+  
+  <script src="{{ url('style/assets/libs/raphael/raphael.min.js')}}"></script>
+  <script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
+  {{-- <script src="{{ url('style/dist/js/pages/morris/morris-data.js')}}"></script> --}}
+  <script>
+    $(document).ready(function(){
+        // Morris Donuts chart
+        Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [{
+            label: "Lunas",
+            value: {{ $lunas }},
+
+        }, {
+            label: "Belum Lunas",
+            value: 5,
+        }],
+        resize: true,
+        colors:['#5f76e8', '#01caf1', '#8fa0f3']
+    });
+
+    // Morris bar chart
+     Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [{
+            y: 'Senin',
+            a: 100000,
+            // b: 90,
+            // c: 60
+        }, {
+            y: 'Selasa',
+            a: 75000,
+            // b: 65,
+            // c: 40
+        }, {
+            y: 'Rabu',
+            a: 50000,
+            // b: 40,
+            // c: 30
+        }, {
+            y: 'Kamis',
+            a: 75000,
+            // b: 65,
+            // c: 40
+        }, {
+            y: 'Jumat',
+            a: 50000,
+            // b: 40,
+            // c: 30
+        }, {
+            y: 'Sabtu',
+            a: 75000,
+            // b: 65,
+            // c: 40
+        }, {
+            y: 'Minggu',
+            a: 100000,
+            // b: 90,
+            // c: 40
+        }],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Profit'],
+        barColors:['#01caf1', '#5f76e8'],
+        hideHover: 'auto',
+        gridLineColor: '#eef0f2',
+        resize: true
+    });
+    })
+  </script>
+  @endsection

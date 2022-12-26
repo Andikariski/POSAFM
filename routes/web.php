@@ -88,3 +88,5 @@ Route::get('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganController
 // Route Generate PDF
 Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFPelanggan'])->name('PDF.pelanggan');
 Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');
+
+Route::get('tes-chart',[App\Http\Controllers\Backend\ChartController::class,'index'])->name('chart');

@@ -8,7 +8,7 @@ $(function () {
         bindto: '#campaign-v2',
         data: {
             columns: [
-                ['Direct Sales', 25],
+                ['Direct Sales', 90],
                 ['Referral Sales', 15],
                 ['Afilliate Sales', 10],
                 ['Indirect Sales', 15]
@@ -23,7 +23,7 @@ $(function () {
             label: {
                 show: false
             },
-            title: 'Sales',
+            title: 'Sales Niw',
             width: 18
         },
 

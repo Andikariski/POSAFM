@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pelanggan;
-use App\Models\TransaksiPenjualan;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class ChartController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,12 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $jumlahPelanggan = Pelanggan::pluck('id_pelanggan')->count();
-        $totalTransaksi = TransaksiPenjualan::pluck('faktur')->count();
-        $lunas = TransaksiPenjualan::where('total_pembayaran','<=','uang_terbayar')->count();
-        // $belumLunas = TransaksiPenjualan::where('total_pembayaran','<=','uang_terbayar')->count();
-        // dd($lunas);
-        return view('Backend.pages.dashboard', compact('jumlahPelanggan','totalTransaksi','lunas'));
+        return view('Backend.pages.chart');
     }
 
     /**
