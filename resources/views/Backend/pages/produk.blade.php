@@ -13,7 +13,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -122,6 +122,7 @@
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
+
     function tambahData() {
             $('.jenisProduk').select2();
             // $('.alamat_edit').select2();
@@ -176,11 +177,10 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["produk-table"].ajax.reload()
                     }
             })
@@ -237,13 +237,20 @@
                     processData : false,
                     contentType : false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
-                        window.LaravelDataTables["produk-table"].ajax.reload()
-                        $('#modalAction').modal('hide');
+                        if(res.status == "Gagal"){
+                            Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
+                        }
+                        else{
+                             Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
+                            window.LaravelDataTables["produk-table"].ajax.reload()
+                            $('#modalAction').modal('hide');
+                        }
                     }
                 })
             })

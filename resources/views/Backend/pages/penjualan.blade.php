@@ -189,17 +189,6 @@
 {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script>
-     const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 7000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     
@@ -254,15 +243,10 @@
                     },
                     dataType: 'json',
                     success : function(res){
-                        // Swal.fire({
-                        //         icon    : res.icon,
-                        //         title   :  res.status,
-                        //         text    :  res.message,
-                        // })
                         Toast.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                        })
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["temptransaksi-table"].ajax.reload()
                         $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
                         $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
@@ -358,7 +342,7 @@
                         if(res.status == "Berhasil"){
                             Toast.fire({
                                 icon    : res.icon,
-                                title   :  res.message,
+                                title   : res.status + ', ' + res.message,
                             })
                             $('#modalAction').modal('hide');
                             window.LaravelDataTables["temptransaksi-table"].ajax.reload()
@@ -400,9 +384,9 @@
                     dataType: 'json',
                     success : function(res){
                         Toast.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                        })
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         // console.log(res.status)
                         // if(res.aksi =='cekproduk'){
                         //     Swal.fire({
@@ -442,7 +426,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
             success : function(res){
-                if(res.status == 'Pembayaran Gagal'){
+                if(res.status == 'Gagal'){
                     Swal.fire({
                             icon    :  res.icon,
                             title   :  res.status,

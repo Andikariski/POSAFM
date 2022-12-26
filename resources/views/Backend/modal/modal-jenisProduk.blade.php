@@ -10,7 +10,7 @@
         </h3>
     </div>
     <div class="modal-body">
-        <h6>Nama Jenis Barang</h6>
+        <h6>Nama Jenis Produk</h6>
             @csrf
             @if ($jenisProduk->id_jenis_produk)
             @method('put')

@@ -13,7 +13,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3> --}}
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -160,11 +160,10 @@ function store(){
                     contentType : false,
                     cache:false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["pelangganpln-table"].ajax.reload()
                         $('#modalAction').modal('hide');
                         $('#formAction').trigger("reset");
@@ -203,11 +202,10 @@ $('#pelangganpln-table').on('click','.action',function(){
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         $('#reloadSelect').load(window.location.href + " #reloadSelect", function(){
                                 $('.addPelanggan').select2();
                         })
@@ -244,11 +242,10 @@ $('#pelangganpln-table').on('click','.action',function(){
                     contentType : false,
                     cache:false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["pelangganpln-table"].ajax.reload()
                         $('#modalAction').modal('hide');
                         $('#formAction').trigger("reset");
@@ -274,9 +271,6 @@ $('#pelangganpln-table').on('click','.action',function(){
             success : function(res){
                 $('#modalActionDetail').find('.modal-dialog').html(res)
                 $('#modalActionDetail').modal('show');
-                // console.log(res)
-                // store()
-                // console.log(data);
             }
         })
         // console.log('Add');

@@ -45,8 +45,9 @@ class JenisProdukController extends Controller
     {
         JenisProduk::create($request->all());
         return response()->json([
+            'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Disimpan.'
+            'message' => 'Jenis produk telah disimpan.'
         ]);
     }
 
@@ -89,8 +90,9 @@ class JenisProdukController extends Controller
         ]);
 
         return response()->json([
+            'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Diubah.'
+            'message' => 'Data berhasil diubah.'
         ]);
     }
 
@@ -105,8 +107,9 @@ class JenisProdukController extends Controller
         // JenisProduk::destroy($id);
         JenisProduk::where('id_jenis_produk',$id)->delete();
         return response()->json([
+            'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Dihapus.'
+            'message' => 'Data berhasil dihapus.'
         ]);
     }
 }

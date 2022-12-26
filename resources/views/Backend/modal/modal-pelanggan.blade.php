@@ -1,10 +1,3 @@
-<style>
-    .modal-content{
-        /* -webkit-border-radius: 0px !important;
-        -moz-border-radius: 0px !important; */
-        border-radius: 9px !important; 
-    }
-</style>
 <div class="modal-content">
     <form class="" id="formAction" action="{{ $pelangganToko->id_pelanggan ? route('updateDataPelangganToko',$pelangganToko->id_pelanggan) : route('simpanDataPelanggan') }}" method="POST">
         <div class="modal-header">

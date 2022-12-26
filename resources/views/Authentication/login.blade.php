@@ -26,12 +26,12 @@
 <div class="container text-center mt-5">
     <div class="row gx-lg-5">
       <div class="card" style="width: 38rem;">
-      <h3 class="display-3 fw-bold mb-2 mt-4" style="font-size: 53px;color: #0394ae">
+      {{-- <h3 class="display-3 fw-bold mb-2 mt-4" style="font-size: 53px;color: #0394ae">
         AGRO FARM MANDIRI
-      </h3>
-      
-        {{-- <img src="{{ url('/style/image/Logo.png')}}" alt="" height="35%" width="35%" class="text-center"/> --}}
-        {{-- <img src="{{ url('/style/image/Logo.png')}}" alt="" height="35%" width="35%" class="text-center"/> --}}
+      </h3> --}}
+      <div class="display-3 fw-bold mb-3 mt-4">
+        <img src="{{ url('/style/image/Logo.png')}}" width="200px" class="text-center"/>
+      </div>
             <!-- Pills navs -->
     <ul class="nav nav-pills nav-justified mb-3 m-3" id="ex1" role="tablist">
     <li class="nav-item" role="presentation">
@@ -75,7 +75,7 @@
         <!-- Submit button -->
         <div class="row">
             <div class="col">
-                <button type="submit" class="btn btn-primary btn-lg btn-block mb-4">Masuk <i class="fas fa-fw fa-arrow-alt-circle-right"></i></button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mb-4">Masuk <i class="fas fa-fw fa-sign-in-alt"></i></button>
             </div>
             <div class="col">
                 <button type="reset" class="btn btn-danger btn-lg btn-block mb-4">Reset <i class="fas fas-fw fa-recycle"></i></button>

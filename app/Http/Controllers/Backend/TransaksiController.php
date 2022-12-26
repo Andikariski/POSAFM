@@ -117,8 +117,8 @@ class TransaksiController extends Controller
             return response()->json([
                 'aksi' => 'cekproduk',
                 'icon' => 'error',
-                'status' =>  'Gagal, Produk Tidak Ditemukan',
-                'message' => 'Produk Tidak Ditemukan, Silakan tambahkan produk terlebih dahulu.',
+                'status' => 'Gagal',
+                'message' =>  'Produk tidak ditemukan.',
             ]); 
         }
 
@@ -135,15 +135,15 @@ class TransaksiController extends Controller
             return response()->json([
                 'aksi' => 'tambah',
                 'icon' => 'success',
-                'status' =>  'Berhasil Menambahkan Produk',
-                'message' => 'Produk Telah Ditambahkan',
+                'status' =>  'Berhasil',
+                'message' => 'Produk telah ditambahkan.',
             ]);
             }else{
                 return response()->json([
                     'aksi' => 'cekstok',
                     'icon' => 'warning',
-                    'status' =>  'Stok Produk Sedang Kosong..!!',
-                    'message' => 'Stok Produk Kosong',
+                    'status' =>  'Gagal',
+                    'message' => 'Stok produk kosong.',
                 ]);
             }
         }
@@ -158,8 +158,8 @@ class TransaksiController extends Controller
                 return response()->json([
                     'aksi' => 'update',
                     'icon' => 'success',
-                    'status' =>  'Jumlah Produk Berhasil ditambah',
-                    'message' => 'Jumlah Produk Berhasil ditambah',
+                    'status' =>  'Berhasil',
+                    'message' => 'Jumlah produk berhasil ditambah.',
                 ]);
             }
             else{
@@ -176,18 +176,17 @@ class TransaksiController extends Controller
                 return response()->json([
                     'aksi' => 'tambah',
                     'icon' => 'success',
-                    'status' =>  'Berhasil Menambahkan Produk',
-                    'message' => 'Produk Telah Ditambahkan',
+                    'status' =>  'Berhasil',
+                    'message' => 'Produk telah ditambahkan.',
                 ]);
-                
             }
         }
         else{
             return response()->json([
                 'aksi' => 'cekstok',
                 'icon' => 'warning',
-                'status' =>  'Gagal, Stok Produk Tidak Mencukupi',
-                'message' => 'Stok Produk Tidak Cukup',
+                'status' =>  'Gagal',
+                'message' => 'Stok produk tidak mencukupi.',
             ]);
         }
     }
@@ -255,7 +254,7 @@ class TransaksiController extends Controller
         else{
             return response()->json([
                 'icon' => 'warning',
-                'status' =>  'Pembayaran Gagal',
+                'status' =>  'Gagal',
                 'message' => 'Belum ada produk yang dipilih',
             ]);
         }
@@ -303,7 +302,7 @@ class TransaksiController extends Controller
             return response()->json([
                 'icon' => 'success',
                 'status' =>  'Berhasil',
-                'message' => 'Transaksi Telah Selesai',
+                'message' => 'Transaksi telah selesai',
             ]);
         }
         
@@ -323,7 +322,7 @@ class TransaksiController extends Controller
                 return response()->json([
                     'icon' => 'success',
                     'status' =>  'Berhasil',
-                    'message' => 'Berhasil, Jumlah produk telah diubah.',
+                    'message' => 'Jumlah produk telah diubah.',
                 ]);
             }
             else{

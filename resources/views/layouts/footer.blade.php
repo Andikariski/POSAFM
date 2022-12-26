@@ -1,3 +1,16 @@
+    <script>
+         const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 7000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    </script>
     <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
     <script src="{{ url('style/assets/libs/jquery/dist/autoNumeric.js')}}"></script>
     <script src="{{ url('style/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>

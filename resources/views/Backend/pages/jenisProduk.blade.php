@@ -10,7 +10,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -49,32 +49,6 @@
     </div>
     </div>
   
-
-{{-- <button class="edit ">Edit</button> --}}
-
-{{-- <!-- Modal tambah data -->
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel" style="color: black"><strong>Tambah Jenis Barang</strong></h4>
-        </div>
-        <div class="modal-body">
-            <h6>Nama Jenis Barang</h6>
-            <form class="mt-2" action="{{ route('simpanJenisProduk') }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Ketik disini" name="jenis_barang" required>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div> --}}
 
 {{-- Modal Ubah Data --}}
 <div id="modalAction" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -123,11 +97,10 @@
                     processData : false,
                     contentType : false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : 'success',
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["jenis_produk"].ajax.reload()
                         $('#modalAction').modal('hide');
                     }
@@ -161,11 +134,10 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function(res){
-                        Swal.fire({
-                            icon    : 'success',
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["jenis_produk"].ajax.reload()
                     }
             })

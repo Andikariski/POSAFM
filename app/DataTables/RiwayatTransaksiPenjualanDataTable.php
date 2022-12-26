@@ -68,7 +68,7 @@ class RiwayatTransaksiPenjualanDataTable extends DataTable
                     ->setTableId('riwayattransaksipenjualan-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('Bfrtip')
+                    ->dom('frtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('export')->className('btn btn-primary'),

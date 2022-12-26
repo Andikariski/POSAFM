@@ -24,7 +24,7 @@ class PelangganController extends Controller
      */
     public function index(PelangganDataTable $dataTable)
     {
-        $headPage = 'Pelanggan Toko';
+        $headPage = 'Data Pelanggan';
         $data = Pelanggan::all();
         $alamatPelanggan = AlamatPelanggan::all();
 
@@ -56,7 +56,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Disimpan.'
+            'message' => 'Data berhasil disimpan.'
         ]);
     }
 
@@ -102,7 +102,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Diubah.'
+            'message' => 'Data berhasil diubah.'
         ]);
     }
 
@@ -124,7 +124,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Pelanggan Telah Dihapus',
+            'message' => 'Pelanggan telah dihapus.',
             // 'message' => ' "'.$pelanggan->nama_pelanggan.'" '.'Telah Dihapus Dari Daftar Pelanggan Toko.',
         ]);
     }
@@ -199,7 +199,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Disimpan.'
+            'message' => 'Data berhasil disimpan.'
         ]);
     }
 
@@ -210,7 +210,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Pelanggan PLN Telah Dihapus',
+            'message' => 'Pelanggan PLN telah dihapus',
         ]);
     }
 
@@ -234,7 +234,7 @@ class PelangganController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Diubah.'
+            'message' => 'Data berhasil diubah.'
         ]);
         
         return;

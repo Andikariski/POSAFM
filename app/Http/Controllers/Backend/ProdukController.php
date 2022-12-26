@@ -58,24 +58,32 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $hargaJual = str_replace(",","",$request->harga_beli_produk);
-        $data = [
-            'barcode_produk'    => $request->barcode_produk,
-            'nama_produk'       => $request->nama_produk,
-            'barcode_produk'    => $request->barcode_produk,
-            'stok_produk'       => $request->stok_produk,
-            'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
-            'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
-            'fkid_tempat_produk'=> $request->fkid_tempat_produk,
-            'fkid_jenis_produk' => $request->fkid_jenis_produk,
-        ];
-        Produk::create($data);
-        return response()->json([
-            'icon' => 'success',
-            'status' =>  'Berhasil',
-            'message' => 'Produk Telah Ditambahkan',
-        ]);
+        $cekProduk = Produk::where('barcode_produk',$request->barcode_produk)->first();
+        if($cekProduk == null){
+            $data = [
+                'barcode_produk'    => $request->barcode_produk,
+                'nama_produk'       => $request->nama_produk,
+                'barcode_produk'    => $request->barcode_produk,
+                'stok_produk'       => $request->stok_produk,
+                'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
+                'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
+                'fkid_tempat_produk'=> $request->fkid_tempat_produk,
+                'fkid_jenis_produk' => $request->fkid_jenis_produk,
+            ];
+            Produk::create($data);
+            return response()->json([
+                'icon' => 'success',
+                'status' =>  'Berhasil',
+                'message' => 'Produk telah ditambahkan.',
+            ]);
+        }
+        else{
+            return response()->json([
+                'icon' => 'error',
+                'status' =>  'Gagal',
+                'message' => 'Barcode produk telah terdaftar.',
+            ]);
+        }
     }
 
     /**
@@ -127,7 +135,7 @@ class ProdukController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data Telah Berhasil Diubah.'
+            'message' => 'Data telah berhasil diubah.'
         ]);
     }
 
@@ -145,7 +153,7 @@ class ProdukController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Produk Telah Dihapus',
+            'message' => 'Produk telah dihapus.',
         ]);
     }
 

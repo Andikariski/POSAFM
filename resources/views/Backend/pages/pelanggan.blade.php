@@ -5,12 +5,7 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
-{{-- <style>
-    .table-responsive {
-        overflow-x: auto;
-        overflow-y: hidden;
-}
-</style> --}}
+
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -18,7 +13,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -136,11 +131,10 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["pelanggan-table"].ajax.reload()
                     }
             })
@@ -196,11 +190,10 @@
                     processData : false,
                     contentType : false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         // window.LaravelDataTables["jenis_barang"].ajax.reload()
                         window.LaravelDataTables["pelanggan-table"].ajax.reload()
                         $('#modalAction').modal('hide');

@@ -13,7 +13,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Halaman {{ $headPage }}</h3>
+                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -34,45 +34,16 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
+                        <div class="div mt-2">
+                            <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
+                                <i class="far fa-file-pdf"></i> Cetak PDF
+                            </a>
+                            <button class="btn btn-success ml-1">
+                                <i class="fas fa-file-excel"></i> Cetak CSV
+                            </button>
+                        </div>
                             {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
-                    {{-- <table id="default_order" class="table table-striped table-bordered display no-wrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th width="50px">No</th>
-                                <th>Nomor Faktur</th>
-                                <th>Pelanggan</th>
-                                <th>Kasir</th>
-                                <th>Tanggal</th>
-                                <th width="200px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($dataTransaksi as $item)    
-                            <tr>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ $item->faktur }}</td>
-                                <td>{{ $item->pelanggan->nama_pelanggan }}</td>
-                                <td>{{ $item->kasir->name }}</td>
-                                <td>{{ Carbon\Carbon::createFromFormat('Y-m-d', $item->tanggal)->isoFormat('D MMMM YYYY') }}</td>
-                                <td>
-                                    {{-- <div class="form-button-action container" style="text-align: center">
-                                        <a href="#" class="m-3" data-toggle="modal" data-placement="top"  data-target="#ubahData{{ $item->id_alamat_pelanggan }}">
-                                            <i style="color:rgb(41, 228, 94)" class="fas fa-edit fa-1x" data-toggle="tooltip" data-placement="top" title="Ubah alamat"></i>
-                                        </a>
-                                     
-                                        <a class="" href="{{ route('detailRiwayatTransaksi',Crypt::encrypt($item->faktur)) }}">
-                                            <i style="color:rgb(249, 37, 37); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table> --}}
                 </div>
             </div>
         </div>
@@ -152,11 +123,10 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         window.LaravelDataTables["riwayattransaksipenjualan-table"].ajax.reload()
                     }
                 })

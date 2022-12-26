@@ -22,7 +22,7 @@ class RiwayatTransaksiController extends Controller
      */
     public function index(RiwayatTransaksiPenjualanDataTable $dataTable)
     {
-        $headPage = 'Riwayat Transaksi Penjualan';
+        $headPage = 'Riwayat Penjualan';
         // $dataTransaksi = TransaksiPenjualan::all();
         // return view('Backend.riwayatTransaksiPenjualan',compact('dataTransaksi','headPage'));
         return $dataTable->render('Backend.pages.riwayatTransaksiPenjualan', compact('headPage'));
@@ -113,7 +113,7 @@ class RiwayatTransaksiController extends Controller
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Riwayat Transaksi Berhasil di Hapus',
+            'message' => 'Riwayat transaksi telah dihapus.',
         ]);
     }
 }
