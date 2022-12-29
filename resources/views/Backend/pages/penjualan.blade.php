@@ -460,13 +460,6 @@
                         title: 'Jumlah uang belum di inputkan..!'
                     })
                 }
-                // else if(parseFloat(sisaUang) < 0){
-                //     Toast.fire({
-                //         icon: 'warning',
-                //         title: 'Jumlah uang belum mencukupi..!'
-                //     })
-                // }
-                // else{
                 $.ajax({
                     method  : 'post',
                     url     : url,
@@ -477,11 +470,10 @@
                     processData : false,
                     contentType : false,
                     success : function(res){
-                        Swal.fire({
-                            icon    : res.icon,
-                            title   :  res.status,
-                            text    :  res.message,
-                        })
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
                         $('#modalAction').modal('hide');
                         window.LaravelDataTables["temptransaksi-table"].ajax.reload()
                         $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")

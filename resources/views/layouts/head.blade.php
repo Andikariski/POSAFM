@@ -22,7 +22,7 @@
     <link href="{{ url('style/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
     <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
 
     
     <!-- Select2 -->

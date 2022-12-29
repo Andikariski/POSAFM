@@ -77,6 +77,7 @@ Route::delete('hapus-data-produk/{id}', [App\Http\Controllers\Backend\ProdukCont
 Route::get('modal-show-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalProduk'])->name('modal-show-produk');
 Route::get('modal-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'edit'])->name('modal-edit-produk');
 Route::put('simpan-data-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'update'])->name('updateProduk');
+Route::get('modal-show-stok-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalCetakStokProduk'])->name('modal-show-stok-produk');
 
 // Route Alamat Pelanggan
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');
@@ -88,5 +89,6 @@ Route::get('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganController
 // Route Generate PDF
 Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFPelanggan'])->name('PDF.pelanggan');
 Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');
+Route::post('pdf-stok-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFstokProduk'])->name('PDF.stokProduk');
 
 Route::get('tes-chart',[App\Http\Controllers\Backend\ChartController::class,'index'])->name('chart');

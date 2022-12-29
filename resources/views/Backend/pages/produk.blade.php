@@ -91,9 +91,12 @@
                             <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
                                 <i class="far fa-file-pdf"></i> Cetak PDF
                             </a>
-                            <button class="btn btn-success ml-1">
-                                <i class="fas fa-file-excel"></i> Cetak CSV
+                            <button class="btn btn-primary ml-1" id="cetakStok">
+                                <i class="fas fa-file-excel"></i> Cetak Stok PDF
                             </button>
+                            {{-- <button class="btn btn-success ml-1">
+                                <i class="fas fa-file-excel"></i> Cetak CSV
+                            </button> --}}
                         </div>
                             {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
@@ -104,6 +107,30 @@
     </div>
     </div>
 {{-- </div> --}}
+
+{{-- Modal Cektak Stok --}}
+<div id="modalCetekStok" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="" id="formActionStok" action="{{ route('PDF.stokProduk') }}" method="post" target="_blank">
+                @csrf
+            <div class="modal-header">
+                <h3 class="modal-title" id="myModalLabel"style="color: black"><strong>Cetak Stok Produk</strong></h3>
+            </div>
+            <div class="modal-body">
+                <h6><font color="red">Cetak produk dengan stok kurang dari:</font></h6>
+                    <div class="form-group">
+                        <input type="text" class="form-control stok" name="stok" value="" required style="font-size:25pt;font-weight: bold;" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-file-pdf"></i> Cetak</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {{-- Modal Ubah Data --}}
 <div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -218,9 +245,8 @@
     }
     })
 
-
       // Script Store Data untuk menyimpan data kedalam database selama data aman
-      function store(){
+    function store(){
             $('#formAction').on('submit', function(e){
                 e.preventDefault()
                 const _form = this
@@ -255,6 +281,15 @@
                 })
             })
         }
+
+        $('#cetakStok').on('click', function(){
+            $('#modalCetekStok').modal('show');
+                $('#formActionStok').on('submit', function(e){
+                    $('#modalCetekStok').modal('hide')
+                })
+                $('.stok').val("");
+        });
+
 
 </script>
 @endsection

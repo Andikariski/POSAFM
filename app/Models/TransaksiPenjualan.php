@@ -16,6 +16,7 @@ class TransaksiPenjualan extends Model
         'fkid_user',
         'total_pembayaran',
         'uang_terbayar',
+        'status_transaksi',
         'tanggal',
     ];
 

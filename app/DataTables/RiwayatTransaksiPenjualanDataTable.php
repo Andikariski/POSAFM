@@ -27,7 +27,7 @@ class RiwayatTransaksiPenjualanDataTable extends DataTable
                     return  \Carbon\Carbon::createFromFormat('Y-m-d', $transaksi->tanggal)->isoFormat('D MMMM YYYY');
             })
             ->editColumn('status', function(TransaksiPenjualan $status){
-                    if($status->total_pembayaran <= $status->uang_terbayar){
+                    if($status->status_transaksi == 'Lunas'){
                         return '<span class="badge bg-success font-15 text-white ml-2">'.'Lunas'.'</span>';
                     }else{
                         return '<span class="badge bg-danger font-15 text-white ml-2">'.'Belum Lunas'.'</span>';

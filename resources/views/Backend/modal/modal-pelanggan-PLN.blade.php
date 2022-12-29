@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form id="formActionEdit" class="mt-3" action="{{ route('simpan-data-ubah',$dataPelangganPLN->id_pelanggan_pln) }}" method="post">
+    <form id="formActionEdit" class="" action="{{ route('simpan-data-ubah',$dataPelangganPLN->id_pelanggan_pln) }}" method="post">
         <div class="modal-header">
             <h3 class="modal-title" id="myLargeModalLabel" style="color: black"><strong>Ubah Data Pelanggan PLN</strong></h3>
         </div>

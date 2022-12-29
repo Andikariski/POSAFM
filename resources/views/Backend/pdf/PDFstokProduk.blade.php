@@ -58,10 +58,10 @@
                     <th>NO</th>
                     <th>KODE PRODUK</th>
                     <th>NAMA PRODUK</th>
-                    <th>HARGA BELI</th>
-                    <th>HARGA JUAL</th>
                     <th>STOK</th>
-                    <th>TEMPAT PRODUK</th>
+                    <th>TEMPAT</th>
+                    <th>STOK IN</th>
+    
                 </tr>
             </thead>
             <tbody>
@@ -73,10 +73,9 @@
                     <td>{{ $no++ }}</td>
                     <td>{{ $item->barcode_produk }}</td>
                     <td>{{ strtoupper($item->nama_produk) }}</td>
-                    <td style="color: red">{{ number_format($item->harga_beli_produk) }}</td>
-                    <td style="color: rgb(0, 204, 7)">{{ number_format($item->harga_jual_produk) }}</td>
                     <td>{{ $item->stok_produk }}</td>
                     <td>{{ $item->tempatproduk->kode_rak }}</td>
+                    <td></td>
                 </tr>
                 @endforeach
             </tbody>

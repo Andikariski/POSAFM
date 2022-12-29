@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('fkid_user')->index();
             $table->double('total_pembayaran',10,0);
             $table->double('uang_terbayar',10,0);
+            $table->string('status_transaksi');
             $table->date('tanggal');
             $table->timestamps();
             $table->foreign('fkid_pelanggan')->references('id_pelanggan')->on('tbl_pelanggan')->onDelete('cascade')->onUpdate('cascade');

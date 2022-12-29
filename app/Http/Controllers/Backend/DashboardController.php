@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelanggan;
+use App\Models\Produk;
+use App\Models\SubTransaksiPenjualan;
 use App\Models\TransaksiPenjualan;
 use Illuminate\Http\Request;
 
@@ -20,12 +22,40 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $jumlahPelanggan = Pelanggan::pluck('id_pelanggan')->count();
-        $totalTransaksi = TransaksiPenjualan::pluck('faktur')->count();
-        $lunas = TransaksiPenjualan::where('total_pembayaran','<=','uang_terbayar')->count();
-        // $belumLunas = TransaksiPenjualan::where('total_pembayaran','<=','uang_terbayar')->count();
-        // dd($lunas);
-        return view('Backend.pages.dashboard', compact('jumlahPelanggan','totalTransaksi','lunas'));
+        $tanggalSekarang     = date('Y-m-d');
+        $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->count();
+        $totalTransaksi      = TransaksiPenjualan::pluck('faktur')->count();
+        $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
+        $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
+        $omset               = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('total_pembayaran')->sum();
+        $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
+                                                ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
+                                                ->orderBy('totalProduk', 'desc')->limit(5)->get();
+        // Ambil data faktur Lunas
+        $fakturLunas = TransaksiPenjualan::where('status_transaksi','=','Lunas')->get();
+        $fakturArray = [];
+        foreach($fakturLunas as $row){
+            $fakturArray[] = 
+            $row->faktur;
+        }
+
+        // Ambil profit dari data sub faktur yang lunas
+        $getProfit = SubTransaksiPenjualan::whereIn('fkid_faktur',$fakturArray)->get();
+        $profitArray = [];
+        foreach($getProfit as $row){
+            $profitArray[] = 
+                $row->produk->profit * $row['jumlah_produk'];
+        }
+        $profit = array_sum($profitArray);
+       
+        return view('Backend.pages.dashboard', 
+                compact('jumlahPelanggan',
+                        'totalTransaksi',
+                        'Transaksilunas',
+                        'TransaksiBelumLunas',
+                        'omset',
+                        'profit',
+                        'produkTerlaris'));
     }
 
     /**

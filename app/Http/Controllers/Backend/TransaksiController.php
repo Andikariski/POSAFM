@@ -261,13 +261,20 @@ class TransaksiController extends Controller
     }
     
     public function simpanTransaksi(Request $request){
-        // $dataCreate = $request->all();
+
+        if($request->uang_terbayar >= $request->total_pembayaran){
+            $status_transaksi = 'Lunas';
+        }else{
+            $status_transaksi = 'Belum Lunas';
+        }
         $dataCreate = [
             'faktur'            => $request->faktur,
             'fkid_pelanggan'    => $request->fkid_pelanggan,
             'fkid_user'         => $request->fkid_user,
             'total_pembayaran'  => str_replace(",","",$request->total_pembayaran),
             'uang_terbayar'     => str_replace(",","",$request->uang_terbayar),
+            'status_transaksi'  => $status_transaksi,
+            'profit'            => 'test',
             'tanggal'           => $request->tanggal,
         ];
         TransaksiPenjualan::create($dataCreate);
@@ -302,7 +309,7 @@ class TransaksiController extends Controller
             return response()->json([
                 'icon' => 'success',
                 'status' =>  'Berhasil',
-                'message' => 'Transaksi telah selesai',
+                'message' => 'Transaksi telah selesai.',
             ]);
         }
         

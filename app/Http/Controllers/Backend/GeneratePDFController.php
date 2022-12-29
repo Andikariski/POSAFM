@@ -9,6 +9,7 @@ use App\Models\Produk;
 use App\Models\TransaksiPenjualan;
 // use Barryvdh\DomPDF\PDF as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Dflydev\DotAccessData\Data;
 
 class GeneratePDFController extends Controller
 {
@@ -93,16 +94,29 @@ class GeneratePDFController extends Controller
     }
 
     public function generatePDFPelanggan(){
-        $title = 'Data Pelanggan Andika Maros';
+        $title  = 'Cetak PDF';
+        $header = 'Data Pelanggan Andika Maros';
         $dataPelanggan = Pelanggan::all();
-        $pdf = PDF::loadView('Backend.pdf.PDFpelanggan',['data'=>$dataPelanggan,'title'=>$title]);
+        $pdf = PDF::loadView('Backend.pdf.PDFpelanggan',['data'=>$dataPelanggan,'title'=>$title,'header'=>$header]);
         return $pdf->stream();
     }
     
     public function generatePDFProduk(){
-        $title = 'Data Produk Andika Maros';
+        $title  = 'Cetak PDF';
+        $header = 'Data Produk Andika Maros';
         $data = Produk::all();
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFproduk',['data'=>$data,'title'=>$title])->setPaper('a4', 'landscape');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFproduk',['data'=>$data,'title'=>$title,'header'=>$header])->setPaper('a4', 'landscape');
         return $pdf->stream();
+    }
+    
+    public function generatePDFstokProduk(Request $request){
+        // dd($request->all());
+        $title = 'Cetak PDF';
+        $header  = 'Stok Produk Kurang Dari: '. $request->stok;
+        $data = Produk::where('stok_produk','<=',$request->stok)->get();
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFstokProduk',['data'=>$data,'title'=>$title,'header'=>$header])->setPaper('a4', 'portrait');
+        return $pdf->stream();
+        // dd($data);
+
     }
 }

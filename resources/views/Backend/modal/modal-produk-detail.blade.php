@@ -33,7 +33,7 @@
                         </tr>
                         <tr>
                             <td>Keuntungan Produk</td>
-                            <td><font color="#2AC200"><strong>{{ number_format($produk->harga_jual_produk - $produk->harga_beli_produk) }}</strong></font></td>
+                            <td><font color="#2AC200"><strong>{{ number_format($produk->profit) }}</strong></font></td>
                         </tr>
                         <tr>
                             <td>Stok Produk</td>
