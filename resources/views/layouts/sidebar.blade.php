@@ -71,7 +71,7 @@
                 </li>
 
                 <li class="sidebar-item"> 
-                    <a class="sidebar-link" href="{{ url('dataKasbond') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('hutang') }}" aria-expanded="false">
                         <i data-feather="book" class="feather-icon"></i>
                         <span class="hide-menu">Hutang</span>
                     </a>

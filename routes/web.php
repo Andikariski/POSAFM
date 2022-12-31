@@ -91,5 +91,7 @@ Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::
 Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');
 Route::post('pdf-stok-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFstokProduk'])->name('PDF.stokProduk');
 
+// Route Fitur Hutang
+Route::get('hutang-pelanggan',[App\Http\Controllers\Backend\HutangController::class,'index'])->name('hutang');
 // Route JSON Output
 Route::get('data-json-omset', [App\Http\Controllers\Backend\DashboardController::class, 'dataOmsetMingguan'])->name('json.omset');

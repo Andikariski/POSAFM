@@ -32,7 +32,7 @@
                             <td><font color="#2AC200"><strong>{{ number_format($produk->harga_jual_produk) }}</strong></font></td>
                         </tr>
                         <tr>
-                            <td>Keuntungan Produk</td>
+                            <td>Keuntungan Produk (Margin)</td>
                             <td><font color="#2AC200"><strong>{{ number_format($produk->margin) }}</strong></font></td>
                         </tr>
                         <tr>

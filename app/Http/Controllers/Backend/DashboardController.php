@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $totalTransaksi      = TransaksiPenjualan::pluck('faktur')->count();
         $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
-        $omsetHariIni               = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('uang_terbayar')->sum();
+        $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('uang_terbayar')->sum();
         $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
                                                 ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
                                                 ->orderBy('totalProduk', 'desc')->limit(5)->get();

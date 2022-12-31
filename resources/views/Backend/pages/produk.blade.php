@@ -92,7 +92,7 @@
                                 <i class="far fa-file-pdf"></i> Cetak PDF
                             </a>
                             <button class="btn btn-primary ml-1" id="cetakStok">
-                                <i class="fas fa-file-excel"></i> Cetak Stok PDF
+                                <i class="fas fa-file-pdf"></i> Cetak Stok PDF
                             </button>
                             {{-- <button class="btn btn-success ml-1">
                                 <i class="fas fa-file-excel"></i> Cetak CSV
@@ -125,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="far fa-file-pdf"></i> Cetak</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Cetak</button>
                 </div>
             </form>
         </div>
@@ -252,33 +252,43 @@
                 const _form = this
                 const formData = new FormData(_form)
                 const url = this.getAttribute('action')
-            
-                $.ajax({
-                    method  : 'post',
-                    url     : url,
-                    headers : {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data    : formData,
-                    processData : false,
-                    contentType : false,
-                    success : function(res){
-                        if(res.status == "Gagal"){
-                            Toast.fire({
-                                icon    : res.icon,
-                                title   : res.status + ', ' + res.message,
+
+                let hargaBeliProduk = ($('#harga-beli').val() == "") ? 0 : $('#harga-beli').val();
+                let hargaJualProduk = ($('#harga-jual').val() == "") ? 0 : $('#harga-jual').val();
+                if(parseFloat(hargaJualProduk) <= parseFloat(hargaBeliProduk)){
+                    Toast.fire({
+                                icon    : 'error',
+                                title   : 'Gagal, Harga jual produk lebih kecil dari harga beli.',
                             })
+                }
+                else{
+                    $.ajax({
+                        method  : 'post',
+                        url     : url,
+                        headers : {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data    : formData,
+                        processData : false,
+                        contentType : false,
+                        success : function(res){
+                            if(res.status == "Gagal"){
+                                Toast.fire({
+                                    icon    : res.icon,
+                                    title   : res.status + ', ' + res.message,
+                                })
+                            }
+                            else{
+                                Toast.fire({
+                                    icon    : res.icon,
+                                    title   : res.status + ', ' + res.message,
+                                })
+                                window.LaravelDataTables["produk-table"].ajax.reload()
+                                $('#modalAction').modal('hide');
+                            }
                         }
-                        else{
-                             Toast.fire({
-                                icon    : res.icon,
-                                title   : res.status + ', ' + res.message,
-                            })
-                            window.LaravelDataTables["produk-table"].ajax.reload()
-                            $('#modalAction').modal('hide');
-                        }
-                    }
-                })
+                    })
+                }
             })
         }
 

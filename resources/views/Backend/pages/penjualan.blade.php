@@ -5,6 +5,22 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
+<style>
+    .notification {
+    position: relative;
+    display: inline-block;
+    }
+
+    .notification .badge {
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    padding: 7px 10px;
+    border-radius: 55%;
+    background: red;
+    color: white;
+    }
+</style>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -144,7 +160,12 @@
                             <div class="row">
                                 <div class="div col">
                                     <div class="div" id="reloadTotalProduk">
-                                        <h4 class="card-title mt-4">Total Produk Terpilih : <font color="#2AC200"><strong>{{ $totalProdukTerpilih }} Produk</strong></font></h4>
+                                        <a class="notification">
+                                            <i class="fas fa-shopping-cart fa-2x mt-2" style="color: #0093ad"></i>
+                                                @if (!$totalProdukTerpilih == 0)
+                                                <span class="badge"><strong>{{ $totalProdukTerpilih }}</strong></span>
+                                                @endif
+                                          </a>
                                     </div>
                                 </div>
                                 <div class="col">
