@@ -91,9 +91,9 @@
                             <li class="sidebar-item"><a href="#" class="sidebar-link">
                                 <span class="hide-menu">Pemasok Barang</span></a>
                             </li>
-                            <li class="sidebar-item"><a href="{{ route('chart') }}" class="sidebar-link">
+                            {{-- <li class="sidebar-item"><a href="{{ route('chart') }}" class="sidebar-link">
                                 <span class="hide-menu">Chart</span></a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 {{-- <li class="sidebar-item"> 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('fkid_faktur')->index()->nullable();
             $table->integer('jumlah_produk');
             $table->double('sub_total',10,0);
+            $table->double('profit',10,0);
             $table->date('tanggal');
             $table->timestamps();
             $table->foreign('fkid_barcode_produk')->references('barcode_produk')->on('tbl_produk')->onDelete('cascade')->onUpdate('cascade');

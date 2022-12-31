@@ -18,7 +18,7 @@ class Produk extends Model
         'stok_produk',
         'harga_beli_produk',
         'harga_jual_produk',
-        'profit',
+        'margin',
         'fkid_jenis_produk',
         'fkid_tempat_produk'
     ];

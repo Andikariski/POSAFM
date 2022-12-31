@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('stok_produk')->nullable();
             $table->double('harga_beli_produk',10,0);
             $table->double('harga_jual_produk',10,0);
-            $table->double('profit',10,0);
+            $table->double('margin',10,0);
             $table->unsignedBigInteger('fkid_jenis_produk')->index();
             $table->unsignedBigInteger('fkid_tempat_produk')->index();
             $table->timestamps();

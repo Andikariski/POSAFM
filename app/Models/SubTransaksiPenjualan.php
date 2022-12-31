@@ -19,6 +19,7 @@ class SubTransaksiPenjualan extends Model
         // 'fkid_user',
         'jumlah_produk',
         'sub_total',
+        'profit',
         'tanggal',
     ];
 

@@ -59,7 +59,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $cekProduk = Produk::where('barcode_produk',$request->barcode_produk)->first();
-        $profit = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
+        $margin = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
         if($cekProduk == null){
             $data = [
                 'barcode_produk'    => $request->barcode_produk,
@@ -68,7 +68,7 @@ class ProdukController extends Controller
                 'stok_produk'       => $request->stok_produk,
                 'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
                 'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
-                'profit'            => $profit,
+                'margin'            => $margin,
                 'fkid_tempat_produk'=> $request->fkid_tempat_produk,
                 'fkid_jenis_produk' => $request->fkid_jenis_produk,
             ];
@@ -123,14 +123,14 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $profit = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
+        $margin = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
         Produk::where('barcode_produk',$id)->update([
                 'barcode_produk'    =>$request->barcode_produk,
                 'nama_produk'       =>$request->nama_produk,
                 'stok_produk'       =>$request->stok_produk,
                 'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
                 'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
-                'profit'            => $profit,
+                'margin'            => $margin,
                 'fkid_tempat_produk'=> $request->fkid_tempat_produk,
                 'fkid_jenis_produk' => $request->fkid_jenis_produk,
         ]);

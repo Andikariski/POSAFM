@@ -26,4 +26,7 @@ class TransaksiPenjualan extends Model
     public function kasir(){
         return $this->belongsTo(User::class, 'fkid_user','id');
     }
+    public function subpenjualan(){
+        return $this->hasMany(SubTransaksiPenjualan::class,'faktur','fkid_faktur');
+    }
 }

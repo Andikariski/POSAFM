@@ -7,6 +7,7 @@ use App\Models\Pelanggan;
 use App\Models\Produk;
 use App\Models\SubTransaksiPenjualan;
 use App\Models\TransaksiPenjualan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -22,15 +23,17 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $hariIni = Carbon::now();
         $tanggalSekarang     = date('Y-m-d');
-        $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->count();
+        $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->where('tanggal',$tanggalSekarang)->count();
         $totalTransaksi      = TransaksiPenjualan::pluck('faktur')->count();
         $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
-        $omset               = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('total_pembayaran')->sum();
+        $omsetHariIni               = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('uang_terbayar')->sum();
         $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
                                                 ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
                                                 ->orderBy('totalProduk', 'desc')->limit(5)->get();
+        
         // Ambil data faktur Lunas
         $fakturLunas = TransaksiPenjualan::where('status_transaksi','=','Lunas')->get();
         $fakturArray = [];
@@ -40,22 +43,36 @@ class DashboardController extends Controller
         }
 
         // Ambil profit dari data sub faktur yang lunas
-        $getProfit = SubTransaksiPenjualan::whereIn('fkid_faktur',$fakturArray)->get();
-        $profitArray = [];
-        foreach($getProfit as $row){
-            $profitArray[] = 
-                $row->produk->profit * $row['jumlah_produk'];
+        $profitHariIni = SubTransaksiPenjualan::whereIn('fkid_faktur',$fakturArray)->where('tanggal','=',$tanggalSekarang)->sum('profit');
+
+        //Omset mingguan
+        $omsetMingguan = TransaksiPenjualan::whereBetween('tbl_transaksi_penjualan.tanggal',[
+                            $hariIni->startOfWeek()->format('Y-m-d'),
+                            $hariIni->endOfWeek()->format('Y-m-d')])
+                            ->select('tbl_transaksi_penjualan.tanggal','faktur',TransaksiPenjualan::raw('sum(uang_terbayar) as totalOmset',),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
+                            ->join('tbl_sub_transaksi_penjualan','tbl_sub_transaksi_penjualan.fkid_faktur','=','tbl_transaksi_penjualan.faktur')
+                            ->groupBy('tbl_transaksi_penjualan.tanggal')->get();
+    
+        $omsetMingguanArray = [];
+        foreach($omsetMingguan as $row){
+                $omsetMingguanArray[] = [
+                    'tanggal'   =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
+                    'omset'          =>$row->totalOmset,
+                    'profit'          =>$row->totalProfit
+            ];
         }
-        $profit = array_sum($profitArray);
-       
+        $dataPemasukan = $omsetMingguanArray;
+  
+        // Compact View
         return view('Backend.pages.dashboard', 
                 compact('jumlahPelanggan',
                         'totalTransaksi',
                         'Transaksilunas',
                         'TransaksiBelumLunas',
-                        'omset',
-                        'profit',
-                        'produkTerlaris'));
+                        'omsetHariIni',
+                        'profitHariIni',
+                        'produkTerlaris',
+                        'dataPemasukan',));
     }
 
     /**
@@ -122,5 +139,25 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dataOmsetMingguan(){
+          //Omset mingguan
+          $hariIni = Carbon::now();
+          $omsetMingguan = TransaksiPenjualan::whereBetween('tanggal',[
+                              $hariIni->startOfWeek()->format('Y-m-d'),
+                              $hariIni->endOfWeek()->format('Y-m-d')])
+                              ->select('tanggal',SubTransaksiPenjualan::raw('sum(uang_terbayar) as totalOmset'))
+                              ->groupBy('tanggal')->get();
+      
+                              $omsetMingguanArray = [];
+                              foreach($omsetMingguan as $row){
+                                      $omsetMingguanArray[] = [
+                                          'tanggal'   =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('D MMMM YYYY'),
+                                          'omset'     =>$row->totalOmset
+                                          // date('D',strtotime($row->tanggal)) => $row->totalOmset,
+                                  ];
+                              }
+                              return json_encode($omsetMingguanArray);
     }
 }

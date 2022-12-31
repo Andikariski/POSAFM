@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -214,6 +215,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
         'Datatables' => Yajra\DataTables\Facades\Datatables::class,
+        'Carbon' => Illuminate\Support\Carbon::class,
     ])->toArray(),
 
 ];

@@ -82,7 +82,7 @@
                         <div>
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Omset Hari Ini</h6>
                             <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium mt-2">
-                                <sup class="set-doller">Rp </sup>{{ number_format($omset) }}</h2>
+                                <sup class="set-doller">Rp </sup>{{ number_format($omsetHariIni) }}</h2>
                             <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-down" style="color: #ff425c"></i>15%, Dari hari kemarin</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
@@ -98,7 +98,7 @@
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Profit Hari Ini</h6>
                             <div>
                                 <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium mt-2">
-                                    <sup class="set-doller">Rp </sup>{{ number_format($profit) }}</h2>
+                                    <sup class="set-doller">Rp </sup>{{ number_format($profitHariIni) }}</h2>
                                     <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i>10%, Dari hari kemarin</h6>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="card" style="height: 95%">
                     <div class="card-header">
-                        <h4 class="card-title"><font color="white">Grafik Pendapatan</font></h4>
+                        <h4 class="card-title"><font color="white">Grafik Pendapatan, Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</font></h4>
                     </div>
                     <div class="card-body">
                         <div id="morris-bar-chart"></div>
@@ -200,10 +200,11 @@
         <!-- *************************************************************** -->
         <div class="row">
         </div>
-
+        
         <div class="row">
         </div>
-</div>
+    </div>
+    @endsection
   {{-- Chart Moriss--}}
   <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
@@ -231,44 +232,17 @@
     // Morris bar chart
      Morris.Bar({
         element: 'morris-bar-chart',
-        data: [{
-            y: 'Senin',
-            a: 100000,
-            b: 90000,
-            // c: 60
-        }, {
-            y: 'Selasa',
-            a: 75000,
-            b: 65000,
-            // c: 40
-        }, {
-            y: 'Rabu',
-            a: 50000,
-            b: 40000,
-            // c: 30
-        }, {
-            y: 'Kamis',
-            a: 75000,
-            b: 65000,
-            // c: 40
-        }, {
-            y: 'Jumat',
-            a: 50000,
-            b: 40000,
-            // c: 30
-        }, {
-            y: 'Sabtu',
-            a: 75000,
-            b: 65000,
-            // c: 40
-        }, {
-            y: 'Minggu',
-            a: 100000,
-            b: 90000,
-            // c: 40
-        }],
-        xkey: 'y',
-        ykeys: ['a','b'],
+        data: [
+        //  tanggal : 'senin',
+        //     omset:10000
+        <?php
+            foreach($dataPemasukan as $item){
+                echo "{tanggal:'".$item['tanggal']."',omset:".$item['omset'].",profit:".$item['profit']."},";
+            }   
+        ?>
+     ],
+        xkey: 'tanggal',
+        ykeys: ['omset','profit'],
         labels: ['Omset','Profit'],
         barColors:['#01caf1', '#5f76e8'],
         hideHover: 'auto',
@@ -277,4 +251,3 @@
     });
     })
   </script>
-  @endsection

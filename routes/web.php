@@ -91,4 +91,5 @@ Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::
 Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');
 Route::post('pdf-stok-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFstokProduk'])->name('PDF.stokProduk');
 
-Route::get('tes-chart',[App\Http\Controllers\Backend\ChartController::class,'index'])->name('chart');
+// Route JSON Output
+Route::get('data-json-omset', [App\Http\Controllers\Backend\DashboardController::class, 'dataOmsetMingguan'])->name('json.omset');
