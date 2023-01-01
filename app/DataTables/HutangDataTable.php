@@ -37,7 +37,7 @@ class HutangDataTable extends DataTable
                                 <i style="color:rgb(255,255,255); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
                             </span>
                         </a>'.
-                        '<a class="tombolhapus m-2 action" href="#" data-jenis="delete" data-id=' . Crypt::encrypt($row->faktur) . '>
+                        '<a class="m-2 action" href="#" data-jenis="bayar" data-id=' . Crypt::encrypt($row->faktur) . '>
                                 <span class="badge badge-success"><i style="color:rgb(255,255,255)" class="fas fa-check fa-1x" data-toggle="tooltip" data-placement="top" title="Bayar Hutang"></i></span>
                         </a>';
                 });
@@ -62,7 +62,7 @@ class HutangDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                ->setTableId('riwayattransaksipenjualan-table')
+                ->setTableId('hutang-table')
                 ->columns($this->getColumns())
                 ->minifiedAjax()
                 ->dom('frtip')
@@ -86,7 +86,7 @@ class HutangDataTable extends DataTable
             // Column::make('faktur'),
             Column::make('')->title('Pelanggan')->data('pelanggan.nama_pelanggan')->name('pelanggan.nama_pelanggan'),
             Column::make('tanggal')->title('Tanggal'),
-            Column::make('hutang')->title('Jumlah Hutang'),
+            Column::make('hutang')->title('Jumlah Hutang')->searchable(false)->orderable(false),
             Column::computed('action')
                     ->exportable(false)
                     ->printable(false)

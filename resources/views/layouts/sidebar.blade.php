@@ -42,7 +42,7 @@
                 <li class="sidebar-item"> 
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="shopping-bag" class="feather-icon"></i>
-                        <span class="hide-menu">Penjualan </span>
+                        <span class="hide-menu">Transaksi </span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item"><a href="{{ route('transaksiPenjualan') }}" class="sidebar-link">
@@ -50,6 +50,9 @@
                         </li>
                         <li class="sidebar-item"><a href="{{ route('riwayatTransaksiPenjualan') }}" class="sidebar-link">
                             <span class="hide-menu">Riwayat Penjualan</span></a>
+                        </li>
+                        <li class="sidebar-item"><a href="{{ route('hutang') }}" class="sidebar-link">
+                            <span class="hide-menu">Hutang</span></a>
                         </li>
                     </ul>
                 </li>
@@ -70,12 +73,12 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item"> 
+                {{-- <li class="sidebar-item"> 
                     <a class="sidebar-link" href="{{ route('hutang') }}" aria-expanded="false">
                         <i data-feather="book" class="feather-icon"></i>
                         <span class="hide-menu">Hutang</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pengaturan</span></li>

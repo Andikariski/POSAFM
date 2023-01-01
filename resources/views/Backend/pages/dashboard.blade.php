@@ -233,8 +233,6 @@
      Morris.Bar({
         element: 'morris-bar-chart',
         data: [
-        //  tanggal : 'senin',
-        //     omset:10000
         <?php
             foreach($dataPemasukan as $item){
                 echo "{tanggal:'".$item['tanggal']."',omset:".$item['omset'].",profit:".$item['profit']."},";

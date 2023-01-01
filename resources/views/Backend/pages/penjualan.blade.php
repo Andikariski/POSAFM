@@ -20,6 +20,10 @@
     background: red;
     color: white;
     }
+    .font{
+        font-size: 13px;
+        font-weight: bold;
+    }
 </style>
 
 <div class="page-wrapper">
@@ -163,7 +167,7 @@
                                         <a class="notification">
                                             <i class="fas fa-shopping-cart fa-2x mt-2" style="color: #0093ad"></i>
                                                 @if (!$totalProdukTerpilih == 0)
-                                                <span class="badge"><strong>{{ $totalProdukTerpilih }}</strong></span>
+                                                <span class="badge"><strong class="font">{{ $totalProdukTerpilih }}</strong></span>
                                                 @endif
                                           </a>
                                     </div>

@@ -25,11 +25,11 @@ class DashboardController extends Controller
     {
         $hariIni = Carbon::now();
         $tanggalSekarang     = date('Y-m-d');
-        $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->where('tanggal',$tanggalSekarang)->count();
+        $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->count();
         $totalTransaksi      = TransaksiPenjualan::pluck('faktur')->count();
         $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
-        $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('uang_terbayar')->sum();
+        $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('total_pembayaran')->sum();
         $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
                                                 ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
                                                 ->orderBy('totalProduk', 'desc')->limit(5)->get();
@@ -49,20 +49,22 @@ class DashboardController extends Controller
         $omsetMingguan = TransaksiPenjualan::whereBetween('tbl_transaksi_penjualan.tanggal',[
                             $hariIni->startOfWeek()->format('Y-m-d'),
                             $hariIni->endOfWeek()->format('Y-m-d')])
-                            ->select('tbl_transaksi_penjualan.tanggal','faktur',TransaksiPenjualan::raw('sum(uang_terbayar) as totalOmset',),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
-                            ->join('tbl_sub_transaksi_penjualan','tbl_sub_transaksi_penjualan.fkid_faktur','=','tbl_transaksi_penjualan.faktur')
+                            ->select('tbl_transaksi_penjualan.tanggal','faktur',SubTransaksiPenjualan::raw('sum(sub_total) as totalOmset'),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
+                            ->rightJoin('tbl_sub_transaksi_penjualan','tbl_transaksi_penjualan.faktur','=','tbl_sub_transaksi_penjualan.fkid_faktur')
                             ->groupBy('tbl_transaksi_penjualan.tanggal')->get();
-    
+                            
+        // dd($omsetMingguan);
+        // Bug di tabel transaksi mengoutputkan 2 faktur yang sub semuanya
         $omsetMingguanArray = [];
         foreach($omsetMingguan as $row){
-                $omsetMingguanArray[] = [
+                $omsetMingguanArray[] = [ 
                     'tanggal'   =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
-                    'omset'          =>$row->totalOmset,
-                    'profit'          =>$row->totalProfit
+                    'omset'     =>$row->totalOmset,
+                    'profit'    =>$row->totalProfit
             ];
         }
         $dataPemasukan = $omsetMingguanArray;
-  
+        // dd($dataPemasukan);
         // Compact View
         return view('Backend.pages.dashboard', 
                 compact('jumlahPelanggan',
@@ -75,6 +77,7 @@ class DashboardController extends Controller
                         'dataPemasukan',));
     }
 
+    // ->select('tbl_transaksi_penjualan.tanggal','faktur',TransaksiPenjualan::raw('sum(total_pembayaran) as totalOmset'),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
     /**
      * Show the form for creating a new resource.
      *

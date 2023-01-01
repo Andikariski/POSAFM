@@ -54,7 +54,7 @@
 
 {{-- Modal Ubah Data --}}
 <div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         {{-- Ambil dari blade action --}}
     </div>
 </div>
@@ -99,73 +99,59 @@
 //     })
 
       //CRUD function
-      $('#riwayattransaksipenjualan-table').on('click','.action',function(){
+      $('#hutang-table').on('click','.action',function(){
         let data    = $(this).data()
         let id      = data.id
         let jenis   = data.jenis
-        if(jenis == 'delete'){
-            // console.log('delete');
-            Swal.fire({
-                title: "Anda Yakin ?",
-                text: "Data yang telah dihapus tidak akan kembali lagi !",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Batal",
-                confirmButtonText: "Hapus Data"
-            }).then(result => {
-            if (result.value) {
-                $.ajax({
-                    method  : 'DELETE',
-                    url     : `{{ url('hapus-riwayat-transaksi') }}/${id}`,
-                    headers : {
+        if(jenis == 'bayar'){
+        
+        $.ajax({
+            method : 'get',
+            url : `{{ url('modal-show-pembayaran-hutang') }}/${id}`,
+            headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success : function(res){
-                        Toast.fire({
-                                icon    : res.icon,
-                                title   : res.status + ', ' + res.message,
-                            })
-                        window.LaravelDataTables["riwayattransaksipenjualan-table"].ajax.reload()
-                    }
-                })
-            }
-        });
+            success : function(res){ 
+                        $('#modalAction').find('.modal-dialog').html(res)
+                        $('#modalAction').modal('show');
+                        // store();
+                }
+            })
             return
         }
     })
 
-
-//       // Script Store Data untuk menyimpan data kedalam database selama data aman
-//       function store(){
-//             $('#formAction').on('submit', function(e){
-//                 e.preventDefault()
-//                 const _form = this
-//                 const formData = new FormData(_form)
-//                 const url = this.getAttribute('action')
-            
-//                 $.ajax({
-//                     method  : 'post',
-//                     url     : url,
-//                     headers : {
-//                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                     },
-//                     data    : formData,
-//                     processData : false,
-//                     contentType : false,
-//                     success : function(res){
-//                         Swal.fire({
-//                             icon    : res.icon,
-//                             title   :  res.status,
-//                             text    :  res.message,
-//                         })
-//                         window.LaravelDataTables["produk-table"].ajax.reload()
-//                         $('#modalAction').modal('hide');
-//                     }
-//                 })
-//             })
-//         } --}}
+    function showModalPembayaran(){
+        // $('#modalAction').modal('show');
+        $.ajax({
+            method : 'get',
+            url : `{{ url('modal-show-pembayaran') }}`,
+            data : {
+                    faktur         : $('#faktur').val(),
+                    totalBayar     : $('#totalbelanja').val(),
+                    fkid_pelanggan : $('#pelanggan').val(),
+                    user           : $('#user').val(),
+                    tanggal        : $('#tanggal').val(),
+                    },
+            headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+            success : function(res){
+                if(res.status == 'Gagal'){
+                    Swal.fire({
+                            icon    :  res.icon,
+                            title   :  res.status,
+                            text    :  res.message,
+                        })
+                    }
+                    else{
+                        $('#modalAction').find('.modal-dialog').html(res)
+                        $('#modalAction').modal('show');
+                        store();
+                    }
+                }
+            })
+        }
 
 </script>
 @endsection

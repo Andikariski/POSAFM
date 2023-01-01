@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\HutangDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\TransaksiPenjualan;
 use Illuminate\Http\Request;
 
 class HutangController extends Controller
@@ -48,9 +49,12 @@ class HutangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $faktur = decrypt($request->id);
+        $dataHutang = TransaksiPenjualan::where('faktur',$faktur)->first();
+        // dd($dataHutang);
+        return view('Backend.modal.modal-transaksi-pembayaran-hutang',compact('dataHutang'));
     }
 
     /**
