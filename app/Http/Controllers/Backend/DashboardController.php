@@ -53,8 +53,6 @@ class DashboardController extends Controller
                             ->rightJoin('tbl_sub_transaksi_penjualan','tbl_transaksi_penjualan.faktur','=','tbl_sub_transaksi_penjualan.fkid_faktur')
                             ->groupBy('tbl_transaksi_penjualan.tanggal')->get();
                             
-        // dd($omsetMingguan);
-        // Bug di tabel transaksi mengoutputkan 2 faktur yang sub semuanya
         $omsetMingguanArray = [];
         foreach($omsetMingguan as $row){
                 $omsetMingguanArray[] = [ 
@@ -64,8 +62,7 @@ class DashboardController extends Controller
             ];
         }
         $dataPemasukan = $omsetMingguanArray;
-        // dd($dataPemasukan);
-        // Compact View
+   
         return view('Backend.pages.dashboard', 
                 compact('jumlahPelanggan',
                         'totalTransaksi',

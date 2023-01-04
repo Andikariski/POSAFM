@@ -245,7 +245,8 @@
         barColors:['#01caf1', '#5f76e8'],
         hideHover: 'auto',
         gridLineColor: '#eef0f2',
-        resize: true
+        resize: true,
+        vertikal: true
     });
     })
   </script>

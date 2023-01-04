@@ -73,12 +73,12 @@
                     </ul>
                 </li>
 
-                {{-- <li class="sidebar-item"> 
-                    <a class="sidebar-link" href="{{ route('hutang') }}" aria-expanded="false">
-                        <i data-feather="book" class="feather-icon"></i>
-                        <span class="hide-menu">Hutang</span>
+                <li class="sidebar-item"> 
+                    <a class="sidebar-link" href="{{ route('laporan') }}" aria-expanded="false">
+                        <i data-feather="bar-chart-2" class="feather-icon"></i>
+                        <span class="hide-menu">Grafik Laporan</span>
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pengaturan</span></li>
