@@ -1,14 +1,10 @@
 @extends('layouts.main')
 @section('container')
-<link href="{{ url('style/assets/libs/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet" />
-<link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
+{{-- <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet"> --}}
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
+
 <!-- This Page CSS -->
 <link href="{{  url('style/assets/libs/morris.js/morris.css')}}" rel="stylesheet">
-{{-- <style>
-    .card-header{
-        background-color: #0093ad;
-    }
-</style> --}}
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -16,8 +12,9 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning, {{ Auth::user()->name }}</h3>
+                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"><strong>بِسْــــــــــــــــــمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ</strong></h2>
                 <div class="d-flex align-items-center">
+  
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
@@ -112,7 +109,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-md-12">
-                <div class="card" style="height: 95%">
+                <div class="card cstm" style="height: 95%">
                     <div class="card-header">
                         <h4 class="card-title"><font color="white">Status Transaksi</font></h4>
                     </div>
@@ -130,9 +127,9 @@
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">
-                <div class="card" style="height: 95%">
+                <div class="card cstm" style="height: 95%">
                     <div class="card-header">
-                        <h4 class="card-title"><font color="white">Grafik Pendapatan, Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</font></h4>
+                        <h4 class="card-title"><font color="white">Grafik Pendapatan Mingguan, {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</font></h4>
                     </div>
                     <div class="card-body">
                         <div id="morris-bar-chart"></div>
@@ -151,7 +148,7 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <div class="card" style="height: 95%">
+                <div class="card cstm" style="height: 95%">
                     <div class="card-header">
                         <h4 class="card-title"><font color="white">Top 5 Produk Terlaris</font></h4>
                     </div>
@@ -183,7 +180,7 @@
             </div>
 
             <div class="col-lg-6 col-md-12">
-                    <div class="card" style="height: 95%">
+                    <div class="card cstm" style="height: 95%">
                         <div class="card-header">
                             <h4 class="card-title"><font color="white">Free Card</font></h4>
                         </div>
@@ -213,6 +210,9 @@
   <script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
   {{-- <script src="{{ url('style/dist/js/pages/morris/morris-data.js')}}"></script> --}}
   <script>
+    // var data = JSON.parse('{!! json_encode($dataPemasukan) !!}');
+    // console.log(data);
+    
     $(document).ready(function(){
         // Morris Donuts chart
         Morris.Donut({
@@ -238,9 +238,11 @@
                 echo "{tanggal:'".$item['tanggal']."',omset:".$item['omset'].",profit:".$item['profit']."},";
             }   
         ?>
+        
      ],
         xkey: 'tanggal',
         ykeys: ['omset','profit'],
+        ymax: {{ $yMaxTop }},
         labels: ['Omset','Profit'],
         barColors:['#01caf1', '#5f76e8'],
         hideHover: 'auto',

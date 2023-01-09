@@ -1,10 +1,7 @@
 @extends('layouts.main')
 @section('container')
 @include('layouts.swetalert')
-
-@section('style')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endsection
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -31,7 +28,7 @@
     <!-- order table -->
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card cstm">
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="div mt-2">

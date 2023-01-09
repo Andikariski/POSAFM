@@ -26,10 +26,10 @@ class DashboardController extends Controller
         $hariIni = Carbon::now();
         $tanggalSekarang     = date('Y-m-d');
         $jumlahPelanggan     = Pelanggan::pluck('id_pelanggan')->count();
-        $totalTransaksi      = TransaksiPenjualan::pluck('faktur')->count();
+        $totalTransaksi      = TransaksiPenjualan::where('tanggal',$tanggalSekarang)->pluck('faktur')->count();
         $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
-        $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->pluck('total_pembayaran')->sum();
+        $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->where('status_transaksi','=','Lunas')->pluck('total_pembayaran')->sum();
         $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
                                                 ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
                                                 ->orderBy('totalProduk', 'desc')->limit(5)->get();
@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $profitHariIni = SubTransaksiPenjualan::whereIn('fkid_faktur',$fakturArray)->where('tanggal','=',$tanggalSekarang)->sum('profit');
 
         //Omset mingguan
-        $omsetMingguan = TransaksiPenjualan::whereBetween('tbl_transaksi_penjualan.tanggal',[
+        $omsetMingguan = TransaksiPenjualan::where('status_transaksi','Lunas')->whereBetween('tbl_transaksi_penjualan.tanggal',[
                             $hariIni->startOfWeek()->format('Y-m-d'),
                             $hariIni->endOfWeek()->format('Y-m-d')])
                             ->select('tbl_transaksi_penjualan.tanggal','faktur',SubTransaksiPenjualan::raw('sum(sub_total) as totalOmset'),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
@@ -61,8 +61,24 @@ class DashboardController extends Controller
                     'profit'    =>$row->totalProfit
             ];
         }
+        
+        // get yMax
+        $yMaxArray = [];
+        foreach($omsetMingguan as $row){
+                $yMaxArray[] = [ 
+                    $row->totalOmset + 10000,
+            ];
+        }
+        if($yMaxArray == null){
+            $yMax = 0;
+        }else{
+            $yMax = max($yMaxArray);
+        }
+
         $dataPemasukan = $omsetMingguanArray;
-   
+        $yMaxTop = json_encode($yMax);
+        
+
         return view('Backend.pages.dashboard', 
                 compact('jumlahPelanggan',
                         'totalTransaksi',
@@ -71,7 +87,8 @@ class DashboardController extends Controller
                         'omsetHariIni',
                         'profitHariIni',
                         'produkTerlaris',
-                        'dataPemasukan',));
+                        'dataPemasukan',
+                        'yMaxTop'));
     }
 
     // ->select('tbl_transaksi_penjualan.tanggal','faktur',TransaksiPenjualan::raw('sum(total_pembayaran) as totalOmset'),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))

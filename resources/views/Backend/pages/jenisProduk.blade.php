@@ -2,6 +2,7 @@
 @section('container')
 @include('layouts.swetalert')
 {{-- {{ $dataTable->table() }} --}}
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -37,7 +38,7 @@
 
     <div class="container-fluid">
     <!-- Container fluid  -->
-            <div class="card">
+            <div class="card cstm">
                 <div class="card-body">
                     <h6 class="card-subtitle">Daftar Jenis produk merupakan pembagian barang berdasarkan kategorinya</h6>
                     <div class="table-responsive">

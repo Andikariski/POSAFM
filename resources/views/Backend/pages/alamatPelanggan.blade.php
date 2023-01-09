@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('container')
 @include('layouts.swetalert')
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -38,7 +39,7 @@
     <!-- Container fluid  -->
     <div class="row">
         <div class="col-4">
-            <div class="card">
+            <div class="card cstm">
                 <form class="mt-2" action="{{ route('storeDataAlamat') }}" method="POST">
                     @csrf
                 <div class="card-body">
@@ -59,7 +60,7 @@
         </div>
 
         <div class="col-8">
-            <div class="card">
+            <div class="card cstm">
                 <div class="card-body">
                     <h4 class="card-title">Daftar {{ $headPage }}</h4>
                     <h6 class="card-subtitle">Data alamat untuk wilayah tanah miring, semangga dan sekitarnya</h6>

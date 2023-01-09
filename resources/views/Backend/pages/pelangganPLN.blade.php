@@ -5,6 +5,7 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -43,7 +44,7 @@
     <!-- order table -->
     <div class="row">
         <div class="col-4">
-            <div class="card">
+            <div class="card cstm">
                 <div class="card-body">
                     <h4 class="card-title">Tambah Pelanggan Baru</h4>
                     <h6 class="card-subtitle" style="color: red">Pastikan Pelanggan PLN baru sudah terdaftar di Pelanggan toko</h6>
@@ -72,7 +73,7 @@
             </div>
         </div>
         <div class="col-8">
-            <div class="card">
+            <div class="card cstm">
                 <div class="card-body">
                     <h4 class="card-title">Daftar {{ $headPage }}</h4>
                     <h6 class="card-subtitle">Data pelanggan PLN Toko Andika Maros</h6>

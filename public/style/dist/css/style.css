@@ -65,6 +65,10 @@
 *::after {
   box-sizing: border-box; }
 
+.cstm{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 8px;
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -3391,6 +3395,7 @@ input[type="button"].btn-block {
       color: #fff; }
 
 .card {
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 8px; */
   position: relative;
   display: flex;
   flex-direction: column;

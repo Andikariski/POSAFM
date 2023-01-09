@@ -2,29 +2,10 @@
 @section('container')
 @include('layouts.swetalert')
 
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
-<style>
-    .notification {
-    position: relative;
-    display: inline-block;
-    }
-
-    .notification .badge {
-    position: absolute;
-    top: -5px;
-    right: -15px;
-    padding: 7px 10px;
-    border-radius: 55%;
-    background: red;
-    color: white;
-    }
-    .font{
-        font-size: 13px;
-        font-weight: bold;
-    }
-</style>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -54,7 +35,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-6 col-lg-4 col-xlg-4">
-                            <div class="card" style="height: 12rem;">
+                            <div class="card cstm" style="height: 12rem;">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-4">
@@ -93,7 +74,7 @@
                         </div>
                         <!-- Column -->
                         <div class="col-md-6 col-lg-4 col-xlg-4">
-                            <div class="card" style="height: 12rem;">
+                            <div class="card cstm" style="height: 12rem;">
                                 <div class="card-body" id="reloadPorduk">
                                     <div class="form-group">
                                      {{-- <label for="exampleFormControlSelect1">Cari Produk</label> --}}
@@ -131,7 +112,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4 col-xlg-4">
-                            <div class="card" style="height: 12rem;">
+                            <div class="card cstm" style="height: 12rem;">
                                 <div class="card-body">
                                     <div class="text-left">
                                         <div class="row">
@@ -159,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card cstm">
                         <div class="card-body">
                             <div class="row">
                                 <div class="div col">
@@ -167,14 +148,14 @@
                                         <a class="notification">
                                             <i class="fas fa-shopping-cart fa-2x mt-2" style="color: #0093ad"></i>
                                                 @if (!$totalProdukTerpilih == 0)
-                                                <span class="badge"><strong class="font">{{ $totalProdukTerpilih }}</strong></span>
+                                                <span class="badge"><strong class="font" id="font">{{ $totalProdukTerpilih }}</strong></span>
                                                 @endif
                                           </a>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div style="text-align:right">
-                                        <button class="btn btn-danger m-2" id="btn_reset">
+                                        <button class="btn btn-danger m-2" id="resetTransaksi">
                                             <i class="fas fa-recycle"></i> 
                                              Reset Transaksi
                                         </button>
@@ -214,19 +195,23 @@
 {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script>
-
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    
     $(document).ready(function() {
-        $('#kodeBarcode').focus();
-
+        // get data produk with select2
         getDataProduk();
 
-        $('#pelanggan').select2({
-                maximumSelectionLength: 3
-            });
-    // });
+        // set autofocus in modal pembayaran
+        $('.modal').on('shown.bs.modal', function() {
+            $(this).find('[autofocus]').focus();
+        });
+        $('#kodeBarcode').focus();
 
+
+        $('#pelanggan').select2({
+            maximumSelectionLength: 3
+        });
+        
+        // event enter di scan barcode
         $('#kodeBarcode').keydown(function(e){
                 if(e.keyCode==13){
                     e.preventDefault();
@@ -235,20 +220,31 @@
                 }
         })
 
+        // onclick button pembayaran
         $('#pembayaran').on('click', function(){
-                showModalPembayaran();
-            })
+            showModalPembayaran();
+        })
+        
+        // onclick button reset transaksi
+        $('#resetTransaksi').on('click',function(){
+            resetTransaksi();
+        })
 
-        // $(this).keydown(function(e){
-        //     if(e.keyCode == 120);
-        //     e.preventDefault();
-        //     showModalPembayaran();
-        // });
+        // Button With keycode
+        $(document).keydown(function(e){
+            switch(e.which){
+                case 16:
+                    showModalPembayaran();
+                    break;
+                case 8:
+                    resetTransaksi();
+                    break;
+            }
+        })
     
 
-        
-        // $(document).ready(function() {
-        $("#produk").change(function(){
+    // proses simpan data ke chart dengan select2
+    $("#produk").change(function(){
                 event.preventDefault()
                 // console.log($('#produk').val());
                 // alert($('#produk').val());
@@ -276,38 +272,12 @@
                         $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
                         $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
                     // }
-                }
-                })
-            });
-
-        $("#btn_reset").click(function(){
-                Swal.fire({
-                title: "Anda Yakin ?",
-                text: "Data transaksi akan di reset !",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Batal",
-                confirmButtonText: "Yakin"
-            }).then(result => {
-            if (result.value) {
-                $.ajax({
-                    method  : 'DELETE',
-                    url     : 'reset-transaksi',
-                    headers : {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success : function(res){
-                        window.LaravelDataTables["temptransaksi-table"].ajax.reload()
-                        $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
-                        $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
                     }
                 })
-            }
-        });
-    });    
+    });
     
+
+    // hapus item di tabel chart
     $('#temptransaksi-table').on('click','.action',function(){
     // $('.btn-hapus').click(function(){
         let data    = $(this).data()
@@ -345,9 +315,10 @@
             })
         }
     })
-    });
+});
 
-    function tambahJumlahProduk(){
+// function tambah jumlah produk dalam chart
+function tambahJumlahProduk(){
             $('#formAction').on('submit', function(e){
                 e.preventDefault()
                 const _form = this
@@ -386,8 +357,37 @@
             })
         }
 
-   
-    function cekKode(){
+// function reset transaksi
+function resetTransaksi(){
+                Swal.fire({
+                title: "Anda Yakin ?",
+                text: "Data transaksi akan di reset !",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Batal",
+                confirmButtonText: "Yakin"
+            }).then(result => {
+            if (result.value) {
+                $.ajax({
+                    method  : 'DELETE',
+                    url     : 'reset-transaksi',
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success : function(res){
+                        window.LaravelDataTables["temptransaksi-table"].ajax.reload()
+                        $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
+                        $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
+                    }
+                })
+            }
+        });
+    }   
+
+// function simpan produk dengan scan barcode   
+function cekKode(){
             let kode = $('#kodeBarcode').val();
             event.preventDefault()
                 // console.log($('#produk').val());
@@ -412,30 +412,15 @@
                                 icon    : res.icon,
                                 title   : res.status + ', ' + res.message,
                             })
-                        // console.log(res.status)
-                        // if(res.aksi =='cekproduk'){
-                        //     Swal.fire({
-                        //         icon    : res.icon,
-                        //         title   :  res.status,
-                        //         text    :  res.message,
-                        //     })
-                        // }
-                        // else if(res.aksi = 'cekstok'){
-                        //     Swal.fire({
-                        //         icon    : res.icon,
-                        //         title   :  res.status,
-                        //         text    :  res.message,
-                        //     })
-                        // }
                         window.LaravelDataTables["temptransaksi-table"].ajax.reload()
                         $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
                         $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
-                    // }
-                }
-            })
+                    }
+                })
     }
 
-    function showModalPembayaran(){
+// function modal pembayaran transaksi
+function showModalPembayaran(){
         // $('#modalAction').modal('show');
         $.ajax({
             method : 'get',
@@ -467,8 +452,8 @@
             })
         }
 
-          // Script Store Data untuk menyimpan data kedalam database selama data aman
-    function store(){
+// Script Store Data untuk menyimpan data kedalam database selama data aman
+function store(){
             $('#formAction').on('submit', function(e){
                 e.preventDefault()
                 const _form = this
@@ -510,7 +495,8 @@
         })
     }
 
-    function getDataProduk(){
+// function degt data produk 
+function getDataProduk(){
             $('.produk').select2({
                 ajax: { 
                 url: "{{ route('getProduk') }}",

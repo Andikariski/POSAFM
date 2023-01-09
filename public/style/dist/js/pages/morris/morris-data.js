@@ -1,7 +1,7 @@
 // Dashboard 1 Morris-chart
 $(function () {
     "use strict";
-Morris.Area({
+    Morris.Area({
         element: 'morris-area-chart',
         data: [{
             period: '2010',
@@ -52,7 +52,6 @@ Morris.Area({
         hideHover: 'auto',
         lineColors: ['#5f76e8', '#01caf1'],
         resize: true
-        
     });
 
 Morris.Area({
