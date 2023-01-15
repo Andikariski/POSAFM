@@ -114,8 +114,11 @@
                         <h4 class="card-title"><font color="white">Status Transaksi</font></h4>
                     </div>
                     <div class="card-body">
-                        <div id="morris-donut-chart"></div>
-                        <ul class="list-inline text-center mt-2">
+                        {{-- <div id="morris-donut-chart"></div> --}}
+                        <div>
+                            <canvas id="chart-pie"></canvas>
+                        </div>
+                        <ul class="list-inline text-center mt-4">
                             <li class="list-inline-item">
                                 <h6><i class="fa fa-circle mr-1" style="color:#00C453"></i>Lunas Lunas</h6>
                             </li>
@@ -132,13 +135,16 @@
                         <h4 class="card-title"><font color="white">Grafik Pendapatan Mingguan, {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</font></h4>
                     </div>
                     <div class="card-body">
-                        <div id="morris-bar-chart"></div>
+                        {{-- <div id="morris-bar-chart"></div> --}}
+                        <div>
+                            <canvas id="chart-bar"></canvas>
+                        </div>
                         <ul class="list-inline text-center mt-2">
                             <li class="list-inline-item">
-                                <h6><i class="fa fa-circle mr-1" style="color:#01caf1"></i>Omset</h6>
+                                <h6><i class="fa fa-circle mr-1" style="color:#FF8300"></i>Omset</h6>
                             </li>
                             <li class="list-inline-item">
-                                <h6><i class="fa fa-circle mr-1" style="color:#5f76e8"></i>Profit</h6>
+                                <h6><i class="fa fa-circle mr-1" style="color:#00C928"></i>Profit</h6>
                             </li>
                         </ul>
                     </div>
@@ -208,27 +214,102 @@
   
   <script src="{{ url('style/assets/libs/raphael/raphael.min.js')}}"></script>
   <script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
-  {{-- <script src="{{ url('style/dist/js/pages/morris/morris-data.js')}}"></script> --}}
-  <script>
-    // var data = JSON.parse('{!! json_encode($dataPemasukan) !!}');
-    // console.log(data);
-    
-    $(document).ready(function(){
-        // Morris Donuts chart
-        Morris.Donut({
-        element: 'morris-donut-chart',
-        data: [{
-            label: "Belum Lunas",
-            value: {{ $TransaksiBelumLunas }},
-            
-        }, {
-            label: "Lunas",
-            value: {{ $Transaksilunas }},
-        }],
-        resize: true,
-        colors:['#FF425C', '#00C453']
-    });
+  {{-- CHART js --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+{{-- script grafik donuts --}}
+<script>
+$.getJSON('data-transaksi-mingguan', function(data){
+
+        var transaksiMingguan = $('#chart-pie');
+        new Chart(transaksiMingguan, {
+            type: 'doughnut',
+            data: {
+                labels :['Lunas','Belum Lunas'],
+                datasets : [{
+                    label: 'Sebanyak',
+                    data: data,
+                    backgroundColor: ['#00C928','#FF425C']
+            }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'top',
+                    },
+                }
+            },
+        });
+});
+</script>
+
+<script>
+$.getJSON('data-pemasukan-mingguan', function(data){
+        var tanggal   = data.map(function(index){
+                        return index.tanggal;
+        })
+        var omset   = data.map(function(index){
+                        return index.omset;
+        })
+        var profit   = data.map(function(index){
+                        return index.profit;
+        })
+
+        // console.log(tanggal,omset,profit);
+        var pemasukanMingguan = $('#chart-bar');
+        new Chart(pemasukanMingguan, {
+                type: 'bar',
+                data: {
+                    labels: tanggal,
+                    datasets :[
+                        {
+                        label: 'Omset',
+                        data: omset,
+                        backgroundColor: '#FF8300',
+                        },
+                        {
+                        label: 'Profit',
+                        data: profit,
+                        backgroundColor: '#00C928',
+                        },
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display : false,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                        }
+                    }
+                }
+        });
+});
+</script>
+  
+<script>
+   $(document).ready(function(){
+        // Morris Donuts chart
+    //     Morris.Donut({
+    //     element: 'morris-donut-chart',
+    //     data: [{
+    //         label: "Belum Lunas",
+    //         value: {{ $TransaksiBelumLunas }},
+            
+    //     }, {
+    //         label: "Lunas",
+    //         value: {{ $Transaksilunas }},
+    //     }],
+    //     resize: true,
+    //     colors:['#FF425C', '#00C453']
+    // });
     // Morris bar chart
      Morris.Bar({
         element: 'morris-bar-chart',

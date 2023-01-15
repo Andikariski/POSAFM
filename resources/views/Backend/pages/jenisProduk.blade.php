@@ -3,7 +3,11 @@
 @include('layouts.swetalert')
 {{-- {{ $dataTable->table() }} --}}
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
-
+<style>
+    table{
+        padding: 0.2px;
+    }
+</style>
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->

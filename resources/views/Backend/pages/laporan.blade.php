@@ -50,7 +50,10 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="omset-b2">
-                            <div id="morris-bar-omset" class="omset"></div>
+                            {{-- <div id="morris-bar-omset" class="omset"></div> --}}
+                            <div>
+                                <canvas id="chart-omset"></canvas>
+                            </div>
                             <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
                                     <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Omset Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
@@ -58,7 +61,10 @@
                             </ul>
                         </div>
                         <div class="tab-pane" id="profit-b2">
-                            <div id="morris-bar-profit" class="profit"></div>
+                            {{-- <div id="morris-bar-profit" class="profit"></div> --}}
+                            <div>
+                                <canvas id="chart-profit"></canvas>
+                            </div>
                             <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
                                     <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Profit Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
@@ -79,8 +85,11 @@
                     <strong>Transaksi Penjualan Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</strong><i class="fas fa-angle-down"></i>
                   </button>
                   <div class="accordion-body">
-                    <div id="morris-bar-transaksi" class="omset"></div>
-                            <ul class="list-inline text-center mt-2">
+                    {{-- <div id="morris-bar-transaksi" class="omset"></div> --}}
+                    <div>
+                        <canvas id="chart-transaksi"></canvas>
+                    </div>
+                            <ul class="list-inline text-center mt-4">
                                 <li class="list-inline-item">
                                     <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Transaksi Penjualan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
                                 </li>
@@ -90,8 +99,10 @@
               </div>
         </div>
     </div>
-    
-    <div id="morris-area-chart" class="omset"></div>
+    <div>
+      <canvas id="line-chart"></canvas>
+  </div>
+</div>
 </div>
 </div>
 {{-- </div> --}}
@@ -118,87 +129,132 @@
 <script src="{{ url('style/assets/libs/raphael/raphael.min.js')}}"></script>
 <script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
 
+{{-- CHART js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-$(document).ready(function(){
-    var Omset = Morris.Bar({
-        element: 'morris-bar-omset',
-        data: [
-            <?php
-                foreach($pemasukan as $item){
-                    echo "{tanggal:'".$item['tanggal']."',omset:".$item['omset']."},";
-                }   
-            ?>
-        ],
-        xkey: 'tanggal',
-        ykeys: ['omset'],
-        ymax : {{ $yMaxTopOmset }},
-        labels: ['Omset'],
-        barColors:['#01caf1', '#5f76e8'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        barSizeRatio:0.5,
-        resize: true,
-        redraw: true,
+$.getJSON('data-jumlah-transaksi-bulanan', function(data){
+            var tanggal   = data.map(function(index){
+                return index.tanggal;
+            })
+            var transaksi = data.map(function(index){
+                return index.transaksi;
+            })
+            
+        const transaksiChart = $('#chart-transaksi');
+        new Chart(transaksiChart, {
+          type: 'line',
+          data: {
+            labels: tanggal,
+            datasets: [{
+              label: 'Jumlah Transaksi',
+              data: transaksi,
+              borderWidth: 3,
+              pointRadius: 5,
+              pointHoverRadius: 8
+            }]
+          },
+          options: {
+            plugins:{
+              legend:{
+                display: false,
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+    });
+</script>
+<script>
+// $(document).ready(function(){
+    $.getJSON('data-pemasukan-bulanan', function(data){
         
+        var tanggal   = data.map(function(index){
+                        return index.tanggal;
+        })
+        var omset   = data.map(function(index){
+                        return index.omset;
+        })
+        var profit   = data.map(function(index){
+                        return index.profit;
+        })
+        // console.log(tanggal,omset,profit);
+
+        var omsetChart = $('#chart-omset');
+        new Chart(omsetChart, {
+          type: 'bar',
+          data: {
+            labels: tanggal,
+            datasets: [{
+              label: 'Omset',
+              data: omset,
+              borderWidth: 0,
+              backgroundColor: '#FA6A00'
+            }]
+          },
+          tension: 0.4,
+          options: {
+            plugins:{
+              legend:{
+                display: false,
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+
+        var profitChart = $('#chart-profit');
+        new Chart(profitChart, {
+          type: 'bar',
+          data: {
+            labels: tanggal,
+            datasets: [{
+              label: 'Profit',
+              data: profit,
+              borderWidth: 0,
+              backgroundColor: '#00C450'
+            }]
+          },
+          tension: 0.4,
+          options: {
+            plugins:{
+              legend:{
+                display: false,
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
     });
 
-   var Profit = Morris.Bar({
-        element: 'morris-bar-profit',
-        data: [
-            <?php
-                foreach($pemasukan as $item){
-                    echo "{tanggal:'".$item['tanggal']."',profit:".$item['profit']."},";
-                }   
-            ?>
-        ],
-        xkey: 'tanggal',
-        ykeys: ['profit'],
-        labels: ['Profit'],
-        ymax : {{ $yMaxTopProfit }},
-        barColors:['#00C453'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        barSizeRatio:0.5,
-        resize: true,
-        redraw: true
-    });
-
-   var Transaksi = Morris.Bar({
-        element: 'morris-bar-transaksi',
-        data: [
-            <?php
-                foreach($jumlahTransaksi as $item){
-                    echo "{tanggal:'".$item['tanggal']."', transaksi:".$item['transaksi']."},";
-                }   
-            ?>
-        ],
-        xkey: 'tanggal',
-        ykeys: ['transaksi'],
-        labels: ['Transaksi'],
-        barColors:['#00C453'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        barSizeRatio:0.5,
-        resize: true,
-        redraw: true
-    });
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-    var target = $(e.target).attr("href") // activated tab
-    let element_svg = document.querySelector(".profit svg");
-    // alert(e.target.href)
-    switch (target) {
-        case "#omset-b2":
-            Omset.redraw();
-            element_svg.style.setProperty("width", "100%");
-        break;
-        case "#profit-b2":
-            Profit.redraw();
-            element_svg.style.setProperty("width", "100%");
-        break;
-    }
-    });
-})
+    // $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    // var target = $(e.target).attr("href") // activated tab
+    // // alert(e.target.href)
+    // switch (target) {
+    //     case "#omset-b2":
+    //         alert('Omset');
+    //         profitChart.destroy();
+    //     break;
+    //     case "#profit-b2":
+    //         alert('Profit');
+    //         omsetChart.destroy();
+    //     break;
+    // }
+    // });
+// });
 </script>
 
 <script>
@@ -242,4 +298,5 @@ acc_btns.forEach((btn) => {
         })
     })
 </script>
+
 @endsection

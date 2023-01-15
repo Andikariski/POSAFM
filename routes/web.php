@@ -99,4 +99,8 @@ Route::get('modal-show-pembayaran-hutang/{id}',[App\Http\Controllers\Backend\Hut
 Route::get('laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');
 
 // Route JSON Output
-Route::get('data-json-omset', [App\Http\Controllers\Backend\DashboardController::class, 'dataOmsetMingguan'])->name('json.omset');
+Route::get('data-pemasukan-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'dataPemasukanMingguanJSON'])->name('json.pemasukanMingguan');
+Route::get('data-transaksi-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'statusTransaksiMingguanJSON'])->name('json.transaksiMingguan');
+
+Route::get('data-jumlah-transaksi-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiJSON'])->name('json.transaksi');
+Route::get('data-pemasukan-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataPemasukanJSON'])->name('json.pemasukan');

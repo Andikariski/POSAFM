@@ -158,23 +158,32 @@ class DashboardController extends Controller
         //
     }
 
-    public function dataOmsetMingguan(){
+    public function dataPemasukanMingguanJSON(){
           //Omset mingguan
-          $hariIni = Carbon::now();
-          $omsetMingguan = TransaksiPenjualan::whereBetween('tanggal',[
-                              $hariIni->startOfWeek()->format('Y-m-d'),
-                              $hariIni->endOfWeek()->format('Y-m-d')])
-                              ->select('tanggal',SubTransaksiPenjualan::raw('sum(uang_terbayar) as totalOmset'))
-                              ->groupBy('tanggal')->get();
-      
-                              $omsetMingguanArray = [];
-                              foreach($omsetMingguan as $row){
-                                      $omsetMingguanArray[] = [
-                                          'tanggal'   =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('D MMMM YYYY'),
-                                          'omset'     =>$row->totalOmset
-                                          // date('D',strtotime($row->tanggal)) => $row->totalOmset,
-                                  ];
-                              }
-                              return json_encode($omsetMingguanArray);
+        $hariIni = Carbon::now();
+        $omsetMingguan = TransaksiPenjualan::where('status_transaksi','Lunas')->whereBetween('tbl_transaksi_penjualan.tanggal',[
+            $hariIni->startOfWeek()->format('Y-m-d'),
+            $hariIni->endOfWeek()->format('Y-m-d')])
+            ->select('tbl_transaksi_penjualan.tanggal','faktur',SubTransaksiPenjualan::raw('sum(sub_total) as totalOmset'),SubTransaksiPenjualan::raw('sum(profit) as totalProfit'))
+            ->rightJoin('tbl_sub_transaksi_penjualan','tbl_transaksi_penjualan.faktur','=','tbl_sub_transaksi_penjualan.fkid_faktur')
+            ->groupBy('tbl_transaksi_penjualan.tanggal')->get();
+            
+        $omsetMingguanArray = [];
+        foreach($omsetMingguan as $row){
+            $omsetMingguanArray[] = [ 
+                'tanggal'   =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
+                'omset'     =>$row->totalOmset,
+                'profit'    =>$row->totalProfit
+            ];
+        }
+            return json_encode($omsetMingguanArray);
+    }
+
+    public function statusTransaksiMingguanJSON(){
+        $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
+        $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
+        $transaksi = [$Transaksilunas,$TransaksiBelumLunas];
+        // dd($transaksi);
+        return json_encode($transaksi);
     }
 }

@@ -49,11 +49,6 @@
         max-height: 100rem;
         padding: 1rem;}
       
-      /* .conteiner{
-          width: 650px;
-          background-color: white;
-          padding: 30px;
-      } */
       
       .tab_box{
           width: 100%;
@@ -84,7 +79,6 @@
       }
       
       .tab-content .tab-pane{
-          /* display: none; */
           animation: moving .6s ease;
       }
       @keyframes moving{
@@ -99,17 +93,6 @@
       .content_box .content h2{
           margin-bottom: 10px;
       }
-      
-      /* .mdi {
-          position:absolute;
-          top: 57px;
-          left: 130px;
-          width: 90px;
-          height: 5px;
-          background-color: blue;
-          border-radius: 10px;
-          transition: all .3s ease-in-out;
-      } */
 
       .notification {
         position: relative;
@@ -129,3 +112,14 @@
             font-size: 13px;
             font-weight: bold;
         }
+
+        /* table{
+            padding: 0.3px;
+        } */
+
+        /* .table-responsive{
+            padding: 1px;
+        } */
+
+        
+        

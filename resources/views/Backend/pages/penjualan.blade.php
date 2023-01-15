@@ -6,6 +6,11 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
+<style>
+    table{
+        padding: 0.2px;
+    }
+</style>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -77,35 +82,22 @@
                             <div class="card cstm" style="height: 12rem;">
                                 <div class="card-body" id="reloadPorduk">
                                     <div class="form-group">
-                                     {{-- <label for="exampleFormControlSelect1">Cari Produk</label> --}}
                                         <div class="div" id="reloadSelect">
                                             <select class="form-control produk"  style="width: 100%" id="produk" name="id_produk">   
                                                 <option value='0'> <font> -- Pilih Produk -- </font></option>
-                                                {{-- @foreach ($DataProduk as $produk)
-                                                    <option value="{{ $produk->barcode_produk }}">{{ $produk->nama_produk }}</option>
-                                                    @endforeach --}}
-                                                </select>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            {{-- <div class="col-4">
-                                                <label for="inputPassword6" class="col-form-label">Cari Produk</label>
-                                            </div> --}}
-                                            {{-- <div class="col-12">
-                                               <button type="button" class="btn btn-outline-info btn-block daftarproduk"> Cari Dari Daftar Produk </button>
-                                            </div> --}}
+                                            </select>
                                         </div>
                                         <div class="form-group mt-4">
                                             <label for="exampleFormControlSelect1">Scan Kode Produk</label>
                                             <input class="form-control" type="text" name="" placeholder="Masukan atau scan barcode produk" id="kodeBarcode" autocomplete="off">
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        {{-- <div class="col-6">
-                                            <label for="inputPassword6" class="col-form-label">Jumlah Produk</label>
-                                        </div> --}}
-                                        <div class="col-6">
-                                            <input type="hidden" id="jumlah_produk" class="form-control" name="jumlah_produk" value="1">
+                                        <div class="row">
+                                            {{-- <div class="col-6">
+                                                <label for="inputPassword6" class="col-form-label">Jumlah Produk</label>
+                                            </div> --}}
+                                            <div class="col-6">
+                                                <input type="hidden" id="jumlah_produk" class="form-control" name="jumlah_produk" value="1">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -132,9 +124,6 @@
                                                 <h1 class="mt-2"><strong style="font-weight: bold; color:rgb(0, 165, 22); font-size:30pt;">Rp {{ number_format($totalBelanja) }}</strong></h1>
                                                 <input type="hidden" value="{{ $totalBelanja}}" id="totalbelanja">
                                         </div>
-                                        {{-- </div> --}}
-                                        {{-- <input type="hidden" name="" id="faktur" value="0111"> --}}
-                                        {{-- <h5 class="text-black mb-4">Invoice <strong style="color: black">AR13263126</strong></h5> --}}
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +131,7 @@
                     </div>
                     <div class="card cstm">
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row header-table">
                                 <div class="div col">
                                     <div class="div" id="reloadTotalProduk">
                                         <a class="notification">
@@ -167,7 +156,7 @@
                                 </div>
                             </div>
                             <div class="mt-4" id="reloadTable">
-                                <div class="table-responsive mt-6" >
+                                <div class="table-responsive">
                                     {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                                 </div>
                             </div>
@@ -192,7 +181,7 @@
 {{-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script>
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');

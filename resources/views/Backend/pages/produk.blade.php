@@ -5,6 +5,11 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
+<style>
+    table{
+        padding: 0.7px;
+    }
+</style>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -21,19 +26,6 @@
                             </li>
                         </ol>
                     </nav>
-                </div>
-            </div>
-            <div class="col-5 align-self-center">
-                <div class="customize-input float-right">
-                    {{-- <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                        <option selected>Aug 19</option>
-                    </select> --}}
-                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
-                        {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
-                        {{-- {{ date("F j, Y") }} --}}
-                        {{-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#bs-example-modal-lg" onclick="tambahData()">Tambah Produk</button> --}}
-                        <button type="button" class="btn btn-info btn-add"><i class="fas fa-plus"></i> Tambah Produk</button>
-                    </h4>
                 </div>
             </div>
         </div>
@@ -83,22 +75,23 @@
                             </div>
                         </div>
                         <!-- Column -->
-                        <!-- Column -->
                     </div>
                     <hr>
-                    <div class="table-responsive">
-                        <div class="div mt-2">
-                            <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
-                                <i class="far fa-file-pdf"></i> Cetak PDF
-                            </a>
-                            <button class="btn btn-primary ml-1" id="cetakStok">
-                                <i class="fas fa-file-pdf"></i> Cetak Stok PDF
-                            </button>
-                            {{-- <button class="btn btn-success ml-1">
-                                <i class="fas fa-file-excel"></i> Cetak CSV
-                            </button> --}}
+                    <div class="div mt-2">
+                        <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
+                            <i class="far fa-file-pdf"></i> Cetak PDF
+                        </a>
+                        <button class="btn btn-primary m-1" id="cetakStok">
+                            <i class="fas fa-file-pdf"></i> Cetak Stok PDF
+                        </button>
+                        <button type="button" class="btn btn-success btn-add">
+                            <i class="fas fa-plus"></i> Tambah Produk
+                        </button>
+                    </div>
+                    <div class="tbl" id="reloadTable">
+                        <div class="table-responsive">
+                                {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                         </div>
-                            {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
                 </div>
             </div>

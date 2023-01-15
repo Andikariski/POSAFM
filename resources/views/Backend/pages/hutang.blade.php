@@ -3,6 +3,11 @@
 @include('layouts.swetalert')
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
+<style>
+    table{
+        padding: 0.2px;
+    }
+</style>
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -66,35 +71,6 @@
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
-//     function tambahData() {
-//             $('.jenisProduk').select2();
-//             // $('.alamat_edit').select2();
-//     };
-
-//     function ubahData() {
-//             $('.ubah_alamat').select2();
-//             // $('.alamat_edit').select2();
-//     };
-
-//       // Script Show Modal Add data
-//    $('.btn-add').on('click', function(){
-//     // console.log('Test')
-//         $('#modalAction').modal('show');
-//         $.ajax({
-//             method : 'get',
-//             url : `{{ url('modal-show-produk') }}`,
-//             headers : {
-//                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                     },
-//             success : function(res){
-//                 $('#modalAction').find('.modal-dialog').html(res)
-//                 console.log(res)
-//                 $('#modalAction').modal('show');
-//                 store()
-//             }
-//         })
-//     })
-
       //CRUD function
       $('#hutang-table').on('click','.action',function(){
         let data    = $(this).data()
