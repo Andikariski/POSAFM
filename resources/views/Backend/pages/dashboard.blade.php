@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-{{-- <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet"> --}}
+<link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <!-- This Page CSS -->
@@ -195,27 +195,14 @@
                     </div>
                 </div>
             </div>
-        <!-- *************************************************************** -->
-        <!-- End Sales Charts Section -->
-        <!-- *************************************************************** -->
-        <!-- *************************************************************** -->
-        <!-- Start Location and Earnings Charts Section -->
-        <!-- *************************************************************** -->
-        <div class="row">
-        </div>
-        
-        <div class="row">
-        </div>
     </div>
     @endsection
   {{-- Chart Moriss--}}
   <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
   <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
   
-  <script src="{{ url('style/assets/libs/raphael/raphael.min.js')}}"></script>
-  <script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
   {{-- CHART js --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   --}}
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
@@ -294,42 +281,3 @@ $.getJSON('data-pemasukan-mingguan', function(data){
 });
 </script>
   
-<script>
-   $(document).ready(function(){
-        // Morris Donuts chart
-    //     Morris.Donut({
-    //     element: 'morris-donut-chart',
-    //     data: [{
-    //         label: "Belum Lunas",
-    //         value: {{ $TransaksiBelumLunas }},
-            
-    //     }, {
-    //         label: "Lunas",
-    //         value: {{ $Transaksilunas }},
-    //     }],
-    //     resize: true,
-    //     colors:['#FF425C', '#00C453']
-    // });
-    // Morris bar chart
-     Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [
-        <?php
-            foreach($dataPemasukan as $item){
-                echo "{tanggal:'".$item['tanggal']."',omset:".$item['omset'].",profit:".$item['profit']."},";
-            }   
-        ?>
-        
-     ],
-        xkey: 'tanggal',
-        ykeys: ['omset','profit'],
-        ymax: {{ $yMaxTop }},
-        labels: ['Omset','Profit'],
-        barColors:['#01caf1', '#5f76e8'],
-        hideHover: 'auto',
-        gridLineColor: '#eef0f2',
-        resize: true,
-        vertikal: true
-    });
-    })
-  </script>

@@ -65,7 +65,7 @@ class TempTransaksiDatatable extends DataTable
                     ->setTableId('temptransaksi-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('rtip')
+                    ->dom('rti')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('excel'),

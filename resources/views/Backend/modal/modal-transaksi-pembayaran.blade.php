@@ -19,7 +19,7 @@
             <div class="mb-3 mt-2">
                 <label for="exampleFormControlInput1" class="form-label"><strong style="color:black">Uang Terbayar</strong></label>
                 <input type="text" class="form-control form-control-lg" id="uangBayar" name="uang_terbayar"
-                style="font-weight: bold; font-size:25pt; text-align:right;" autofocus>
+                style="font-weight: bold; font-size:25pt; text-align:right;" autofocus autocomplete="off">
                 <label for="exampleFormControlInput1" class="form-label"><h6 style="color:red">*Masukan Rp 0, untuk transaksi tanpa uang terbayar (Hutang)</h6></label>
             </div>
             <div class="mb-3">

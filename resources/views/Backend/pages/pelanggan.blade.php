@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('container')
 @include('layouts.swetalert')
+<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
-<link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -44,7 +44,7 @@
                             <button class="btn btn-success m-1">
                                 <i class="fas fa-file-excel"></i> Cetak CSV
                             </button>
-                            <button type="button" class="btn btn-info btn-add">
+                            <button type="button" class="btn btn-primary" id="btn-add">
                                 <i class="fas fa-plus"></i> Tambah Pelanggan
                             </button>
                         </div>
@@ -79,7 +79,7 @@
 <script>
 
    // Script Show Modal Add data
-   $('.btn-add').on('click', function(){
+   $('#btn-add').on('click', function(){
     console.log('Test')
         $('#modalAction').modal('show');
         $.ajax({

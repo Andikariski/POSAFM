@@ -2,8 +2,12 @@
 @section('container')
 <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
-<link href="{{  url('style/assets/libs/morris.js/morris.css')}}" rel="stylesheet">
-
+<style>
+  .bg{
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 7px 0px;
+  }
+</style>
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -30,7 +34,7 @@
             <div class="accordion">
                 <div class="accordion-item">
                   <button class="accordion-header">
-                    <strong>Pemasukan Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</strong><i class="fas fa-angle-down"></i>
+                    <strong>Grafik Pemasukan Bulanan</strong><i class="fas fa-angle-down"></i>
                   </button>
                   <div class="accordion-body">
                     <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
@@ -49,27 +53,53 @@
                     </ul>
 
                     <div class="tab-content">
-                        <div class="tab-pane active" id="omset-b2">
-                            {{-- <div id="morris-bar-omset" class="omset"></div> --}}
-                            <div>
+                        <div class="tab-pane active mt-4" id="omset-b2">
+                          <div class="row">
+                            <div class="col-9">
+                              <div>
                                 <canvas id="chart-omset"></canvas>
-                            </div>
-                            <ul class="list-inline text-center mt-2">
+                              </div>
+                              <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
-                                    <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Omset Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
+                                    <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Grafik Omset Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
                                 </li>
-                            </ul>
+                              </ul>
+                            </div>
+                            <div class="col-3">
+                              <h5 class="mt-1"><strong>Rekapitulasi Omset {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</strong></h5>
+                              <hr>
+                              <div class="card card-hover">
+                                <div class="p-2 text-center bg" style="background: #00c450">
+                                    <h1 class="font-light text-white"><strong style="font-weight: bold; color:rgb(255, 255, 255); font-size:25pt;">Rp {{ number_format($omsetBulanan) }}</strong></h1>
+                                    <h5 class="text-white">Total Omset</h5>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="tab-pane" id="profit-b2">
-                            {{-- <div id="morris-bar-profit" class="profit"></div> --}}
-                            <div>
+                        <div class="tab-pane mt-4" id="profit-b2">
+                          <div class="row">
+                            <div class="col-9">
+                              <div>
                                 <canvas id="chart-profit"></canvas>
-                            </div>
-                            <ul class="list-inline text-center mt-2">
+                              </div>
+                              <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
-                                    <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Profit Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
+                                    <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Grafik Profit Bulan  {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
                                 </li>
-                            </ul>       
+                              </ul>
+                            </div>
+                            <div class="col-3">
+                              <h5 class="mt-1"><strong>Rekapitulasi Profit {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</strong></h5>
+                              <hr>
+                              <div class="card card-hover">
+                                <div class="p-2 text-center bg" style="background: #00c450">
+                                    <h1 class="font-light text-white"><strong style="font-weight: bold; color:rgb(255, 255, 255); font-size:25pt;">Rp {{ number_format($profitBulanan) }}</strong></h1>
+                                    <h5 class="text-white">Total Profit</h5>
+                                </div>
+                              </div>
+                            </div>
+                          </div>     
                         </div>
                     </div>
                   </div>
@@ -82,26 +112,36 @@
             <div class="accordion">
                 <div class="accordion-item">
                   <button class="accordion-header">
-                    <strong>Transaksi Penjualan Bulan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</strong><i class="fas fa-angle-down"></i>
+                    <strong>Grafik Transaksi Penjualan Bulanan</strong><i class="fas fa-angle-down"></i>
                   </button>
                   <div class="accordion-body">
-                    {{-- <div id="morris-bar-transaksi" class="omset"></div> --}}
-                    <div>
-                        <canvas id="chart-transaksi"></canvas>
+                    <div class="row">
+                      <div class="col-9">
+                        <div>
+                          <canvas id="chart-transaksi"></canvas>
+                        </div>
+                        <ul class="list-inline text-center mt-4">
+                          <li class="list-inline-item">
+                              <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Transaksi Penjualan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
+                          </li>
+                      </ul>
+                      </div>
+                      <div class="col-3">
+                        <h5 class="mt-1"><strong>Rekapitulasi Transaksi Januari 2023</strong></h5>
+                        <hr>
+                        <div class="card card-hover">
+                          <div class="p-1 text-center bg" style="background: #00c450">
+                              <h1 class="font-light text-white"><strong style="font-weight: bold; color:rgb(255, 255, 255); font-size:55pt;">{{ $totalTransaksiBulanan }}</strong></h1>
+                              <h4 class="text-white">Transaksi</h4>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                            <ul class="list-inline text-center mt-4">
-                                <li class="list-inline-item">
-                                    <h6><i class="fa fa-circle mr-1" style="color:#ee4800"></i>Transaksi Penjualan {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat('MMMM YYYY') }}</h6>
-                                </li>
-                            </ul>
                   </div>
                 </div>  
               </div>
         </div>
     </div>
-    <div>
-      <canvas id="line-chart"></canvas>
-  </div>
 </div>
 </div>
 </div>
@@ -126,9 +166,6 @@
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
 
-<script src="{{ url('style/assets/libs/raphael/raphael.min.js')}}"></script>
-<script src="{{ url('style/assets/libs/morris.js/morris.min.js')}}"></script>
-
 {{-- CHART js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -150,7 +187,7 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
               label: 'Jumlah Transaksi',
               data: transaksi,
               borderWidth: 3,
-              pointRadius: 5,
+              pointRadius: 4,
               pointHoverRadius: 8
             }]
           },
@@ -170,7 +207,6 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
     });
 </script>
 <script>
-// $(document).ready(function(){
     $.getJSON('data-pemasukan-bulanan', function(data){
         
         var tanggal   = data.map(function(index){
@@ -221,7 +257,7 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
               label: 'Profit',
               data: profit,
               borderWidth: 0,
-              backgroundColor: '#00C450'
+              backgroundColor: '#00CCB3'
             }]
           },
           tension: 0.4,
@@ -239,22 +275,6 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
           }
         });
     });
-
-    // $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-    // var target = $(e.target).attr("href") // activated tab
-    // // alert(e.target.href)
-    // switch (target) {
-    //     case "#omset-b2":
-    //         alert('Omset');
-    //         profitChart.destroy();
-    //     break;
-    //     case "#profit-b2":
-    //         alert('Profit');
-    //         omsetChart.destroy();
-    //     break;
-    // }
-    // });
-// });
 </script>
 
 <script>

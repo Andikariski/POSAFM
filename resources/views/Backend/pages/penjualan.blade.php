@@ -225,9 +225,9 @@
                 case 16:
                     showModalPembayaran();
                     break;
-                case 8:
-                    resetTransaksi();
-                    break;
+                // case 8:
+                //     resetTransaksi();
+                //     break;
             }
         })
     
@@ -452,13 +452,14 @@ function store(){
                 let jumlahUang = ($('#uangBayar').val() == "") ? 0 : $('#uangBayar').val();
                 // let sisaUang = ($('#sisaUang').val() == "") ? 0 : $('#sisaUang').val();
                 
-                if(parseFloat(jumlahUang) ==""){
+                if(parseFloat(jumlahUang) == ""){
                     // alert('kosong')
                     Toast.fire({
                         icon: 'warning',
                         title: 'Jumlah uang belum di inputkan..!'
                     })
                 }
+                else{
                 $.ajax({
                     method  : 'post',
                     url     : url,
@@ -480,7 +481,7 @@ function store(){
                         $('#reloadFaktur').load(window.location.href + " #reloadFaktur")
                     }
                 })
-            // }
+            }
         })
     }
 

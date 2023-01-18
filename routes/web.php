@@ -64,7 +64,7 @@ Route::get('modal-tambah-jumlah/{id}',[\App\Http\Controllers\Backend\TransaksiCo
 Route::post('tambah-jumlah-produk',[\App\Http\Controllers\Backend\TransaksiController::class,'tambahJumlahProduk'])->name('tambahJumlahProduk');
 
 //Route Riwayat Transaksi
-Route::get('riwayat-transaksi',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'index'])->name('riwayatTransaksiPenjualan');
+Route::get('riwayat-penjualan',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'index'])->name('riwayatTransaksiPenjualan');
 Route::get('detail-riwayat/{id}',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'detailTransaksi'])->name('detailRiwayatTransaksi');
 Route::delete('hapus-riwayat-transaksi/{id}',[\App\Http\Controllers\Backend\RiwayatTransaksiController::class,'hapusRiwayatTransaksi'])->name('hapusRiwayatTransaksi');
 
@@ -96,7 +96,7 @@ Route::get('hutang-pelanggan',[App\Http\Controllers\Backend\HutangController::cl
 Route::get('modal-show-pembayaran-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'show'])->name('hutang.bayar');
 
 // Route Laporan
-Route::get('laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');
+Route::get('grafik-laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');
 
 // Route JSON Output
 Route::get('data-pemasukan-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'dataPemasukanMingguanJSON'])->name('json.pemasukanMingguan');

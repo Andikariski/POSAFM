@@ -32,12 +32,12 @@ class HutangDataTable extends DataTable
             })
             ->escapeColumns([])
             ->editColumn('action', function($row){
-                return '<a class="" href=' ."detail-riwayat".'/'. Crypt::encrypt($row->faktur).'">
+                return '<a class="mr-1" href=' ."detail-riwayat".'/'. Crypt::encrypt($row->faktur).'">
                             <span class="badge badge-primary">
                                 <i style="color:rgb(255,255,255); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
                             </span>
                         </a>'.
-                        '<a class="m-2 action" href="#" data-jenis="bayar" data-id=' . Crypt::encrypt($row->faktur) . '>
+                        '<a class="m-1 action" href="#" data-jenis="bayar" data-id=' . Crypt::encrypt($row->faktur) . '>
                                 <span class="badge badge-success"><i style="color:rgb(255,255,255)" class="fas fa-check fa-1x" data-toggle="tooltip" data-placement="top" title="Bayar Hutang"></i></span>
                         </a>';
                 });

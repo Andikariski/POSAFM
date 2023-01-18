@@ -5,7 +5,7 @@
     background-color: rgb(244, 244, 244);
     }
 
-    .accordion {
+.accordion {
         width: 100%;
         margin: 0 auto;
         overflow: hidden;
@@ -14,7 +14,7 @@
         box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 8px;
       }
       
-      .accordion-header {
+.accordion-header {
         display: flex;
         justify-content: space-between;
         padding: 0.75rem 1rem;
@@ -27,15 +27,15 @@
         cursor: pointer;
       }
       
-      .accordion-header.active {
+.accordion-header.active {
         background-color: #1070b1;
       }
-      .accordion-header.active i {
+.accordion-header.active i {
         transform: rotate(180deg);
         transition: all 0.3s ease-in-out;
       }
       
-      .accordion-body {
+.accordion-body {
         padding: 0 1rem;
         background-color: #ffffff;
         max-height: 0;
@@ -45,12 +45,12 @@
         
       }
       
-      .accordion-body.active {
+.accordion-body.active {
         max-height: 100rem;
         padding: 1rem;}
       
       
-      .tab_box{
+.tab_box{
           width: 100%;
           display: flex;
           justify-content: space-around;
@@ -59,7 +59,8 @@
           position: relative;
       
       }
-      .tab_box .tab_btn{
+
+.tab_box .tab_btn{
           font-size: 15px;
           font-weight: 300;
           color: #919191;
@@ -69,16 +70,16 @@
           cursor: pointer;
       }
       
-      .tab_box .tab_btn.active{
+.tab_box .tab_btn.active{
           color: #1f8dd6;
       
       }
       
-      .content_box{
+.content_box{
           padding: 20px;
       }
       
-      .tab-content .tab-pane{
+.tab-content .tab-pane{
           animation: moving .6s ease;
       }
       @keyframes moving{
@@ -86,20 +87,20 @@
           to{transform: translateY(0px); opacity: 1;}
       }
       
-      .tab-pane .tab-pane.active{
+.tab-pane .tab-pane.active{
           display: block;
       }
       
-      .content_box .content h2{
+.content_box .content h2{
           margin-bottom: 10px;
       }
 
-      .notification {
+.notification {
         position: relative;
         display: inline-block;
         }
     
-        .notification .badge {
+.notification .badge {
         position: absolute;
         top: -5px;
         right: -15px;
@@ -108,10 +109,11 @@
         background: red;
         color: white;
         }
-        #font{
-            font-size: 13px;
-            font-weight: bold;
-        }
+
+#font{
+    font-size: 13px;
+    font-weight: bold;
+    }
 
         /* table{
             padding: 0.3px;
