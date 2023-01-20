@@ -25,10 +25,10 @@ class ProdukController extends Controller
         $headPage           = 'Data Produk';
         $data               = Produk::all();
         $jenisProduk        = JenisProduk::all();
-        $totalDataAsset     = Produk::sum('harga_beli_produk');
-        $totalStokProduk    = Produk::sum('stok_produk');
         $totalProduk        = count($data);
         $totalJenisProduk   = count($jenisProduk);
+        $produkKosong       = Produk::where('stok_produk','=',0)->count(); 
+        $stokProdukMenipis  = Produk::where('stok_produk','<=',3)->count(); 
 
         return $dataTable->render('Backend.pages.produk', compact(
                 'data',
@@ -36,8 +36,8 @@ class ProdukController extends Controller
                 'jenisProduk',
                 'totalProduk',
                 'totalJenisProduk',
-                'totalDataAsset',
-                'totalStokProduk'));
+                'produkKosong',
+                'stokProdukMenipis'));
     }
 
     /**
@@ -174,5 +174,14 @@ class ProdukController extends Controller
     public function showDetailProduk($id){
         $produk = Produk::where('barcode_produk',$id)->first();
         return view('Backend.modal.modal-produk-detail', compact('produk'));
+    }
+
+    public function resetProduk(){
+        Produk::truncate();
+        return response()->json([
+            'icon' => 'success',
+            'status' =>  'Berhasil',
+            'message' => 'Data Produk telah di reset',
+        ]);
     }
 }

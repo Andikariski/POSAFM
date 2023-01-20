@@ -15,6 +15,7 @@ class TempatProduk extends Seeder
     public function run()
     {
         $data = [
+            ['kode_rak'   => 'RAK'],
             ['kode_rak'   => 'RAK001'],
             ['kode_rak'   => 'RAK002'],
             ['kode_rak'   => 'RAK003'],

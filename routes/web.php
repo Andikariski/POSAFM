@@ -78,6 +78,7 @@ Route::get('modal-show-produk',[App\Http\Controllers\Backend\ProdukController::c
 Route::get('modal-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'edit'])->name('modal-edit-produk');
 Route::put('simpan-data-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'update'])->name('updateProduk');
 Route::get('modal-show-stok-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalCetakStokProduk'])->name('modal-show-stok-produk');
+Route::delete('reset-data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'resetProduk'])->name('resetDataProduk');
 
 // Route Alamat Pelanggan
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');
@@ -104,3 +105,5 @@ Route::get('data-transaksi-mingguan', [App\Http\Controllers\Backend\DashboardCon
 
 Route::get('data-jumlah-transaksi-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiJSON'])->name('json.transaksi');
 Route::get('data-pemasukan-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataPemasukanJSON'])->name('json.pemasukan');
+
+Route::get('data-jumlah-transaksi-tahunan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiTahunanJSON'])->name('json.transaksiTahunan');

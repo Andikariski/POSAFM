@@ -23,16 +23,6 @@
     <script src="{{ url('style/dist/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
     <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
-    
-    <!--This page JavaScript -->
-    {{-- <script src="{{ url('style/assets/extra-libs/c3/d3.min.js')}}"></script>
-    <script src="{{ url('style/assets/extra-libs/c3/c3.min.js')}}"></script>
-    <script src="{{ url('style/assets/libs/chartist/dist/chartist.min.js')}}"></script>
-    <script src="{{ url('style/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
-    <script src="{{ url('style/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}"></script>
-    <script src="{{ url('style/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}"></script>
-    <script src="{{ url('style/dist/js/pages/dashboards/dashboard1.min.js')}}"></script>
-     --}}
 
     <!--Script Datatables -->
     <script src="{{ url('style/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -54,18 +44,13 @@
     {{-- Costume JS --}}
     <script src="{{  url('style/dist/js/custom.min.js')}}"></script>
 
-    
-
     {{-- DataTables --}}
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ url('vendor/datatables/buttons.server-side.js') }}"></script>
     @stack('scripts')
 
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script> --}}
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 	<script src="{{ url('js/select2.js') }}"></script>
     <!-- ============================================================== -->
     <footer class="footer text-center text-muted">
-       All Rights Reserved by AndikaRiski.
+        &#169; <?=date('Y') ?> All Rights Reserved - AndikaMaros.
    </footer>

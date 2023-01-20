@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -144,5 +144,31 @@ class LaporanController extends Controller
         $pemasukan = $omsetBulananArray;
         return json_encode($pemasukan);
 
+    }
+
+    public function dataTransaksiTahunanJSON(){
+        $hariIni = Carbon::now();
+        $month = TransaksiPenjualan::get()->groupBy(function($d){
+            return Carbon::parse($d->tanggal)->format('m');
+        });
+
+        dd($month);
+        $transaksiTahunan = TransaksiPenjualan::whereBetween('tanggal',[ 
+            $hariIni->startOfMonth()->format('Y-m-d'),
+            $hariIni->endOfMonth()->format('Y-m-d')])
+            ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+            ->groupBy($month)->get();
+
+        $transaksiTahunanArray =[];
+        foreach($transaksiTahunan as $row){
+            $transaksiTahunanArray[] = [
+            'bulan'       =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('MMMM Y'),
+            'transaksi'     =>$row->totalTransaksi,
+            ];
+        }
+       
+
+        $jumlahTransaksi = $transaksiTahunanArray;
+        return json_encode($jumlahTransaksi);
     }
 }

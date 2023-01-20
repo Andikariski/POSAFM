@@ -170,7 +170,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-$.getJSON('data-jumlah-transaksi-bulanan', function(data){
+  $(document).ready(function() {
+  $.getJSON('data-jumlah-transaksi-bulanan', function(data){
             var tanggal   = data.map(function(index){
                 return index.tanggal;
             })
@@ -205,8 +206,7 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
           }
         });
     });
-</script>
-<script>
+
     $.getJSON('data-pemasukan-bulanan', function(data){
         
         var tanggal   = data.map(function(index){
@@ -275,6 +275,7 @@ $.getJSON('data-jumlah-transaksi-bulanan', function(data){
           }
         });
     });
+  })
 </script>
 
 <script>

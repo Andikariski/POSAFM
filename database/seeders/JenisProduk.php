@@ -16,6 +16,7 @@ class JenisProduk extends Seeder
     public function run()
     {
         $data = [
+            ['kategori_produk' => 'Default'],
             ['kategori_produk' => 'Rokok'],
             ['kategori_produk' => 'Susu'],
             ['kategori_produk' => 'Pestisida'],

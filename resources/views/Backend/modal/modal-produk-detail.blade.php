@@ -5,7 +5,7 @@
         </div>
         <div class="modal-body m-2">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-striped">
                     <tbody>
                         <tr>
                             <td width="50%">Barcode Produk</td>
@@ -13,11 +13,11 @@
                         </tr>
                         <tr>
                             <td>Nama Produk</td>
-                            <td><strong>{{ $produk->nama_produk }}</strong></td>
+                            <td><strong>{{Str::upper($produk->nama_produk) }}</strong></td>
                         </tr>
                         <tr>
                             <td>Jenis Produk</td>
-                            <td><strong>{{ $produk->kategori->kategori_produk }}</strong></td>
+                            <td><strong>{{Str::upper($produk->kategori->kategori_produk) }}</strong></td>
                         </tr>
                         <tr>
                             <td>Tempat Produk</td>

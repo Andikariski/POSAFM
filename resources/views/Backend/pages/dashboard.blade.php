@@ -208,8 +208,8 @@
 
 {{-- script grafik donuts --}}
 <script>
-$.getJSON('data-transaksi-mingguan', function(data){
-
+    $(document).ready(function() {
+        $.getJSON('data-transaksi-mingguan', function(data){
         var transaksiMingguan = $('#chart-pie');
         new Chart(transaksiMingguan, {
             type: 'doughnut',
@@ -231,11 +231,9 @@ $.getJSON('data-transaksi-mingguan', function(data){
                 }
             },
         });
-});
-</script>
+    });
 
-<script>
-$.getJSON('data-pemasukan-mingguan', function(data){
+    $.getJSON('data-pemasukan-mingguan', function(data){
         var tanggal   = data.map(function(index){
                         return index.tanggal;
         })
@@ -278,6 +276,7 @@ $.getJSON('data-pemasukan-mingguan', function(data){
                     }
                 }
         });
-});
+    });
+})
 </script>
   
