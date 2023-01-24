@@ -47,8 +47,8 @@
                </div>
                <div class="col-6">
                    <div class="form-group">
-                       <label for="exampleFormControlSelect1">Harga Jual Produk</label>
-                       <input type="text" class="form-control" style="text-align: right" id="harga-jual" aria-describedby="name" placeholder="Masukan harga jual" name="harga_jual_produk" required value="{{$produk->harga_jual_produk}}">
+                       <label for="exampleFormControlSelect1">Margin (Keuntungan)</label>
+                       <input type="text" class="form-control" style="text-align: right" id="margin-produk" aria-describedby="name" placeholder="Masukan margin produk" name="margin" required value="{{$produk->margin}}">
                    </div>
                </div>
            </div>
@@ -112,7 +112,7 @@
             mDec    : '0'
            });
 
-           $('#harga-jual').autoNumeric('init',{
+           $('#margin-produk').autoNumeric('init',{
             aSep    : ',',
             aDec    : '.',
             mDec    : '0'

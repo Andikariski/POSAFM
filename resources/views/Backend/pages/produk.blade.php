@@ -12,7 +12,8 @@
     .bg{
         border-radius: 3px;
         box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 5px 0px;
-        background-color: #0093ad;
+        background-color: #1070b1;
+        /* background-color: #00bfa6; */
   }
 </style>
 
@@ -57,19 +58,20 @@
                         <div class="col-md-6 col-lg-3 col-xlg-3">
                             <div class="card card-hover bg">
                                 <div class="p-2 bg text-center">
-                                    <h1 class="font-light text-white" style="font-weight: bold">{{ $stokProdukMenipis }}</h1>
-                                    <h6 class="text-white">Stok Produk Kurang dari 3</h6>
+                                    <h1 class="font-light text-white" style="font-weight: bold">{{ number_format($totalJenisProduk) }}</h1>
+                                    <h6 class="text-white">Total Jenis Produk</h6>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3 col-xlg-3">
                             <div class="card card-hover bg">
                                 <div class="p-2 bg text-center">
-                                    <h1 class="font-light text-white" style="font-weight: bold">{{ number_format($totalJenisProduk) }}</h1>
-                                    <h6 class="text-white">Total Jenis Produk</h6>
+                                    <h1 class="font-light text-white" style="font-weight: bold">{{ $stokProdukMenipis }}</h1>
+                                    <h6 class="text-white">Stok Produk Kurang dari 3</h6>
                                 </div>
                             </div>
                         </div>
+                      
                         <!-- Column -->
                         <div class="col-md-6 col-lg-3 col-xlg-3">
                             <div class="card card-hover bg">
@@ -90,7 +92,7 @@
                             <i class="fas fa-file-pdf"></i> Cetak Stok PDF
                         </button>
                         <button type="button" class="btn btn-success btn-add">
-                            <i class="fas fa-plus"></i> Tambah Produk
+                            <i class="fas fa-plus-circle"></i> Tambah Produk
                         </button>
                         <button type="button" class="btn btn-warning m-1 text-white" id="btn-import">
                             <i class="fas fa-download text-white"></i> Import File
@@ -154,25 +156,25 @@
 <div id="importDataProduk" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="" id="formAction" action="" method="post">
-            <div class="modal-header">
-                <h3 class="modal-title" id="myModalLabel"style="color: black">
-                    <strong>
-                        Import File Produk
-                    </strong>
-                </h3>
-            </div>
-            <div class="modal-body">
-                <h6>Database Produk (CSV/XLs)</h6>
-                    {{-- <input type="hidden" value="" name="id_jenis_produk"> --}}
-                    <div class="form-group">
-                        <input type="file" class="form-control" placeholder="Ketik disini" name="kategori_produk" value="" required>
+            <form class="" id="formAction" action="{{ route('importProduk') }}" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <h3 class="modal-title" id="myModalLabel"style="color: black">
+                        <strong>
+                            Import File Produk
+                        </strong>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <h6>Database Produk (CSV/XLs)</h6>
+                        <div class="form-group">
+                            <input type="file" class="form-control" placeholder="Ketik disini" name="file" value="" required>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Simpan</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+                        <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Import</button>
+                    </div>
             </form>
         </div>
     </div>
@@ -338,11 +340,11 @@
                 const url = this.getAttribute('action')
 
                 let hargaBeliProduk = ($('#harga-beli').val() == "") ? 0 : $('#harga-beli').val();
-                let hargaJualProduk = ($('#harga-jual').val() == "") ? 0 : $('#harga-jual').val();
-                if(parseFloat(hargaJualProduk) <= parseFloat(hargaBeliProduk)){
+                let marginProduk = ($('#margin-produk').val() == "") ? 0 : $('#margin-produk').val();
+                if(parseFloat(hargaBeliProduk) <= parseFloat(marginProduk)){
                     Toast.fire({
                                 icon    : 'error',
-                                title   : 'Gagal, Harga jual produk lebih kecil dari harga beli.',
+                                title   : 'Gagal, Margin terlalu besar.',
                             })
                 }
                 else{

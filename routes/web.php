@@ -79,6 +79,7 @@ Route::get('modal-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukControll
 Route::put('simpan-data-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'update'])->name('updateProduk');
 Route::get('modal-show-stok-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalCetakStokProduk'])->name('modal-show-stok-produk');
 Route::delete('reset-data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'resetProduk'])->name('resetDataProduk');
+Route::post('import-produk', [App\Http\Controllers\Backend\ProdukController::class, 'importFileProduk'])->name('importProduk');
 
 // Route Alamat Pelanggan
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');

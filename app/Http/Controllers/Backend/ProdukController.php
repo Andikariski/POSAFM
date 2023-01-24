@@ -8,6 +8,8 @@ use App\Models\JenisProduk;
 use App\Models\Produk;
 use App\Models\TempatProduk;
 use App\DataTables\ProdukDataTable;
+use App\Imports\ImportProduk;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
 {
@@ -28,7 +30,7 @@ class ProdukController extends Controller
         $totalProduk        = count($data);
         $totalJenisProduk   = count($jenisProduk);
         $produkKosong       = Produk::where('stok_produk','=',0)->count(); 
-        $stokProdukMenipis  = Produk::where('stok_produk','<=',3)->count(); 
+        $stokProdukMenipis  = Produk::where('stok_produk','<',3)->count(); 
 
         return $dataTable->render('Backend.pages.produk', compact(
                 'data',
@@ -59,7 +61,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $cekProduk = Produk::where('barcode_produk',$request->barcode_produk)->first();
-        $margin = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
+        $hargaJualProduk = str_replace(",","",$request->harga_beli_produk) + str_replace(",","",$request->margin);
         if($cekProduk == null){
             $data = [
                 'barcode_produk'    => $request->barcode_produk,
@@ -67,8 +69,8 @@ class ProdukController extends Controller
                 'barcode_produk'    => $request->barcode_produk,
                 'stok_produk'       => $request->stok_produk,
                 'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
-                'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
-                'margin'            => $margin,
+                'harga_jual_produk' => $hargaJualProduk,
+                'margin'            => str_replace(",","",$request->margin),
                 'fkid_tempat_produk'=> $request->fkid_tempat_produk,
                 'fkid_jenis_produk' => $request->fkid_jenis_produk,
             ];
@@ -123,14 +125,14 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $margin = str_replace(",","",$request->harga_jual_produk) - str_replace(",","",$request->harga_beli_produk);
+        $hargaJualProduk = str_replace(",","",$request->harga_beli_produk) + str_replace(",","",$request->margin);
         Produk::where('barcode_produk',$id)->update([
                 'barcode_produk'    =>$request->barcode_produk,
                 'nama_produk'       =>$request->nama_produk,
                 'stok_produk'       =>$request->stok_produk,
                 'harga_beli_produk' => str_replace(",","",$request->harga_beli_produk),
-                'harga_jual_produk' => str_replace(",","",$request->harga_jual_produk),
-                'margin'            => $margin,
+                'harga_jual_produk' => $hargaJualProduk,
+                'margin'            => str_replace(",","",$request->margin),
                 'fkid_tempat_produk'=> $request->fkid_tempat_produk,
                 'fkid_jenis_produk' => $request->fkid_jenis_produk,
         ]);
@@ -183,5 +185,13 @@ class ProdukController extends Controller
             'status' =>  'Berhasil',
             'message' => 'Data Produk telah di reset',
         ]);
+    }
+
+    public function importFileProduk(Request $request){
+        $file = $request->file('file');
+        $namaFile = $file->getClientOriginalName();
+        $file->move('FileDataProduk',$namaFile);
+        Excel::import(new ImportProduk, public_path('/FileDataProduk/'.$namaFile));
+        return redirect('data-produk');
     }
 }

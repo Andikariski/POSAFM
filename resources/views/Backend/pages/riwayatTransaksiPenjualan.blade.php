@@ -7,7 +7,7 @@
 @endsection
 <style>
     table{
-        padding: 0.2px;
+        padding: 0.3px;
     }
 </style>
 

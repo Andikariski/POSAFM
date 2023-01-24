@@ -8,6 +8,7 @@ use App\Models\SubTransaksiPenjualan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\DataTables\RiwayatTransaksiPenjualanDataTable;
+use Hashids\Hashids;
 
 class RiwayatTransaksiController extends Controller
 {
@@ -23,8 +24,12 @@ class RiwayatTransaksiController extends Controller
     public function index(RiwayatTransaksiPenjualanDataTable $dataTable)
     {
         $headPage = 'Riwayat Penjualan';
-        // $dataTransaksi = TransaksiPenjualan::all();
-        // return view('Backend.riwayatTransaksiPenjualan',compact('dataTransaksi','headPage'));
+        $hashids  = new Hashids();
+        // $faktur = 'AFM';
+        // $faktur = $hashids->encode($faktur);
+        // dd($faktur);
+
+
         return $dataTable->render('Backend.pages.riwayatTransaksiPenjualan', compact('headPage'));
     }
 

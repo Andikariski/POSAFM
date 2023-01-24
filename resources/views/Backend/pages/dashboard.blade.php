@@ -174,7 +174,7 @@
                                 @foreach ($produkTerlaris as $item)    
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ strtoupper($item->produk->nama_produk) }}</td>
+                                    <td>{{ strtoupper($item->nama_produk) }}</td>
                                     {{-- <td>{{ $item->totalProduk }} Produk</td> --}}
                                     <td><span class="badge bg-success font-16 text-white">{{ $item->totalProduk }} Produk</span></td>
                                 </tr>

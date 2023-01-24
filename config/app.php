@@ -198,6 +198,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
         Yajra\DataTables\HtmlServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -213,9 +214,11 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
+        'PDF'        => Barryvdh\DomPDF\ServiceProvider::class,
         'Datatables' => Yajra\DataTables\Facades\Datatables::class,
-        'Carbon' => Illuminate\Support\Carbon::class,
+        'Carbon'     => Illuminate\Support\Carbon::class,
+        'Hashids'    => Vinkla\Hashids\Facades\Hashids::class,
+        'Excel'      => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

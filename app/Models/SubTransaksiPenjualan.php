@@ -14,6 +14,8 @@ class SubTransaksiPenjualan extends Model
     protected $fillable = [
         'id_temp_transaksi_penjualan',
         'fkid_barcode_produk',
+        'nama_produk',
+        'harga_satuan',
         'fkid_faktur',
         // 'fkid_pelanggan',
         // 'fkid_user',

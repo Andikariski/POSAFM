@@ -113,10 +113,10 @@ class TransaksiController extends Controller
       
         $cekBarcodeProduk = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
         $cekProdukTemp = TempTransaksiPenjualan::where('fkid_barcode_produk',$request->fkid_barcode_produk)->first();
-        $getHarga = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
+        $getProduk = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
         
         // dd($cekProdukTemp['profit']);
-        // dd($getHarga['margin']* $request->jumlah_produk);
+        // dd($getProduk['margin']* $request->jumlah_produk);
         if($cekBarcodeProduk == null){
             return response()->json([
                 'aksi' => 'cekproduk',
@@ -130,10 +130,12 @@ class TransaksiController extends Controller
             if($cekBarcodeProduk['stok_produk'] >= $request->jumlah_produk){
             $data=[
                 'fkid_barcode_produk' => $request->fkid_barcode_produk,
+                'nama_produk'         => $getProduk->nama_produk,
+                'harga_satuan'        => $getProduk->harga_jual_produk,
                 'fkid_faktur'         => $request->faktur,
                 'jumlah_produk'       => $request->jumlah_produk,
-                'sub_total'           => $getHarga['harga_jual_produk'] * $request->jumlah_produk,
-                'profit'              => $getHarga['margin'] * $request->jumlah_produk,
+                'sub_total'           => $getProduk['harga_jual_produk'] * $request->jumlah_produk,
+                'profit'              => $getProduk['margin'] * $request->jumlah_produk,
                 'tanggal'             => $request->tanggal,
             ];
             TempTransaksiPenjualan::insert($data);
@@ -158,8 +160,8 @@ class TransaksiController extends Controller
                 $addJumlahProduk = $cekProdukTemp['jumlah_produk'] + $request->jumlah_produk;
                 $cekProdukTemp->update([
                     'jumlah_produk' => $addJumlahProduk,
-                    'sub_total'     => $getHarga['harga_jual_produk'] * $addJumlahProduk,
-                    'profit'        => $cekProdukTemp['profit'] + $getHarga['margin']
+                    'sub_total'     => $getProduk['harga_jual_produk'] * $addJumlahProduk,
+                    'profit'        => $cekProdukTemp['profit'] + $getProduk['margin']
                 ]);
                 return response()->json([
                     'aksi' => 'update',
@@ -171,10 +173,12 @@ class TransaksiController extends Controller
             else{
                 $data=[
                     'fkid_barcode_produk'   => $request->fkid_barcode_produk,
+                    'nama_produk'           => $getProduk->nama_produk,
+                    'harga_satuan'          => $getProduk->harga_jual_produk,
                     'fkid_faktur'           => $request->faktur,
                     'jumlah_produk'         => $request->jumlah_produk,
-                    'sub_total'             => $getHarga['harga_jual_produk'] * $request->jumlah_produk,
-                    'profit'                => $getHarga['margin'] * $request->jumlah_produk,
+                    'sub_total'             => $getProduk['harga_jual_produk'] * $request->jumlah_produk,
+                    'profit'                => $getProduk['margin'] * $request->jumlah_produk,
                     'tanggal'               => $request->tanggal,
                 ];
                 TempTransaksiPenjualan::insert($data);
@@ -293,6 +297,8 @@ class TransaksiController extends Controller
         foreach($getData as $row){
             $fieldTabelSubPenjualan[] = [
                 'fkid_barcode_produk' => $row['fkid_barcode_produk'],
+                'nama_produk'         => $row['nama_produk'],
+                'harga_satuan'        => $row['harga_satuan'],
                 'fkid_faktur'         => $row['fkid_faktur'],
                 'jumlah_produk'       => $row['jumlah_produk'],
                 'sub_total'           => $row['sub_total'],

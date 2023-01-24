@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
         $omsetHariIni        = TransaksiPenjualan::where('tanggal','=',$tanggalSekarang)->where('status_transaksi','=','Lunas')->pluck('total_pembayaran')->sum();
         $produkTerlaris      = SubTransaksiPenjualan::groupBy('fkid_barcode_produk')
-                                                ->select('fkid_barcode_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
+                                                ->select('nama_produk',SubTransaksiPenjualan::raw('sum(jumlah_produk) as totalProduk'))
                                                 ->orderBy('totalProduk', 'desc')->limit(5)->get();
         
         // Ambil data faktur Lunas

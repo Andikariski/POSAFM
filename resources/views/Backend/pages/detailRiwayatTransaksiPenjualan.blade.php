@@ -118,8 +118,8 @@
                             @foreach ($dataSubTransaksi as $item)    
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ strtoupper($item->produk->nama_produk) }}</td>
-                                <td>{{ number_format($item->produk->harga_jual_produk) }}</td>
+                                <td>{{ strtoupper($item->nama_produk) }}</td>
+                                <td>{{ number_format($item->harga_satuan) }}</td>
                                 <td>{{ $item->jumlah_produk }}</td>
                                 <td>{{ number_format($item->sub_total) }}</td>
                             </tr>
