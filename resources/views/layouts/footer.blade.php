@@ -25,7 +25,6 @@
     <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
 
     <!--Script Datatables -->
-    <script src="{{ url('style/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <script src="{{ url('style/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{ url('style/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
 
@@ -34,12 +33,6 @@
 	<script src="{{ url('js/sweetalert/sweetalert2.all.min.js') }}"></script>
 	<script src="{{ url('js/sweetalert/sweet.js') }}"></script>
 	<script src="{{ url('js/app.js') }}"></script>
-
-     {{-- CALENDAR --}}
-    {{-- <script src="{{  url('style/assets/libs/moment/min/moment.min.js')}}"></script>
-    <script src="{{  url('style/assets/libs/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-    <script src="{{  url('style/dist/js/pages/calendar/cal-init.js')}}"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script> --}}
     
     {{-- Costume JS --}}
     <script src="{{  url('style/dist/js/custom.min.js')}}"></script>

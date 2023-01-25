@@ -20,7 +20,7 @@ class ImportProduk implements ToModel,WithStartRow
             'stok_produk'           =>  $row[2],
             'harga_beli_produk'     =>  $row[3],
             'harga_jual_produk'     =>  $row[4],
-            'margin'                =>  $row[5],
+            'margin'                =>  $row[4] - $row[3],
             'fkid_jenis_produk'     =>  $row[6],
             'fkid_tempat_produk'    =>  $row[7]
         ]);

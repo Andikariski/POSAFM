@@ -9,6 +9,7 @@ use App\Models\Produk;
 use App\Models\TempatProduk;
 use App\DataTables\ProdukDataTable;
 use App\Imports\ImportProduk;
+use App\Exports\ExportProduk;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
@@ -188,10 +189,20 @@ class ProdukController extends Controller
     }
 
     public function importFileProduk(Request $request){
+        // dd($request->file('file'));
         $file = $request->file('file');
         $namaFile = $file->getClientOriginalName();
         $file->move('FileDataProduk',$namaFile);
         Excel::import(new ImportProduk, public_path('/FileDataProduk/'.$namaFile));
-        return redirect('data-produk');
+        return response()->json([
+            'icon' => 'success',
+            'status' =>  'Berhasil',
+            'message' => 'Import data produk berhasil.',
+        ]);
+
+    }
+
+    public function exportFileProduk(){
+        return Excel::download(new ExportProduk,'produk.xlsx');
     }
 }

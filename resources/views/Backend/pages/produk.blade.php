@@ -47,10 +47,12 @@
                     <div class="row">
                         <!-- Column -->
                         <div class="col-md-6 col-lg-3 col-xlg-3">
-                            <div class="card card-hover bg">
-                                <div class="p-2 bg text-center">
-                                    <h1 class="font-light text-white" style="font-weight: bold">{{ number_format($totalProduk) }}</h1>
-                                    <h6 class="text-white">Total Produk</h6>
+                            <div class="div" id="totalProduk">
+                                <div class="card card-hover bg">
+                                    <div class="p-2 bg text-center">
+                                        <h1 class="font-light text-white" style="font-weight: bold">{{ number_format($totalProduk) }}</h1>
+                                        <h6 class="text-white">Total Produk</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -85,18 +87,31 @@
                     </div>
                     <hr>
                     <div class="div mt-2">
-                        <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
-                            <i class="far fa-file-pdf"></i> Cetak PDF
-                        </a>
-                        <button class="btn btn-primary m-1" id="cetakStok">
-                            <i class="fas fa-file-pdf"></i> Cetak Stok PDF
-                        </button>
                         <button type="button" class="btn btn-success btn-add">
                             <i class="fas fa-plus-circle"></i> Tambah Produk
                         </button>
-                        <button type="button" class="btn btn-warning m-1 text-white" id="btn-import">
-                            <i class="fas fa-download text-white"></i> Import File
-                        </button>
+                        <div class="btn-group m-1">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-long-arrow-alt-down"></i><i class="fas fa-long-arrow-alt-up"></i> Import & Export Produk
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left">
+                                <button type="button" class="dropdown-item" id="btn-import">
+                                    <i class="fas fa-file-excel"></i> Import data produk
+                                </button>
+                                {{-- <button type="button" class="dropdown-item" id="btn-export">
+                                    <i class="fas fa-file-excel"></i> Export File Xls
+                                </button> --}}
+                                <a href="{{ route('exportProduk') }}" class="dropdown-item" target="_blank">
+                                    <i class="fas fa-file-excel"></i> Export data produk .Xlsx
+                                </a>
+                                <a href="{{ route('PDF.produk') }}" class="dropdown-item" target="_blank">
+                                    <i class="fas fa-file-pdf"></i> Export data produk .PDF
+                                </a>
+                                <button class="dropdown-item" id="cetakStok">
+                                    <i class="fas fa-file-pdf"></i> Export by stok .PDF
+                                </button>
+                            </div>
+                        </div>
                         <button type="button" class="btn btn-danger" id="resetDataProduk">
                             <i class="fas fa-recycle"></i> Reset Data Produk
                         </button>
@@ -156,7 +171,7 @@
 <div id="importDataProduk" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="" id="formAction" action="{{ route('importProduk') }}" method="post" enctype="multipart/form-data">
+            <form class="" id="formActionImport" action="{{ route('importProduk') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <h3 class="modal-title" id="myModalLabel"style="color: black">
@@ -173,7 +188,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-                        <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Import</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Import</button>
                     </div>
             </form>
         </div>
@@ -183,36 +198,52 @@
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
     
-    // Script Show Modal Add data
-   $('#btn-import').on('click', function(){
+    // Script import data produk
+    $('#btn-import').on('click', function(){
         $('#importDataProduk').modal('show');
-        // $.ajax({
-        //     method : 'get',
-        //     url : `{{ url('modal-show-pelanggan') }}`,
-        //     headers : {
-        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //             },
-        //     success : function(res){
-        //         $('#modalAction').find('.modal-dialog').html(res)
-        //         console.log(res)
-        //         $('#modalAction').modal('show');
-        //         store()
-        //     }
-        // })
+        importFile();
     })
 
     $('#resetDataProduk').on('click',function(){
-        // alert('test');
         resetProduk();
     })
 
     function tambahData() {
-            $('.jenisProduk').select2();
+        $('.jenisProduk').select2();
     };
 
     function ubahData() {
-            $('.ubah_alamat').select2();
+        $('.ubah_alamat').select2();
     };
+
+    function importFile(){
+        $('#formActionImport').on('submit', function(e){
+                e.preventDefault()
+                const _form = this
+                const formData = new FormData(this);
+                const url = this.getAttribute('action')
+
+                $.ajax({
+                    method  : 'post',
+                    url     : url,
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data    : formData,
+                    processData : false,
+                    contentType : false,
+                    success : function(res){
+                        window.LaravelDataTables["produk-table"].ajax.reload();
+                        $('#totalProduk').load(window.location.href + " #totalProduk")
+                        $('#importDataProduk').modal('hide');
+                            Toast.fire({
+                                icon    : res.icon,
+                                title   :  res.message,
+                        })
+                    }
+                })
+        })
+    }
     
 
     // function reset transaksi
@@ -239,7 +270,8 @@
                                 icon    : res.icon,
                                 title   : res.status + ', ' + res.message,
                         })
-                        window.LaravelDataTables["produk-table"].ajax.reload()
+                        window.LaravelDataTables["produk-table"].ajax.reload();
+                        $('#totalProduk').load(window.location.href + " #totalProduk")
                     }
                 })
             }
@@ -294,7 +326,8 @@
                                 icon    : res.icon,
                                 title   : res.status + ', ' + res.message,
                             })
-                        window.LaravelDataTables["produk-table"].ajax.reload()
+                        window.LaravelDataTables["produk-table"].ajax.reload();
+                        $('#totalProduk').load(window.location.href + " #totalProduk")
                     }
             })
             }
@@ -327,7 +360,6 @@
                     $('#modalActionDetail').modal('show');
                 }
             })
-            // console.log('Add');
         }
     })
 
@@ -370,7 +402,9 @@
                                     title   : res.status + ', ' + res.message,
                                 })
                                 window.LaravelDataTables["produk-table"].ajax.reload()
+                                $('#totalProduk').load(window.location.href + " #totalProduk")
                                 $('#modalAction').modal('hide');
+
                             }
                         }
                     })

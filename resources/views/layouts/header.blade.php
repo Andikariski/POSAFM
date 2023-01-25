@@ -13,16 +13,16 @@
                 <a href="{{ route('dashboard') }}">
                     <b class="logo-icon">
                         <!-- Dark Logo icon -->
-                        <img src="{{ url('style/assets/images/logo-AM-fix.png')}}" alt="homepage" class="dark-logo" height="45" width="40"/>
+                        <img src="{{ url('style/image/Logo.png')}}" alt="homepage" class="dark-logo" width="130px"/>
                     </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
-                    <span class="logo-text">
+                    {{-- <span class="logo-text"> --}}
                         <!-- dark Logo text -->
-                        <img src="{{ url('style/assets/images/Andika-Maros-Text-BW.png')}}" alt="homepage" class="dark-logo" width="150" height="19"/>
+                        {{-- <img src="{{ url('style/assets/images/Andika-Maros-Text-BW.png')}}" alt="homepage" class="dark-logo" width="150" height="19"/> --}}
                         <!-- Light Logo text -->
                         {{-- <img src="{{ url('style/assets/images/logo-light-text.png')}}" class="light-logo" alt="homepage" /> --}}
-                    </span>
+                    {{-- </span> --}}
                 </a>
             </div>
             <!-- ============================================================== -->

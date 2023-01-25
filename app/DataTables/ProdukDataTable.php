@@ -52,7 +52,7 @@ class ProdukDataTable extends DataTable
      */
     public function query(Produk $model)
     {
-        return $model->newQuery()->with(['kategori','tempatproduk']);
+        return $model->newQuery()->with(['kategori','tempatproduk'])->orderBy('nama_produk','asc');
     }
 
     /**
