@@ -6,13 +6,18 @@
 @section('style')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
+<style>
+    .card{
+        /* background-color: #ecf2ff; */
+    }
+</style>
 
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-7 align-self-center">
                 <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
                 <div class="d-flex align-items-center">
@@ -24,12 +29,19 @@
                     </nav>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Data Pelanggan</h3>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
 
     <div class="container-fluid">
-    <!-- Container fluid  -->
-    <!-- order table -->
     <div class="row">
         <div class="col-12">
             <div class="card cstm">
@@ -54,9 +66,9 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
 </div>
+</div>
+
 
 {{-- Modal Ubah Data --}}
 <div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

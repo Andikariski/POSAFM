@@ -35,7 +35,7 @@ class RiwayatTransaksiPenjualanDataTable extends DataTable
             })
             ->escapeColumns([])
             ->editColumn('action', function($row){
-                return '<a class="" href=' ."detail-riwayat".'/'. Crypt::encrypt($row->faktur).'">
+                return '<a class="" href=' ."detail-riwayat-transaksi".'/'. Crypt::encrypt($row->faktur).'">
                             <span class="badge badge-primary">
                                 <i style="color:rgb(255,255,255); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
                             </span>

@@ -48,7 +48,7 @@
                                 <h2 class="text-dark mb-1 font-weight-medium mt-1">{{ $jumlahPelanggan }}</h2>
                                 <span class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">Orang</span>
                             </div>
-                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i>10%, Dari hari kemarin</h6>
+                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i> 10%, Dari hari kemarin</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="user-plus" style="width:40px; height:40px"></i></span>
@@ -65,7 +65,7 @@
                                 <h2 class="text-dark mb-1 font-weight-medium mt-1">{{ $totalTransaksi }}</h2>
                                 <span class="badge bg-success font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">Transaksi</span>
                             </div>
-                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i>10%, Dari hari kemarin</h6>
+                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i> 10%, Dari hari kemarin</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="shopping-cart" style="width:40px; height:40px"></i></span>
@@ -80,7 +80,7 @@
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Omset Hari Ini</h6>
                             <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium mt-2">
                                 <sup class="set-doller">Rp </sup>{{ number_format($omsetHariIni) }}</h2>
-                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-down" style="color: #ff425c"></i>15%, Dari hari kemarin</h6>
+                            <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-down" style="color: #ff425c"></i> 15%, Dari hari kemarin</h6>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">
                             <span class="opacity-7 text-muted"><i data-feather="dollar-sign" style="width:40px; height:40px"></i></span>
@@ -96,7 +96,7 @@
                             <div>
                                 <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium mt-2">
                                     <sup class="set-doller">Rp </sup>{{ number_format($profitHariIni) }}</h2>
-                                    <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i>10%, Dari hari kemarin</h6>
+                                    <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i> 10%, Dari hari kemarin</h6>
                             </div>
                         </div>
                         <div class="ml-auto mt-md-3 mt-lg-0">

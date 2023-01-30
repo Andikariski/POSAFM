@@ -27,12 +27,13 @@ class HutangDataTable extends DataTable
                     return  \Carbon\Carbon::createFromFormat('Y-m-d', $transaksi->tanggal)->isoFormat('D MMMM YYYY');
                 })
             ->editColumn('hutang', function(TransaksiPenjualan $hutang){
-                $jumlahHutang = $hutang->total_pembayaran-$hutang->uang_terbayar;
+                $hutang->groupBy('fkid_pelanggan');
+                $jumlahHutang = $hutang->total_pembayaran - $hutang->uang_terbayar;
                 return number_format($jumlahHutang);
             })
             ->escapeColumns([])
             ->editColumn('action', function($row){
-                return '<a class="mr-1" href=' ."detail-riwayat".'/'. Crypt::encrypt($row->faktur).'">
+                return '<a class="mr-1" href=' ."rekapitulasi-hutang".'/'. Crypt::encrypt($row->faktur).'">
                             <span class="badge badge-primary">
                                 <i style="color:rgb(255,255,255); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
                             </span>
@@ -51,7 +52,7 @@ class HutangDataTable extends DataTable
     */
     public function query(TransaksiPenjualan $model)
     {
-        return $model->newQuery()->where('status_transaksi','=','Belum Lunas')->with(['pelanggan','kasir']);
+        return $model->newQuery()->where('status_transaksi','=','Belum Lunas')->groupBy('fkid_pelanggan')->with(['pelanggan','kasir']);
     }
     
     /**

@@ -65,8 +65,8 @@ Route::post('tambah-jumlah-produk',[\App\Http\Controllers\Backend\TransaksiContr
 
 //Route Riwayat Transaksi
 Route::get('riwayat-penjualan',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'index'])->name('riwayatTransaksiPenjualan');
-Route::get('detail-riwayat/{id}',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'detailTransaksi'])->name('detailRiwayatTransaksi');
 Route::delete('hapus-riwayat-transaksi/{id}',[\App\Http\Controllers\Backend\RiwayatTransaksiController::class,'hapusRiwayatTransaksi'])->name('hapusRiwayatTransaksi');
+Route::get('detail-riwayat-transaksi/{id}',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'detailTransaksi'])->name('detailRiwayatTransaksi');
 
 // Route Produk
 Route::get('data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'index'])->name('dataProduk');
@@ -97,6 +97,7 @@ Route::post('pdf-stok-produk',[App\Http\Controllers\Backend\GeneratePDFControlle
 // Route Fitur Hutang
 Route::get('hutang-pelanggan',[App\Http\Controllers\Backend\HutangController::class,'index'])->name('hutang');
 Route::get('modal-show-pembayaran-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'show'])->name('hutang.bayar');
+Route::get('rekapitulasi-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'rekapitulasiHutang'])->name('hutang.rekapitulasi');
 
 // Route Laporan
 Route::get('grafik-laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');

@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="form-group mt-4">
                                             <label for="exampleFormControlSelect1">Scan Kode Produk</label>
-                                            <input class="form-control" type="text" name="" placeholder="Masukan atau scan barcode produk" id="kodeBarcode" autocomplete="off">
+                                            <input class="form-control kodeBarcode" type="text" name="" placeholder="Masukan atau scan barcode produk" id="kodeBarcode" autocomplete="off">
                                         </div>
                                         <div class="row">
                                             {{-- <div class="col-6">
@@ -193,7 +193,6 @@
         $('.modal').on('shown.bs.modal', function() {
             $(this).find('[autofocus]').focus();
         });
-        $('#kodeBarcode').focus();
 
 
         $('#pelanggan').select2({
@@ -224,6 +223,9 @@
             switch(e.which){
                 case 16:
                     showModalPembayaran();
+                    break;
+                case 18:
+                    $('.kodeBarcode').focus();
                     break;
                 // case 8:
                 //     resetTransaksi();

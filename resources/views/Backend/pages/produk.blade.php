@@ -86,7 +86,7 @@
                         <!-- Column -->
                     </div>
                     <hr>
-                    <div class="div mt-2">
+                    <div class="div">
                         <button type="button" class="btn btn-success btn-add">
                             <i class="fas fa-plus-circle"></i> Tambah Produk
                         </button>
@@ -116,7 +116,7 @@
                             <i class="fas fa-recycle"></i> Reset Data Produk
                         </button>
                     </div>
-                    <div class="tbl" id="reloadTable">
+                    <div class="tbl mt-4" id="reloadTable">
                         <div class="table-responsive">
                                 {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                         </div>
@@ -141,12 +141,12 @@
             <div class="modal-body">
                 <h6><font color="red">Cetak produk dengan stok kurang dari:</font></h6>
                     <div class="form-group">
-                        <input type="text" class="form-control stok" name="stok" value="" required style="font-size:25pt;font-weight: bold;" autocomplete="off">
+                        <input type="text" class="form-control stok" name="stok" value="" required style="font-size:25pt;font-weight: bold;" autocomplete="off" autofocus>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i> Cetak</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-print"></i> Cetak</button>
                 </div>
             </form>
         </div>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-down"></i> Import</button>
+                        <button type="submit" class="btn btn-success" id="submitBtn"><i class="fas fa-download"></i> Import</button>
                     </div>
             </form>
         </div>
@@ -197,7 +197,11 @@
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
+$(document).ready(function() {
     
+    $('.modal').on('shown.bs.modal', function() {
+            $(this).find('[autofocus]').focus();
+    });
     // Script import data produk
     $('#btn-import').on('click', function(){
         $('#importDataProduk').modal('show');
@@ -215,6 +219,7 @@
     function ubahData() {
         $('.ubah_alamat').select2();
     };
+})
 
     function importFile(){
         $('#formActionImport').on('submit', function(e){
@@ -222,7 +227,11 @@
                 const _form = this
                 const formData = new FormData(this);
                 const url = this.getAttribute('action')
-
+                // var spiner ='<button class="btn btn-primary" type="button" disabled>'+
+                //                             '<span class="spinner-border spinner-border-sm" role="status"aria-hidden="true"></span>'+
+                //                             '<span class="sr-only">Loading...</span>'+
+                //             '</button>';
+                // $('#submitBtn').html(spiner);
                 $.ajax({
                     method  : 'post',
                     url     : url,

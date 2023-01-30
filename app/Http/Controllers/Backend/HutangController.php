@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\DataTables\HutangDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\SubTransaksiPenjualan;
 use App\Models\TransaksiPenjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+
 
 class HutangController extends Controller
 {
@@ -89,5 +92,15 @@ class HutangController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function rekapitulasiHutang($id){
+        $headPage = 'Rekapitulasi Hutang Pelanggan';
+        $idDec = Crypt::decrypt($id);
+     
+        $dataSubTransaksi = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->get();
+        $dataTransaksi = TransaksiPenjualan::where('faktur',$idDec)->first();
+        $totalPembayaran = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->sum('sub_total');
+        return view('Backend.pages.rekapitulasiHutang',compact('dataSubTransaksi','dataTransaksi','headPage','totalPembayaran'));
     }
 }

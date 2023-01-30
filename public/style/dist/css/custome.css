@@ -114,14 +114,9 @@
     font-size: 13px;
     font-weight: bold;
     }
-
-        /* table{
-            padding: 0.3px;
-        } */
-
-        /* .table-responsive{
-            padding: 1px;
-        } */
+.btn{
+    border-radius: 3px;
+}
 
         
         

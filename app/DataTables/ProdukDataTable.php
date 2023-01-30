@@ -66,7 +66,7 @@ class ProdukDataTable extends DataTable
                     ->setTableId('produk-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('frtip')
+                    // ->dom('frtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('export')->className('btn btn-primary'),

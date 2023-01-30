@@ -92,10 +92,12 @@
                </div>
            </div>
         </div>
-
            <div class="modal-footer mt-2">
-            <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
-            <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Simpan</button>
+                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" arial-label="Close"><i class="fas fa-times"></i> Batal</button>
+            @if (!$produk->barcode_produk)
+                <button type="reset" class="btn btn-primary"><i class="fas fa-recycle"></i> Reset</button>
+            @endif
+                <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Simpan</button>
             </div>
         </form>
    </div>
