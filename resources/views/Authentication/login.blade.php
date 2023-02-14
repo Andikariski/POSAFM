@@ -123,7 +123,7 @@
       <!-- Submit button -->
       <div class="row">
         <div class="col">
-            <button type="submit" class="btn btn-success btn-lg btn-block mb-4" disabled>Registrasi <i class="fas fa-fw fa-sign-in-alt"></i></button>
+            <button type="submit" class="btn btn-success btn-lg btn-block mb-4">Registrasi <i class="fas fa-fw fa-sign-in-alt"></i></button>
         </div>
         <div class="col">
             <button type="reset" class="btn btn-danger btn-lg btn-block mb-4">Reset  <i class="fas fa-fw fa-recycle"></i></button>

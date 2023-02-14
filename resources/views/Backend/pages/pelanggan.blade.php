@@ -50,14 +50,14 @@
                     <h6 class="card-subtitle">Data pelanggan digunakan untuk keperluan pembelian token listrik, pulsa HP dan Kasbond.</h6>
                     <div class="table-responsive">
                         <div class="div mt-2">
+                            <button type="button" class="btn btn-primary" id="btn-add">
+                                <i class="fas fa-plus-circle"></i> Tambah Pelanggan
+                            </button>
                             <a href="{{ route('PDF.pelanggan') }}" class="btn btn-danger" target="_blank">
                                 <i class="far fa-file-pdf"></i> Cetak PDF
                             </a>
                             <button class="btn btn-success m-1">
                                 <i class="fas fa-file-excel"></i> Cetak CSV
-                            </button>
-                            <button type="button" class="btn btn-primary" id="btn-add">
-                                <i class="fas fa-plus"></i> Tambah Pelanggan
                             </button>
                         </div>
                             {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}

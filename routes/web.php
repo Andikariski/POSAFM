@@ -86,7 +86,7 @@ Route::get('export-produk', [App\Http\Controllers\Backend\ProdukController::clas
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');
 Route::post('storeAlamat', [App\Http\Controllers\Backend\PelangganController::class, 'simpanDataAlamat'])->name('storeDataAlamat');
 Route::post('ubahAlamat/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'updateDataAlamat'])->name('updateDataAlamat');
-Route::get('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'destroyAlamat'])->name('hapusDataAlamat');
+Route::delete('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'destroyAlamat'])->name('hapusDataAlamat');
 
 
 // Route Generate PDF
@@ -110,3 +110,11 @@ Route::get('data-jumlah-transaksi-bulanan',[App\Http\Controllers\Backend\Laporan
 Route::get('data-pemasukan-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataPemasukanJSON'])->name('json.pemasukan');
 
 Route::get('data-jumlah-transaksi-tahunan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiTahunanJSON'])->name('json.transaksiTahunan');
+
+//Route Manage User
+Route::get('data-user',[App\Http\Controllers\Backend\UserController::class,'index'])->name('user.index');
+Route::get('modal-show-user',[App\Http\Controllers\Backend\UserController::class,'create'])->name('user.create');
+Route::get('modal-show-edit-user/{id}',[App\Http\Controllers\Backend\UserController::class,'edit'])->name('user.edit');
+Route::post('simpan-user',[App\Http\Controllers\Backend\UserController::class,'store'])->name('user.simpan');
+Route::post('update-user',[App\Http\Controllers\Backend\UserController::class,'update'])->name('user.update');
+Route::delete('hapus-user/{id}',[App\Http\Controllers\Backend\UserController::class,'destroy'])->name('user.hapus');

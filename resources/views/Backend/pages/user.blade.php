@@ -1,13 +1,16 @@
 @extends('layouts.main')
 @section('container')
 @include('layouts.swetalert')
-{{-- {{ $dataTable->table() }} --}}
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
+@section('style')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 <style>
     table{
-        padding: 0.2px;
+        padding: 0.5px;
     }
 </style>
+
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -19,22 +22,10 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
-                            <li class="breadcrumb-item"><a href="{{ route('jenisProduk') }}">Admin / {{ $headPage }}</a>
+                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Admin / {{ $headPage }}</a>
                             </li>
                         </ol>
                     </nav>
-                </div>
-            </div>
-            <div class="col-5 align-self-center">
-                <div class="customize-input float-right">
-                    {{-- <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                        <option selected>Aug 19</option>
-                    </select> --}}
-                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
-                        {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
-                        {{-- {{ date("F j, Y") }} --}}
-                        <button type="button" class="btn btn-primary btn-add" id="btn-add"><i class="fas fa-plus-circle"></i> Tambah Jenis Produk</button>
-                    </h4>
                 </div>
             </div>
         </div>
@@ -42,22 +33,40 @@
 
     <div class="container-fluid">
     <!-- Container fluid  -->
+    <!-- order table -->
+    <div class="row">
+        <div class="col-12">
             <div class="card cstm">
                 <div class="card-body">
-                    <h6 class="card-subtitle">Daftar Jenis produk merupakan pembagian barang berdasarkan kategorinya</h6>
                     <div class="table-responsive">
-                        {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
+                        <div class="div mt-2">
+                            <button type="button" class="btn btn-success btn-add mr-1">
+                                <i class="fas fa-plus-circle"></i> Tambah User
+                            </button>
+                            <a href="{{ route('PDF.produk') }}" class="btn btn-danger" target="_blank">
+                                <i class="far fa-file-pdf"></i> Cetak PDF
+                            </a>
+                        </div>
+                            {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </div>
-  
+    </div>
+{{-- </div> --}}
 
-{{-- Modal Ubah Data --}}
-<div id="modalAction" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+{{-- Modal Ubah or Add User --}}
+<div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        {{-- Ambil dari blade action --}}
+    </div>
+</div>
+
+{{-- Modal Detail Produk --}}
+<div id="modalActionDetail" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         {{-- Ambil dari blade action --}}
     </div>
 </div>
@@ -65,13 +74,12 @@
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
-    
-// Script Show Modal Add data
-    $('#btn-add').on('click', function(){
+     // Script Show Modal Add data
+   $('.btn-add').on('click', function(){
         $('#modalAction').modal('show');
         $.ajax({
             method : 'get',
-            url : `{{ url('createJenisProduk') }}`,
+            url : `{{ url('modal-show-user') }}`,
             headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -80,42 +88,11 @@
                 console.log(res)
                 $('#modalAction').modal('show');
                 store()
-                // console.log(data);
             }
         })
     })
-
-    // Script Store Data
-    function store(){
-            $('#formAction').on('submit', function(e){
-                e.preventDefault()
-                const _form = this
-                const formData = new FormData(_form)
-                const url = this.getAttribute('action')
-                $.ajax({
-                    method  : 'post',
-                    url     : url,
-                    headers : {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data    : formData,
-                    processData : false,
-                    contentType : false,
-                    success : function(res){
-                        Toast.fire({
-                                icon    : res.icon,
-                                title   : res.status + ', ' + res.message,
-                            })
-                        window.LaravelDataTables["jenis_produk"].ajax.reload()
-                        $('#modalAction').modal('hide');
-                    }
-                })
-                // console.log(this);
-            })
-        }
-
-// Script Hapus Data
-    $('#jenis_produk').on('click','.action',function(){
+      //CRUD function
+      $('#userdatatable-table').on('click','.action',function(){
         let data    = $(this).data()
         let id      = data.id
         let jenis   = data.jenis
@@ -134,7 +111,7 @@
             if (result.value) {
                 $.ajax({
                     method  : 'DELETE',
-                    url     : `{{ url('hapusJenisProduk') }}/${id}`,
+                    url     : `{{ url('hapus-user') }}/${id}`,
                     headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -143,31 +120,58 @@
                                 icon    : res.icon,
                                 title   : res.status + ', ' + res.message,
                             })
-                        window.LaravelDataTables["jenis_produk"].ajax.reload()
+                        window.LaravelDataTables["userdatatable-table"].ajax.reload()
                     }
-            })
+                })
             }
         });
             return
         }
-
-        // console.log(id);
-        $.ajax({
+        else if(jenis == 'edit'){
+            $.ajax({
             method : 'get',
-            url : `{{ url('ubahJenisProduk') }}/${id}`,
+            url : `{{ url('modal-show-edit-user') }}/${id}`,
             success : function(res){
                 $('#modalAction').find('.modal-dialog').html(res)
                 console.log(res)
                 $('#modalAction').modal('show');
-                store()
-                // console.log(data);
+                store();
             }
-        })
-
-       
+         })
+        }
     })
-</script>
 
+     // Script Store Data untuk menyimpan data kedalam database selama data aman
+     function store(){
+            $('#formAction').on('submit', function(e){
+                e.preventDefault()
+                const _form = this
+                const formData = new FormData(_form)
+                const url = this.getAttribute('action')
+            
+                $.ajax({
+                    method  : 'post',
+                    url     : url,
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data    : formData,
+                    processData : false,
+                    contentType : false,
+                    success : function(res){
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
+                        // window.LaravelDataTables["jenis_barang"].ajax.reload()
+                        window.LaravelDataTables["userdatatable-table"].ajax.reload()
+                        $('#modalAction').modal('hide');
+                    }
+                })
+                // console.log(this);
+            })
+        }
+</script>
 @endsection
 
 @push('scripts')

@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">    
-                        <button class="btn btn-primary" type="submit" id="simpan"><i class="far fa-save"></i> Simpan</button>
+                        <button class="btn btn-success" type="submit" id="simpan"><i class="far fa-save"></i> Simpan</button>
                         <button class="btn btn-danger" type="button" id="resets"><i class="fas fa-recycle"></i> Reset</button>
                     </div>
                 </form>

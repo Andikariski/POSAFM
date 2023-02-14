@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\JenisProduk;
-use Carbon\Carbon;
+use App\DataTables\UserDataTable;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\DataTables\JenisProdukDataTable as DataTablesJenisProdukDataTable;
 
-class JenisProdukController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {
@@ -19,10 +18,11 @@ class JenisProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(DataTablesJenisProdukDataTable $dataTable)
+    public function index(UserDataTable $dataTable)
     {
-        $headPage = 'Jenis Produk';
-        return $dataTable->render('Backend.pages.jenisProduk', compact('headPage'));
+        $headPage = 'Data User';
+        // return view('Backend.pages.user',compact('headPage'));
+        return $dataTable->render('Backend.pages.user', compact('headPage'));
     }
 
     /**
@@ -30,9 +30,10 @@ class JenisProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        return view('Backend.modal.modal-jenisProduk', ['jenisProduk' => new JenisProduk()]);
+        // $user = User::all();
+        return view('Backend.modal.modal-user', ['User' => new User()]);
     }
 
     /**
@@ -43,11 +44,17 @@ class JenisProdukController extends Controller
      */
     public function store(Request $request)
     {
-        JenisProduk::create($request->all());
+        $data =[
+            'name' => $request->nama_user,
+            'email' => $request->email_user,
+            'password' => bcrypt($request->password),
+            'is_admin' => $request->role,
+        ];
+        User::insert($data);
         return response()->json([
-            'icon' => 'success',
-            'status' =>  'Berhasil',
-            'message' => 'Jenis produk telah disimpan.'
+            'icon'      => 'success',
+            'status'    =>  'Berhasil',
+            'message'   => 'User berhasil ditambahkan.'
         ]);
     }
 
@@ -70,10 +77,9 @@ class JenisProdukController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
-        $jenisProduk = JenisProduk::where('id_jenis_produk',$id)->first();
-        // dd($jenisProduk);
-        return view('Backend.modal.modal-jenisProduk', compact('jenisProduk'));
+        $User = User::where('id',$id)->first();
+        return view('Backend.modal.modal-user', compact('User'));
+
     }
 
     /**
@@ -83,17 +89,9 @@ class JenisProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, JenisProduk $jenisProduk)
+    public function update(Request $request, $id)
     {
-        JenisProduk::where('id_jenis_produk',$id)->update([
-            'kategori_produk' => $request->kategori_produk
-        ]);
-
-        return response()->json([
-            'icon' => 'success',
-            'status' =>  'Berhasil',
-            'message' => 'Data berhasil diubah.'
-        ]);
+        //
     }
 
     /**
@@ -104,12 +102,13 @@ class JenisProdukController extends Controller
      */
     public function destroy($id)
     {
-        // JenisProduk::destroy($id);
-        JenisProduk::where('id_jenis_produk',$id)->delete();
+        User::where('id',$id)->delete();
         return response()->json([
             'icon' => 'success',
             'status' =>  'Berhasil',
-            'message' => 'Data berhasil dihapus.'
+            'message' => 'User berhasil dihapus.'
         ]);
     }
+
+    // public function showModal
 }
