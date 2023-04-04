@@ -27,8 +27,10 @@ class HutangDataTable extends DataTable
                     return  \Carbon\Carbon::createFromFormat('Y-m-d', $transaksi->tanggal)->isoFormat('D MMMM YYYY');
                 })
             ->editColumn('hutang', function(TransaksiPenjualan $hutang){
-                $hutang->groupBy('fkid_pelanggan');
+                // $hutang->groupBy('fkid_pelanggan');
+                // $totalPembayaran = TransaksiPenjualan::select('total_pembayaran',TransaksiPenjualan::raw('sum(total_pembayaran) as totalPembayaran'));
                 $jumlahHutang = $hutang->total_pembayaran - $hutang->uang_terbayar;
+                // return number_format($jumlahHutang);
                 return number_format($jumlahHutang);
             })
             ->escapeColumns([])

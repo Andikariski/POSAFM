@@ -82,7 +82,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $item->alamat_detail }}</td>
                                     <td>
-                                        <div class="form-button-action container" style="text-align: center">
+                                        <div class="form-button-action" style="text-align: center">
                                             <a href="#" class="m-3" data-toggle="modal" data-placement="top"  data-target="#ubahData{{ $item->id_alamat_pelanggan }}">
                                                 <i style="color:rgb(41, 228, 94)" class="fas fa-edit fa-1x" data-toggle="tooltip" data-placement="top" title="Ubah alamat"></i>
                                             </a>

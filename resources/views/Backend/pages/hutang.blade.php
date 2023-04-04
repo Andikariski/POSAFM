@@ -5,7 +5,7 @@
 
 <style>
     table{
-        padding: 0.2px;
+        padding: 0.5px;
     }
 </style>
 <div class="page-wrapper">

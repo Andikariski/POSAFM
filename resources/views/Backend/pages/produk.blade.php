@@ -196,6 +196,7 @@
 </div>
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+
 <script>
 $(document).ready(function() {
     
