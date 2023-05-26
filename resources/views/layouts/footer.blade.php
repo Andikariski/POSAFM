@@ -45,5 +45,5 @@
 	<script src="{{ url('js/select2.js') }}"></script>
     <!-- ============================================================== -->
     <footer class="footer text-center text-muted">
-        &#169; <?=date('Y') ?> All Rights Reserved - AndikaMaros.
+        &#169; <?=date('Y') ?> All Rights Reserved - Fanuris Agro Farm.
    </footer>

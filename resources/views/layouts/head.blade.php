@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('style/assets/images/Logo-AM-fix.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('style/image/fanuris2.png')}}">
     <title>{{ config('app.name') }}</title>
     <!-- Custom CSS -->
     <link href="{{ url('style/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet"/>

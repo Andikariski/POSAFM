@@ -30,7 +30,7 @@
         AGRO FARM MANDIRI
       </h3> --}}
       <div class="display-3 fw-bold mb-3 mt-4">
-        <img src="{{ url('/style/image/Logo.png')}}" width="200px" class="text-center"/>
+        <img src="{{ url('/style/image/fanuris.png')}}" width="300px" class="text-center"/>
       </div>
             <!-- Pills navs -->
     <ul class="nav nav-pills nav-justified mb-3 m-3" id="ex1" role="tablist">
@@ -80,11 +80,6 @@
             <div class="col">
                 <button type="reset" class="btn btn-danger btn-lg btn-block mb-4">Reset <i class="fas fas-fw fa-recycle"></i></button>
             </div>
-        </div>
-  
-        <!-- Register buttons -->
-        <div class="text-center">
-          <p>Not a member? <a href="#!">Register</a></p>
         </div>
       </form>
     </div>

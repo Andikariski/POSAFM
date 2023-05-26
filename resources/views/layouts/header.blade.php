@@ -10,10 +10,9 @@
             <!-- ============================================================== -->
             <div class="navbar-brand">
                 <!-- Logo icon -->
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('dashboard') }}" class="mt-2">
                     <b class="logo-icon">
-                        <!-- Dark Logo icon -->
-                        <img src="{{ url('style/image/Logo.png')}}" alt="homepage" class="dark-logo" width="130px"/>
+                        <img src="{{ url('style/image/fanuris.png')}}" alt="homepage" class="dark-logo" width="145px"/>
                     </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
