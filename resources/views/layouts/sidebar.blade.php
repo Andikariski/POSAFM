@@ -12,7 +12,7 @@
 
                 <li class="list-divider"></li>
                     <li class="nav-small-cap">
-                        <span class="hide-menu">Fitur Karyawan</span>
+                        <span class="hide-menu">Fitur Kasir</span>
                 </li>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -53,8 +53,7 @@
                 <li class="list-divider"></li>
                 <li class="nav-small-cap">
                     <span class="hide-menu">Fitur Administrator</span>
-                </li>
-                    
+                </li>  
                     <li class="sidebar-item"> 
                         <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                             <i data-feather="package" class="feather-icon"></i>
@@ -69,13 +68,58 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="sidebar-item"> 
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i data-feather="database" class="feather-icon"></i>
+                            <span class="hide-menu">Master Data </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Data Produk</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Data Pelanggan</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Data Transaksi</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Data Admin</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-item"> 
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i data-feather="bar-chart-2" class="feather-icon"></i>
+                            <span class="hide-menu">Grafik Laporan </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                            <li class="sidebar-item"><a href="{{ route('laporan') }}" class="sidebar-link">
+                                <span class="hide-menu">Transaksi</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="{{ route('laporan-transaksi') }}" class="sidebar-link">
+                                <span class="hide-menu">Test Transaksi</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Omset & Profit</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Produk Terjual</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                                <span class="hide-menu">Pelanggan</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    {{-- <li class="sidebar-item"> 
                         <a class="sidebar-link" href="{{ route('laporan') }}" aria-expanded="false">
                             <i data-feather="bar-chart-2" class="feather-icon"></i>
                             <span class="hide-menu">Grafik Laporan</span>
                         </a>
-                    </li>
+                    </li> --}}
                  
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pengaturan</span></li>

@@ -118,3 +118,11 @@ Route::get('modal-show-edit-user/{id}',[App\Http\Controllers\Backend\UserControl
 Route::post('simpan-user',[App\Http\Controllers\Backend\UserController::class,'store'])->name('user.simpan');
 Route::post('update-user',[App\Http\Controllers\Backend\UserController::class,'update'])->name('user.update');
 Route::delete('hapus-user/{id}',[App\Http\Controllers\Backend\UserController::class,'destroy'])->name('user.hapus');
+
+//Route Grafik laporan
+Route::get('laporan-transaksi',[App\Http\Controllers\Backend\LaporanController::class,'laporanTransaksi'])->name('laporan-transaksi');
+// Route::get('filter-data/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getFilteredData']);
+
+Route::get('filter-data/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'testGetData']);
+
+// Route::get('test-get-data',[App\Http\Controllers\Backend\LaporanController::class,'testGetData']);

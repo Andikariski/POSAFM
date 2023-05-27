@@ -28,9 +28,9 @@ class RiwayatTransaksiPenjualanDataTable extends DataTable
             })
             ->editColumn('status', function(TransaksiPenjualan $status){
                     if($status->status_transaksi == 'Lunas'){
-                        return '<span class="badge bg-success font-15 text-white ml-2">'.'Lunas'.'</span>';
+                        return '<span class="badge bg-success font-15 text-white ml-2">'.'<i style="color:rgb(255,255,255)" class="fas fa-fw fa-check fa-1x"></i> Lunas'.'</span>';
                     }else{
-                        return '<span class="badge bg-danger font-15 text-white ml-2">'.'Belum Lunas'.'</span>';
+                        return '<span class="badge bg-danger font-15 text-white ml-2">'.'<i style="color:rgb(255,255,255)" class="fas fa-fw fa-times fa-1x"></i> Belum Lunas'.'</span>';
                     }
             })
             ->escapeColumns([])

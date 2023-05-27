@@ -171,4 +171,66 @@ class LaporanController extends Controller
         $jumlahTransaksi = $transaksiTahunanArray;
         return json_encode($jumlahTransaksi);
     }
+
+    public function getFilteredData(Request $request, $filter)
+    {
+        $hariIni = Carbon::now();
+        $transaksiBulanan = TransaksiPenjualan::whereBetween('tanggal',[ 
+            $hariIni->startOfMonth()->format('Y-m-d'),
+            $hariIni->endOfMonth()->format('Y-m-d')])
+            ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+            ->groupBy('tanggal')->where('status_transaksi',$filter)->get();
+
+        $transaksiBulananArray =[];
+        foreach($transaksiBulanan as $row){
+            $transaksiBulananArray[] = [
+            'tanggal'       =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
+            'transaksi'     =>$row->totalTransaksi,
+            ];
+        }
+        $data = $transaksiBulananArray;
+        return response()->json($data);
+    }
+
+    public function laporanTransaksi(){
+        $headPage = 'Grafik Laporan Test';
+        return view('Backend.pages.laporanTransaksi',compact('headPage'));
+    }
+
+    public function testGetData(Request $request,$filter){
+        
+        $hariIni = Carbon::now();
+        // $filter = 'Harian';
+
+        if($filter == 'Harian'){
+            $transaksiBulanan = TransaksiPenjualan::whereBetween('tanggal',[ 
+                $hariIni->startOfWeek()->format('Y-m-d'),
+                $hariIni->endOfWeek()->format('Y-m-d')])
+                ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+                ->groupBy('tanggal')->get();
+        }
+        elseif($filter == 'Mingguan'){
+            $transaksiBulanan = TransaksiPenjualan::whereBetween('tanggal',[ 
+                $hariIni->startOfMonth()->format('Y-m-d'),
+                $hariIni->endOfMonth()->format('Y-m-d')])
+                ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+                ->groupBy('tanggal')->get();
+        }
+        elseif($filter == 'Bulanan'){
+
+        }
+                
+                
+        $transaksiBulananArray =[];
+            foreach($transaksiBulanan as $row){
+                $transaksiBulananArray[] = [
+                'tanggal'       =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
+                'transaksi'     =>$row->totalTransaksi,
+                ];
+            }
+        $data = $transaksiBulananArray;
+        return response()->json($data);
+            
+
+    }
 }
