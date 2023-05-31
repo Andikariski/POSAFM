@@ -18,6 +18,7 @@ class TransaksiPenjualan extends Model
         'uang_terbayar',
         'status_transaksi',
         'tanggal',
+        'created_at'
     ];
 
     public function pelanggan(){

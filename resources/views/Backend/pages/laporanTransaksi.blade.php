@@ -36,13 +36,14 @@
             <div class="col-lg-12 col-md-12">
                 <div class="card cstm" style="height: 100%">
                     <div class="card-header">
-                        <h4 class="card-title"><font color="white">Grafik Transaksi Penjualan</font></h4>
+                        <h4 class="card-title"><font color="white">Grafik Transaksi Penjualan Tahun {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat(' YYYY') }}</font></h4>
                     </div>
                     <div class="card-body" style="width:65%">
                       <div class="form-group mb-4">
                         <label for="exampleFormControlSelect1"><font style="font-size: 17px">Filter Grafik Laporan</font></label>
                         <select id="filter" class="form-control select" style="width: 40%">
                             <option value="Harian">Grafik Minggu Ini (Harian)</option>
+                            <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
                             <option value="Mingguan">Grafik Bulan Ini (Mingguan)</option>
                             <option value="Bulanan">Grafik Tahun Ini (Bulanan)</option>
                         </select>
@@ -50,14 +51,14 @@
                         <div class="mt-4">
                             <canvas id="transaksi"></canvas>
                         </div>
-                        {{-- <ul class="list-inline text-center mt-2">
+                        <ul class="list-inline text-center mt-3">
                             <li class="list-inline-item">
-                                <h6><i class="fa fa-circle mr-1" style="color:#FF8300"></i>Omset</h6>
+                                <h6><i class="fa fa-circle mr-1" style="color:#FF8300"></i>Grafik Tahun {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat(' YYYY') }}</h6>
                             </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                                 <h6><i class="fa fa-circle mr-1" style="color:#00C928"></i>Profit</h6>
-                            </li>
-                        </ul> --}}
+                            </li> --}}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -102,8 +103,8 @@ function fetchData(filter) {
         .then(response => response.json())
         .then(data => {
             // Memproses data dari response
-            var labels = data.map(item => item.tanggal);
-            var values = data.map(item => item.transaksi);
+            var labels = data.map(item => item.lable);
+            var values = data.map(item => item.value);
 
             // Memperbarui data grafik
             chart.data.labels = labels;
@@ -119,7 +120,7 @@ function fetchData(filter) {
 }
 
 chart = new Chart(transaksiChart, {
-    type: 'line',
+    type: 'bar',
     data: {
             labels: [],
             datasets: [{

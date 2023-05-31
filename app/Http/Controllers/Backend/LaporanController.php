@@ -201,32 +201,63 @@ class LaporanController extends Controller
         
         $hariIni = Carbon::now();
         // $filter = 'Harian';
+        // $filter = 'Mingguan';
+        // $filter = 'Bulanan';
+
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
 
         if($filter == 'Harian'){
+            // menampilkan data harian dalam 1 minggu
             $transaksiBulanan = TransaksiPenjualan::whereBetween('tanggal',[ 
                 $hariIni->startOfWeek()->format('Y-m-d'),
                 $hariIni->endOfWeek()->format('Y-m-d')])
-                ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+                ->select('tanggal as lable','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
                 ->groupBy('tanggal')->get();
         }
         elseif($filter == 'Mingguan'){
+            // menampilkan data mingguan dalam 1 bulan
+            // Mengambil data dari model berdasarkan bulan dan tahun saat ini
+            $transaksiBulanan = TransaksiPenjualan::selectRaw('WEEK(tanggal) - WEEK(DATE_SUB(tanggal, INTERVAL DAYOFMONTH(tanggal) - 1 DAY)) as lable, count(faktur) as totalTransaksi')
+                ->whereMonth('tanggal', $month)
+                ->whereYear('tanggal', $year)
+                ->groupBy('lable')
+                ->get();
+        }
+        elseif($filter == 'HarianDalamBulan'){
             $transaksiBulanan = TransaksiPenjualan::whereBetween('tanggal',[ 
                 $hariIni->startOfMonth()->format('Y-m-d'),
                 $hariIni->endOfMonth()->format('Y-m-d')])
-                ->select('tanggal','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
+                ->select('tanggal as lable','faktur',TransaksiPenjualan::raw('count(*) as totalTransaksi'))
                 ->groupBy('tanggal')->get();
         }
         elseif($filter == 'Bulanan'){
-
+            $transaksiBulanan = TransaksiPenjualan::selectRaw('YEAR(tanggal) AS tahun, MONTH(tanggal) AS lable,tanggal , COUNT(faktur) AS totalTransaksi')
+            ->groupBy('tahun', 'lable')
+            ->get();
         }
                 
                 
         $transaksiBulananArray =[];
             foreach($transaksiBulanan as $row){
-                $transaksiBulananArray[] = [
-                'tanggal'       =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('dddd D MMM'),
-                'transaksi'     =>$row->totalTransaksi,
-                ];
+                if($filter == 'Harian' or $filter == 'HarianDalamBulan'){
+                    $transaksiBulananArray[] = [
+                    'lable'     =>Carbon::createFromFormat('Y-m-d', $row->lable)->isoFormat('dddd D MMM'),
+                    'value'     =>$row->totalTransaksi,
+                    ];
+                }
+                elseif($filter == 'Mingguan'){
+                    $transaksiBulananArray[] = [
+                    'lable'     =>'Minggu ke ' . $row->lable .' '. Carbon::now()->isoFormat('MMM'),
+                    'value'     =>$row->totalTransaksi,
+                    ];
+                }
+                elseif($filter == 'Bulanan'){
+                    $transaksiBulananArray[] = [
+                    'lable'     =>Carbon::createFromFormat('Y-m-d', $row->tanggal)->isoFormat('MMM'),
+                    'value'     =>$row->totalTransaksi,
+                    ];
+                }
             }
         $data = $transaksiBulananArray;
         return response()->json($data);
