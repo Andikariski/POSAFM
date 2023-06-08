@@ -7,6 +7,9 @@
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 7px 0px;
   }
+  .tab{
+    margin-top: -20px;
+  }
 </style>
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -15,7 +18,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
+                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3> --}}
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -31,13 +34,27 @@
     <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12 col-md-12">
-            <div class="accordion">
-                <div class="accordion-item">
-                  <button class="accordion-header">
-                    <strong>Grafik Pemasukan Bulanan</strong><i class="fas fa-angle-down"></i>
-                  </button>
-                  <div class="accordion-body">
-                    <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
+            <div class="card cstm" style="height: 95%">
+                <div class="card-header">
+                    <h5 class="card-title"><font color="white">Grafik Omset & Profit</font></h5>
+                </div>
+                  <div class="card-body">
+                    <div class="row mb-3">
+                      <div class="col-xs-1 ml-3">
+                        <i data-feather="filter" class="feather-icon" style="width: 35px; height:35px"></i>
+                      </div>
+                      <div class="col-11">
+                        <div class="form-group mr-6">
+                          <select id="filter" class="form-control select" style="width: 25%">
+                            <option value="HarianDalamMinggu">Grafik Minggu Ini (Harian)</option>
+                            <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
+                            <option value="MingguanDalamBulan">Grafik Bulan Ini (Mingguan)</option>
+                            <option value="BulananDalamTahun">Grafik Tahun Ini (Bulanan)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <ul class="nav nav-tabs nav-justified nav-bordered tab">
                         <li class="nav-item">
                             <a href="#omset-b2" data-toggle="tab" aria-expanded="false" class="nav-link active">
                                 <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
@@ -54,10 +71,25 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active mt-4" id="omset-b2">
-                          <div class="row">
+                          {{-- <div class="row">
+                            <div class="col-xs-1 ml-3">
+                              <i data-feather="filter" class="feather-icon" style="width: 35px; height:35px"></i>
+                            </div>
+                            <div class="col-11">
+                              <div class="form-group mr-6">
+                                <select id="filter" class="form-control select" style="width: 25%">
+                                  <option value="HarianDalamMinggu">Grafik Minggu Ini (Harian)</option>
+                                  <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
+                                  <option value="MingguanDalamBulan">Grafik Bulan Ini (Mingguan)</option>
+                                  <option value="BulananDalamTahun">Grafik Tahun Ini (Bulanan)</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div> --}}
+                          <div class="row mt-3">
                             <div class="col-9">
                               <div>
-                                <canvas id="chart-omset"></canvas>
+                                <canvas id="omset"></canvas>
                               </div>
                               <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
@@ -78,10 +110,25 @@
                           </div>
                         </div>
                         <div class="tab-pane mt-4" id="profit-b2">
-                          <div class="row">
+                          {{-- <div class="row">
+                            <div class="col-xs-1 ml-3">
+                              <i data-feather="filter" class="feather-icon" style="width: 35px; height:35px"></i>
+                            </div>
+                            <div class="col-11">
+                              <div class="form-group mr-6">
+                                <select id="filter" class="form-control select" style="width: 25%">
+                                    <option value="Harian">Grafik Minggu Ini (Harian)</option>
+                                    <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
+                                    <option value="Mingguan">Grafik Bulan Ini (Mingguan)</option>
+                                    <option value="Bulanan">Grafik Tahun Ini (Bulanan)</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div> --}}
+                          <div class="row mt-3">
                             <div class="col-9">
                               <div>
-                                <canvas id="chart-profit"></canvas>
+                                <canvas id="profit"></canvas>
                               </div>
                               <ul class="list-inline text-center mt-2">
                                 <li class="list-inline-item">
@@ -107,7 +154,7 @@
               </div>
         </div>
     </div>
-    <div class="row mt-4">
+    {{-- <div class="row mt-4">
         <div class="col-lg-12 col-md-12">
             <div class="accordion">
                 <div class="accordion-item">
@@ -141,7 +188,7 @@
                 </div>  
               </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 </div>
 </div>
@@ -169,7 +216,64 @@
 {{-- CHART js --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.2/chart.min.js" integrity="sha512-fYE9wAJg2PYbpJPxyGcuzDSiMuWJiw58rKa9MWQICkAqEO+xeJ5hg5qPihF8kqa7tbgJxsmgY0Yp51+IMrSEVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+  const omsetChart = $('#omset');
+  var chart;
+// Fungsi untuk mengambil data yang difilter dari model database
+  function fetchData(filter) {
+    fetch('/filter-data-omsetprofit/' + filter)
+        .then(response => response.json())
+        .then(data => {
+            // Memproses data dari response
+            var labels = data.map(item => item.lable);
+            var values = data.map(item => item.valueOmset);
+
+            // Memperbarui data grafik
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = values;
+            chart.update();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+chart = new Chart(omsetChart, {
+    type: 'bar',
+    data: {
+            labels: [],
+            datasets: [{
+              label: 'Jumlah Omset',
+              data: [],
+              backgroundColor : '#1F8DD6'
+            }]
+          },
+          options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display : false,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                        }
+                    }
+          }
+ });
+// Inisialisasi grafik awal
+fetchData('HarianDalamMinggu');
+
+// Mendengarkan perubahan pada elemen filter
+document.getElementById('filter').addEventListener('change', function() {
+    var selectedFilter = this.value;
+    fetchData(selectedFilter);
+});
+
+</script>
+
+{{-- <script>
   $(document).ready(function() {
   $.getJSON('data-jumlah-transaksi-bulanan', function(data){
             var tanggal   = data.map(function(index){
@@ -279,7 +383,7 @@
         });
     });
   })
-</script>
+</script> --}}
 
 <script>
 const acc_btns = document.querySelectorAll(".accordion-header");

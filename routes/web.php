@@ -103,8 +103,8 @@ Route::get('rekapitulasi-hutang/{id}',[App\Http\Controllers\Backend\HutangContro
 Route::get('grafik-laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');
 
 // Route JSON Output
-Route::get('data-pemasukan-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'dataPemasukanMingguanJSON'])->name('json.pemasukanMingguan');
 Route::get('data-transaksi-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'statusTransaksiMingguanJSON'])->name('json.transaksiMingguan');
+Route::get('data-pemasukan-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'dataPemasukanMingguanJSON'])->name('json.pemasukanMingguan');
 
 Route::get('data-jumlah-transaksi-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiJSON'])->name('json.transaksi');
 Route::get('data-pemasukan-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataPemasukanJSON'])->name('json.pemasukan');
@@ -123,6 +123,6 @@ Route::delete('hapus-user/{id}',[App\Http\Controllers\Backend\UserController::cl
 Route::get('laporan-transaksi',[App\Http\Controllers\Backend\LaporanController::class,'laporanTransaksi'])->name('laporan-transaksi');
 // Route::get('filter-data/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getFilteredData']);
 
-Route::get('filter-data/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'testGetData']);
+Route::get('filter-data-transaksi/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'GetDataTransaksi']);
 
-// Route::get('test-get-data',[App\Http\Controllers\Backend\LaporanController::class,'testGetData']);
+Route::get('filter-data-omsetprofit/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getDataOmsetDanProfit']);

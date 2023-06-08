@@ -97,13 +97,10 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
                             <li class="sidebar-item"><a href="{{ route('laporan') }}" class="sidebar-link">
-                                <span class="hide-menu">Transaksi</span></a>
+                                <span class="hide-menu">Omset & Profit</span></a>
                             </li>
                             <li class="sidebar-item"><a href="{{ route('laporan-transaksi') }}" class="sidebar-link">
-                                <span class="hide-menu">Test Transaksi</span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">
-                                <span class="hide-menu">Omset & Profit</span></a>
+                                <span class="hide-menu">Transaksi</span></a>
                             </li>
                             <li class="sidebar-item"><a href="#" class="sidebar-link">
                                 <span class="hide-menu">Produk Terjual</span></a>

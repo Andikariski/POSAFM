@@ -18,7 +18,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
+                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3> --}}
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -34,38 +34,48 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                <div class="card cstm" style="height: 100%">
+                <div class="card cstm" style="height: 95%">
                     <div class="card-header">
-                        <h4 class="card-title"><font color="white">Grafik Transaksi Penjualan Tahun {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat(' YYYY') }}</font></h4>
+                        <h5 class="card-title"><font color="white">Grafik Transaksi Penjualan</font></h5>
                     </div>
-                    <div class="card-body" style="width:65%">
-                      <div class="form-group mb-4">
-                        <label for="exampleFormControlSelect1"><font style="font-size: 17px">Filter Grafik Laporan</font></label>
-                        <select id="filter" class="form-control select" style="width: 40%">
-                            <option value="Harian">Grafik Minggu Ini (Harian)</option>
-                            <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
-                            <option value="Mingguan">Grafik Bulan Ini (Mingguan)</option>
-                            <option value="Bulanan">Grafik Tahun Ini (Bulanan)</option>
-                        </select>
-                      </div>
-                        <div class="mt-4">
-                            <canvas id="transaksi"></canvas>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-xs-1 ml-3">
+                          <i data-feather="filter" class="feather-icon" style="width: 35px; height:35px"></i>
                         </div>
-                        <ul class="list-inline text-center mt-3">
-                            <li class="list-inline-item">
-                                <h6><i class="fa fa-circle mr-1" style="color:#FF8300"></i>Grafik Tahun {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat(' YYYY') }}</h6>
-                            </li>
-                            {{-- <li class="list-inline-item">
-                                <h6><i class="fa fa-circle mr-1" style="color:#00C928"></i>Profit</h6>
-                            </li> --}}
-                        </ul>
+                        <div class="col-11">
+                          <div class="form-group mr-6">
+                            {{-- <label for="exampleFormControlSelect1"><font style="font-size: 15px">Filter Grafik Laporan</font></label> --}}
+                            <select id="filter" class="form-control select" style="width: 25%">
+                                <option value="HarianDalamMinggu">Grafik Minggu Ini (Harian)</option>
+                                <option value="HarianDalamBulan">Grafik Bulan Ini (Harian)</option>
+                                <option value="MingguanDalamBulan">Grafik Bulan Ini (Mingguan)</option>
+                                <option value="BulananDalamTahun">Grafik Tahun Ini (Bulanan)</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="mt-2">
+                              <canvas id="transaksi"></canvas>
+                          </div>
+                          <ul class="list-inline text-center mt-3">
+                              <li class="list-inline-item">
+                                  <h6><i class="fa fa-circle mr-1" style="color:#FF8300"></i>Grafik Tahun {{ Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->isoFormat(' YYYY') }}</h6>
+                              </li>
+                          </ul>
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{{-- </div> --}}
 {{-- </div> --}}
 
 
@@ -96,10 +106,9 @@
 <script>
   const transaksiChart = $('#transaksi');
   var chart;
-
 // Fungsi untuk mengambil data yang difilter dari model database
 function fetchData(filter) {
-    fetch('/filter-data/' + filter)
+    fetch('/filter-data-transaksi/' + filter)
         .then(response => response.json())
         .then(data => {
             // Memproses data dari response
@@ -126,23 +135,30 @@ chart = new Chart(transaksiChart, {
             datasets: [{
               label: 'Jumlah Transaksi',
               data: [],
-              borderWidth: 3,
+              // borderWidth: 3,
               pointRadius: 4,
-              pointHoverRadius: 8
+              pointHoverRadius: 8,
+              backgroundColor : '#1F8DD6'
             }]
           },
           options: {
             responsive : true,
             maintainAspectRatio : true,
-            plugins:{
-              legend:{
-                display: false,
-              }
-            },
-            scales: {
+               plugins: {
+                        legend: {
+                            display : false,
+                            position: 'top',
+                        },
+                        title: {
+                            display: false,
+                        }
+                    },
+            scales: {     
               y: {
                 beginAtZero: true,
+                // grace : 0,
                 ticks: {
+                  precision: 0,
                   stepSize : 1
                 }
               }
@@ -150,7 +166,7 @@ chart = new Chart(transaksiChart, {
           }
  });
 // Inisialisasi grafik awal
-fetchData('Harian');
+fetchData('HarianDalamMinggu');
 
 // Mendengarkan perubahan pada elemen filter
 document.getElementById('filter').addEventListener('change', function() {
@@ -272,7 +288,7 @@ document.getElementById('filter').addEventListener('change', function() {
   })
 </script>
 
-<script>
+{{-- <script>
 const acc_btns = document.querySelectorAll(".accordion-header");
 const acc_contents = document.querySelectorAll(".accordion-body");
 
@@ -293,7 +309,7 @@ acc_btns.forEach((btn) => {
     btn.classList.toggle("active");
   });
 });
-</script>
+</script> --}}
 
 <script>
     const tabs = document.querySelectorAll('.tab_btn');

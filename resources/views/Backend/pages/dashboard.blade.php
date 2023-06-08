@@ -12,9 +12,8 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"><strong>بِسْــــــــــــــــــمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ</strong></h2>
+                {{-- <h2 class="page-title text-truncate text-dark font-weight-medium mb-1"><strong>بِسْــــــــــــــــــمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ</strong></h2> --}}
                 <div class="d-flex align-items-center">
-  
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a>
@@ -46,7 +45,7 @@
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Pelanggan</h6>
                             <div class="d-inline-flex align-items-center">
                                 <h2 class="text-dark mb-1 font-weight-medium mt-1">{{ $jumlahPelanggan }}</h2>
-                                <span class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">Orang</span>
+                                <span class="badge bg-primary font-12 text-white font-weight-medium ml-2 d-lg-block d-md-none">Orang</span>
                             </div>
                             <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i> 10%, Dari hari kemarin</h6>
                         </div>
@@ -63,7 +62,7 @@
                             <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Transaksi Hari Ini</h6>
                             <div class="d-inline-flex align-items-center">
                                 <h2 class="text-dark mb-1 font-weight-medium mt-1">{{ $totalTransaksi }}</h2>
-                                <span class="badge bg-success font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">Transaksi</span>
+                                <span class="badge bg-success font-12 text-white font-weight-medium ml-2 d-lg-block d-md-none">Transaksi</span>
                             </div>
                             <h6 class="text-muted mt-1 w-100 text-truncate" style="text-color:#00C453 "><i class="fas fa-arrow-up" style="color: #00C453"></i> 10%, Dari hari kemarin</h6>
                         </div>

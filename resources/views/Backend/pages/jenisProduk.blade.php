@@ -4,9 +4,13 @@
 {{-- {{ $dataTable->table() }} --}}
 <link href="{{ url('style/dist/css/custome.css')}}" rel="stylesheet"/>
 <style>
-    table{
+    /* table{
         padding: 0.2px;
+    } */
+    .table{
+        width: 98.5%;
     }
+    
 </style>
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -15,7 +19,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
+                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3> --}}
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -33,7 +37,7 @@
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">
                         {{-- {{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y'))->locale('id_ID')->isoFormat('D MMMM YYYY') }} --}}
                         {{-- {{ date("F j, Y") }} --}}
-                        <button type="button" class="btn btn-primary btn-add" id="btn-add"><i class="fas fa-plus-circle"></i> Tambah Jenis Produk</button>
+                        
                     </h4>
                 </div>
             </div>
@@ -44,8 +48,8 @@
     <!-- Container fluid  -->
             <div class="card cstm">
                 <div class="card-body">
-                    <h6 class="card-subtitle">Daftar Jenis produk merupakan pembagian barang berdasarkan kategorinya</h6>
-                    <div class="table-responsive">
+                    <button type="button" class="btn btn-primary btn-add" id="btn-add"><i class="fas fa-plus-circle"></i> Tambah Jenis Produk</button>
+                    <div class="table-responsive mt-4">
                         {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable']) !!}
                     </div>
                 </div>

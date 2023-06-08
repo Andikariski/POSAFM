@@ -216,7 +216,7 @@ class TransaksiController extends Controller
         $query = TransaksiPenjualan::where('tanggal','=',$tgl)->max('faktur');
         $lastNomorUrut = substr($query,-3);
         $nextNomorUrut = intval($lastNomorUrut) + 1;
-        $faktur = 'AFM-' . date('dm/y',strtotime($tgl)).'/'.sprintf('%03s',$nextNomorUrut);
+        $faktur = 'FAF-' . date('dm/y',strtotime($tgl)).'/'.sprintf('%03s',$nextNomorUrut);
         return $faktur;
     }
 

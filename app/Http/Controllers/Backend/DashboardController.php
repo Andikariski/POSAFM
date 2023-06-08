@@ -183,7 +183,6 @@ class DashboardController extends Controller
         $Transaksilunas      = TransaksiPenjualan::where('status_transaksi','=','Lunas')->count();
         $TransaksiBelumLunas = TransaksiPenjualan::where('status_transaksi','=','Belum Lunas')->count();
         $transaksi = [$Transaksilunas,$TransaksiBelumLunas];
-        // dd($transaksi);
         return json_encode($transaksi);
     }
 }

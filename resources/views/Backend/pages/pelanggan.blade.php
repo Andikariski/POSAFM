@@ -7,8 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 <style>
-    .card{
-        /* background-color: #ecf2ff; */
+   .table{
+        width: 98.5%;
     }
 </style>
 
@@ -17,9 +17,9 @@
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="page-breadcrumb">
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
+                {{-- <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3> --}}
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -29,16 +29,7 @@
                     </nav>
                 </div>
             </div>
-        </div> --}}
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Data Pelanggan</h3>
-                    </div>
-                </div>
-            </div>
-        </div> 
+        </div>
     </div>
 
     <div class="container-fluid">
@@ -46,8 +37,7 @@
         <div class="col-12">
             <div class="card cstm">
                 <div class="card-body">
-                    {{-- <h4 class="card-title">Daftar {{ $headPage }}</h4> --}}
-                    <h6 class="card-subtitle">Data pelanggan digunakan untuk keperluan pembelian token listrik, pulsa HP dan Kasbond.</h6>
+                    {{-- <h6 class="card-subtitle">Data pelanggan digunakan untuk keperluan pembelian token listrik, pulsa HP dan Kasbond.</h6> --}}
                     <div class="table-responsive">
                         <div class="div mt-2">
                             <button type="button" class="btn btn-primary" id="btn-add">

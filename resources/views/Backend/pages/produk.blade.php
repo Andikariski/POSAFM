@@ -14,7 +14,10 @@
         box-shadow: rgba(99, 99, 99, 0.2) 0px 1px 5px 0px;
         background-color: #1070b1;
         /* background-color: #00bfa6; */
-  }
+    }
+    .table{
+        width: 98.5%;
+    }
 </style>
 
 <div class="page-wrapper">
@@ -24,7 +27,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-7 align-self-center">
-                <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3>
+                {{-- <h3 class="headPage page-title text-truncate text-dark font-weight-medium mb-1">{{ $headPage }}</h3> --}}
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0 p-0">
@@ -37,9 +40,8 @@
         </div>
     </div>
 
-    <div class="container-fluid">
     <!-- Container fluid  -->
-    <!-- order table -->
+    <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card cstm">
@@ -126,7 +128,7 @@
         </div>
     </div>
     </div>
-</div>
+{{-- </div> --}}
 {{-- </div> --}}
 
 {{-- Modal Cektak Stok --}}
