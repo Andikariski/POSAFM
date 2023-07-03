@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.layoutTransaksi.mainTransaksi')
 @section('container')
 @include('layouts.swetalert')
 
@@ -7,8 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 <style>
-    table{
-        padding: 0.2px;
+    .page-wrapper{
+        padding-top: 100px;
+    }
+    .table{
+        width: 99.9%;
     }
 </style>
 
@@ -121,7 +124,7 @@
                                         {{-- <div class="row"> --}}
                                         <div class="div mb-2"  id="reloadTotalBayar">
                                                 <h5 class="" style="color: red">Total Harga Produk*</h5>
-                                                <h1 class="mt-2"><strong style="font-weight: bold; color:rgb(0, 165, 22); font-size:30pt;">Rp {{ number_format($totalBelanja) }}</strong></h1>
+                                                <h1 class="mt-2"><strong style="font-weight: bold; color:rgb(0, 165, 22); font-size:33pt;">Rp {{ number_format($totalBelanja) }}</strong></h1>
                                                 <input type="hidden" value="{{ $totalBelanja}}" id="totalbelanja">
                                         </div>
                                     </div>
