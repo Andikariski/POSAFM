@@ -88,7 +88,7 @@ class TempTransaksiDatatable extends DataTable
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
             Column::make('fkid_barcode_produk')->Title('Nama Produk')->orderable(true),
             Column::make('harga_produk')->Title('Harga Satuan')->orderable(false),
-            Column::make('jumlah_produk')->title('Jumlah(Qty)')->orderable(false),
+            Column::make('jumlah_produk')->title('Jumlah(Qty)')->width(30)->orderable(false),
             Column::make('sub_total')->title('Sub Total')->orderable(false),
             Column::computed('action')
                   ->exportable(false)

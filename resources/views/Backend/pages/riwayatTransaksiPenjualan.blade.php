@@ -67,7 +67,7 @@
 
 {{-- Modal Detail Produk --}}
 <div id="modalActionDetail" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         {{-- Ambil dari blade action --}}
     </div>
 </div>
@@ -75,34 +75,6 @@
 
 <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script>
-//     function tambahData() {
-//             $('.jenisProduk').select2();
-//             // $('.alamat_edit').select2();
-//     };
-
-//     function ubahData() {
-//             $('.ubah_alamat').select2();
-//             // $('.alamat_edit').select2();
-//     };
-
-//       // Script Show Modal Add data
-//    $('.btn-add').on('click', function(){
-//     // console.log('Test')
-//         $('#modalAction').modal('show');
-//         $.ajax({
-//             method : 'get',
-//             url : `{{ url('modal-show-produk') }}`,
-//             headers : {
-//                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                     },
-//             success : function(res){
-//                 $('#modalAction').find('.modal-dialog').html(res)
-//                 console.log(res)
-//                 $('#modalAction').modal('show');
-//                 store()
-//             }
-//         })
-//     })
 
       //CRUD function
       $('#riwayattransaksipenjualan-table').on('click','.action',function(){
@@ -139,6 +111,19 @@
             }
         });
             return
+        }
+        else if(jenis == 'detail'){
+            $.ajax({
+                method : 'get',
+                url : `{{ url('modal-show-detail-transaksi') }}/${id}`,
+                headers : {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                success : function(res){ 
+                            $('#modalActionDetail').find('.modal-dialog').html(res)
+                            $('#modalActionDetail').modal('show');
+                    }
+                })
         }
     })
 

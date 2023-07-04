@@ -35,7 +35,7 @@ class HutangDataTable extends DataTable
             })
             ->escapeColumns([])
             ->editColumn('action', function($row){
-                return '<a class="mr-1" href=' ."rekapitulasi-hutang".'/'. Crypt::encrypt($row->faktur).'">
+                return '<a class="mr-1 action" href="#" data-jenis="detail" data-id=' . Crypt::encrypt($row->faktur) . '>
                             <span class="badge badge-primary">
                                 <i style="color:rgb(255,255,255); text-align:center" class="fas fa-eye fa-1x " data-toggle="tooltip" data-placement="top" title="Detail Transaksi"></i>
                             </span>

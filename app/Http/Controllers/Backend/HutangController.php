@@ -56,12 +56,23 @@ class HutangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function showModalPembayaranHutang(Request $request)
     {
         $faktur = decrypt($request->id);
         $dataHutang = TransaksiPenjualan::where('faktur',$faktur)->first();
         // dd($dataHutang);
         return view('Backend.modal.modal-transaksi-pembayaran-hutang',compact('dataHutang'));
+    }
+
+    public function showDetailHutang(Request $request)
+    {
+
+        $idDec = Crypt::decrypt($request->id);
+        $dataSubTransaksi = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->get();
+        $dataTransaksi = TransaksiPenjualan::where('faktur',$idDec)->first();
+        $totalPembayaran = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->sum('sub_total');
+        return view('Backend.modal.modal-detail-transaksi',compact('dataSubTransaksi','dataTransaksi','totalPembayaran'));
+
     }
 
     /**

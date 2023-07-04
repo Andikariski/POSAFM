@@ -121,4 +121,15 @@ class RiwayatTransaksiController extends Controller
             'message' => 'Riwayat transaksi telah dihapus.',
         ]);
     }
+
+    public function showDetailTransaksi(Request $request)
+    {
+
+        $idDec = Crypt::decrypt($request->id);
+        $dataSubTransaksi = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->get();
+        $dataTransaksi = TransaksiPenjualan::where('faktur',$idDec)->first();
+        $totalPembayaran = SubTransaksiPenjualan::where('fkid_faktur',$idDec)->sum('sub_total');
+        return view('Backend.modal.modal-detail-transaksi',compact('dataSubTransaksi','dataTransaksi','totalPembayaran'));
+
+    }
 }

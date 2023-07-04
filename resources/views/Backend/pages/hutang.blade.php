@@ -54,16 +54,16 @@
     </div>
 {{-- </div> --}}
 
-{{-- Modal Ubah Data --}}
+{{-- Modal Bayar Hutang --}}
 <div id="modalAction" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         {{-- Ambil dari blade action --}}
     </div>
 </div>
 
-{{-- Modal Detail Produk --}}
+{{-- Modal Detail Hutang --}}
 <div id="modalActionDetail" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         {{-- Ambil dari blade action --}}
     </div>
 </div>
@@ -77,21 +77,33 @@
         let id      = data.id
         let jenis   = data.jenis
         if(jenis == 'bayar'){
-        
-        $.ajax({
-            method : 'get',
-            url : `{{ url('modal-show-pembayaran-hutang') }}/${id}`,
-            headers : {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-            success : function(res){ 
-                        $('#modalAction').find('.modal-dialog').html(res)
-                        $('#modalAction').modal('show');
-                        // store();
-                }
-            })
-            return
+            $.ajax({
+                method : 'get',
+                url : `{{ url('modal-show-pembayaran-hutang') }}/${id}`,
+                headers : {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                success : function(res){ 
+                            $('#modalAction').find('.modal-dialog').html(res)
+                            $('#modalAction').modal('show');
+                            // store();
+                    }
+                })
         }
+        else if(jenis == 'detail'){
+            $.ajax({
+                method : 'get',
+                url : `{{ url('modal-show-detail-hutang') }}/${id}`,
+                headers : {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                success : function(res){ 
+                            $('#modalActionDetail').find('.modal-dialog').html(res)
+                            $('#modalActionDetail').modal('show');
+                    }
+                })
+        }
+        
     })
 
     function showModalPembayaran(){
