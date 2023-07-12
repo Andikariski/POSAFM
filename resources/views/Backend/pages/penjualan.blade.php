@@ -240,16 +240,12 @@
     // proses simpan data ke chart dengan select2
     $("#produk").change(function(){
                 event.preventDefault()
-                // console.log($('#produk').val());
-                // alert($('#produk').val());
                 $.ajax({
                     method  : 'post',
                     url     : 'add-tempTransaksi',
                     data    : {
                         fkid_barcode_produk : $('#produk').val(),
                         faktur              : $('#faktur').val(),
-                        // fkid_pelanggan      : $('#pelanggan').val(),
-                        // fkid_user           : $('#kasir').val(),
                         jumlah_produk       : $('#jumlah_produk').val(),
                         tanggal             : $('#tanggal').val(),
                     },
@@ -271,9 +267,8 @@
     });
     
 
-    // hapus item di tabel chart
+    // Aksi table transaksi cart
     $('#temptransaksi-table').on('click','.action',function(){
-    // $('.btn-hapus').click(function(){
         let data    = $(this).data()
         let id      = data.id
         let jenis   = data.jenis
@@ -384,8 +379,6 @@ function resetTransaksi(){
 function cekKode(){
             let kode = $('#kodeBarcode').val();
             event.preventDefault()
-                // console.log($('#produk').val());
-                // alert($('#produk').val());
                 $.ajax({
                     method  : 'post',
                     url     : 'add-tempTransaksi',
@@ -415,7 +408,6 @@ function cekKode(){
 
 // function modal pembayaran transaksi
 function showModalPembayaran(){
-        // $('#modalAction').modal('show');
         $.ajax({
             method : 'get',
             url : `{{ url('modal-show-pembayaran') }}`,

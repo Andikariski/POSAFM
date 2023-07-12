@@ -110,13 +110,10 @@ class TransaksiController extends Controller
     public function addProdukTempTransaksi(Request $request){
 
         // dd($request->all());
-      
         $cekBarcodeProduk = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
         $cekProdukTemp = TempTransaksiPenjualan::where('fkid_barcode_produk',$request->fkid_barcode_produk)->first();
         $getProduk = Produk::where('barcode_produk',$request->fkid_barcode_produk)->first();
         
-        // dd($cekProdukTemp['profit']);
-        // dd($getProduk['margin']* $request->jumlah_produk);
         if($cekBarcodeProduk == null){
             return response()->json([
                 'aksi' => 'cekproduk',

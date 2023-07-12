@@ -17,8 +17,6 @@ class SubTransaksiPenjualan extends Model
         'nama_produk',
         'harga_satuan',
         'fkid_faktur',
-        // 'fkid_pelanggan',
-        // 'fkid_user',
         'jumlah_produk',
         'sub_total',
         'profit',
