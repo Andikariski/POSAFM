@@ -118,4 +118,12 @@ class GeneratePDFController extends Controller
         return $pdf->stream();
 
     }
+
+    public function generateLableHargaRak(){
+        $title  = 'Cetak PDF';
+        $header = 'Data Pelanggan Andika Maros';
+        $data = Produk::orderBy('nama_produk','ASC')->get();
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFlableHargaProdukRak',['data'=>$data,'title'=>$title,'header'=>$header])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    }
 }

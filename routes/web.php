@@ -31,7 +31,7 @@ Route::post('/simpanJenisProduk', [App\Http\Controllers\Backend\JenisProdukContr
 Route::get('/createJenisProduk', [App\Http\Controllers\Backend\JenisProdukController::class, 'create'])->name('createJenisProduk');
 Route::delete('/hapusJenisProduk/{id}', [App\Http\Controllers\Backend\JenisProdukController::class, 'destroy'])->name('hapusJenisProduk');
 Route::put('/updateJenisProduk/{id}', [App\Http\Controllers\Backend\JenisProdukController::class, 'update'])->name('updateJenisProduk');
-// Route::get('getDataKategori', [App\Http\Controllers\Backend\JenisProdukController::class, 'getDataJenisBarang'])->name('getDataKategori');
+Route::post('getKategoriProduk', [App\Http\Controllers\Backend\JenisProdukController::class, 'getDataKategoriProduk'])->name('getKategoriProduk');
 
 // Route Pelanggan
 Route::get('/data-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'index'])->name('dataPelanggan');
@@ -82,6 +82,11 @@ Route::get('modal-show-stok-produk',[App\Http\Controllers\Backend\ProdukControll
 Route::delete('reset-data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'resetProduk'])->name('resetDataProduk');
 Route::post('import-produk', [App\Http\Controllers\Backend\ProdukController::class, 'importFileProduk'])->name('importProduk');
 Route::get('export-produk', [App\Http\Controllers\Backend\ProdukController::class, 'exportFileProduk'])->name('exportProduk');
+Route::get('cek-harga-produk', [App\Http\Controllers\Backend\ProdukController::class, 'cekHargaProduk'])->name('cekHargaProduk');
+Route::post('get-detail-harga-produk', [App\Http\Controllers\Backend\ProdukController::class, 'getDetailHargaProduk'])->name('getDetailHargaProduk');
+Route::get('cetak-lable-harga-produk', [App\Http\Controllers\Backend\ProdukController::class, 'cetakLableHargaProduk'])->name('cetakLableHarga');
+
+
 
 // Route Alamat Pelanggan
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');
@@ -128,3 +133,9 @@ Route::get('laporan-transaksi',[App\Http\Controllers\Backend\LaporanController::
 Route::get('filter-data-transaksi/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'GetDataTransaksi']);
 
 Route::get('filter-data-omsetprofit/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getDataOmsetDanProfit']);
+
+//Route Lable Harga
+Route::get('pdf-lable-harga-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRak'])->name('PDF.lableHarga');
+Route::post('add-temp-produk-lable', [App\Http\Controllers\Backend\ProdukController::class, 'addProdukToTempProduk'])->name('addProdukToTemp');
+Route::delete('hapus-temp-lable-harga/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'deleteTemplable'])->name('deleteTempLable');
+Route::delete('reset-produk-terpilih', [App\Http\Controllers\Backend\ProdukController::class, 'resetProdukTerpilih'])->name('resetProdukTerpilih');

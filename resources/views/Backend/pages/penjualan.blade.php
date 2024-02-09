@@ -124,7 +124,7 @@
                                         {{-- <div class="row"> --}}
                                         <div class="div mb-2"  id="reloadTotalBayar">
                                                 <h5 class="" style="color: red">Total Harga Produk*</h5>
-                                                <h1 class="mt-2"><strong style="font-weight: bold; color:rgb(0, 165, 22); font-size:33pt;">Rp {{ number_format($totalBelanja) }}</strong></h1>
+                                                <h1 class=""><strong style="font-weight: bold; color:rgb(0, 165, 22); font-size:40pt;">Rp {{ number_format($totalBelanja) }}</strong></h1>
                                                 <input type="hidden" value="{{ $totalBelanja}}" id="totalbelanja">
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
         })
     
 
-    // proses simpan data ke chart dengan select2
+    // proses simpan data ke cart dengan select2
     $("#produk").change(function(){
                 event.preventDefault()
                 $.ajax({
@@ -385,8 +385,6 @@ function cekKode(){
                     data    : {
                         fkid_barcode_produk : kode,
                         faktur              : $('#faktur').val(),
-                        // fkid_pelanggan      : $('#pelanggan').val(),
-                        // fkid_user           : $('#kasir').val(),
                         jumlah_produk       : $('#jumlah_produk').val(),
                         tanggal             : $('#tanggal').val(),
                     },

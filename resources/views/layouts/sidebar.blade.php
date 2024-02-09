@@ -66,6 +66,12 @@
                             <li class="sidebar-item"><a href="{{ route('jenisProduk') }}" class="sidebar-link">
                                 <span class="hide-menu">Data Jenis Produk</span></a>
                             </li>
+                            <li class="sidebar-item"><a href="{{ route('cekHargaProduk') }}" class="sidebar-link">
+                                <span class="hide-menu">Cek Harga Produk</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="{{ route('cetakLableHarga') }}" class="sidebar-link">
+                                <span class="hide-menu">Cetak Lable Harga</span></a>
+                            </li>
                         </ul>
                     </li>
 

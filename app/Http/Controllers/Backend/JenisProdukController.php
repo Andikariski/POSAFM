@@ -112,4 +112,24 @@ class JenisProdukController extends Controller
             'message' => 'Data berhasil dihapus.'
         ]);
     }
+
+    public function getDataKategoriProduk(Request $request ){
+        $search = $request->search;
+            
+        if($search == ''){
+            $datakategoriProduk = JenisProduk::orderby('kategori_produk','asc')->select('id_jenis_produk','kategori_produk')->limit(5)->get();
+        }
+        else{
+            $datakategoriProduk = JenisProduk::orderby('kategori_produk','asc')->select('id_jenis_produk','kategori_produk')->where('kategori_produk','like','%'.$search.'%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach($datakategoriProduk as $kategoriproduk){
+            $response[] = array(
+                "id" => $kategoriproduk->id_jenis_produk,
+                "text" => strtoupper($kategoriproduk->kategori_produk)
+            );
+        }
+        return response()->json($response);
+    }
 }

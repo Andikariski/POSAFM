@@ -111,12 +111,13 @@
                                 </a>
                                 <button class="dropdown-item" id="cetakStok">
                                     <i class="fas fa-file-pdf"></i> Export by stok .PDF
-                                </button>
+                                </button>                              
                             </div>
                         </div>
                         <button type="button" class="btn btn-danger" id="resetDataProduk">
                             <i class="fas fa-recycle"></i> Reset Data Produk
                         </button>
+                      
                     </div>
                     <div class="tbl mt-4" id="reloadTable">
                         <div class="table-responsive">
@@ -213,6 +214,7 @@ $(document).ready(function() {
 
     $('#resetDataProduk').on('click',function(){
         resetProduk();
+        // loading();
     })
 
     function tambahData() {
@@ -230,11 +232,9 @@ $(document).ready(function() {
                 const _form = this
                 const formData = new FormData(this);
                 const url = this.getAttribute('action')
-                // var spiner ='<button class="btn btn-primary" type="button" disabled>'+
-                //                             '<span class="spinner-border spinner-border-sm" role="status"aria-hidden="true"></span>'+
-                //                             '<span class="sr-only">Loading...</span>'+
-                //             '</button>';
-                // $('#submitBtn').html(spiner);
+
+                $('#importDataProduk').modal('hide');
+                loading();
                 $.ajax({
                     method  : 'post',
                     url     : url,
@@ -245,13 +245,12 @@ $(document).ready(function() {
                     processData : false,
                     contentType : false,
                     success : function(res){
+                        Toast.fire({
+                            icon    : res.icon,
+                            title   :  res.message,
+                        })
                         window.LaravelDataTables["produk-table"].ajax.reload();
                         $('#totalProduk').load(window.location.href + " #totalProduk")
-                        $('#importDataProduk').modal('hide');
-                            Toast.fire({
-                                icon    : res.icon,
-                                title   :  res.message,
-                        })
                     }
                 })
         })
@@ -422,6 +421,20 @@ $(document).ready(function() {
                     })
                 }
             })
+        }
+
+        // Script Loading penjadwalan 
+        function loading(){
+                Swal.fire({
+                title: 'Loading...!!',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                timer: false,
+                onOpen: () => {
+                    Swal.showLoading();
+                    },
+                text: "Sistem sedang menyimpan data",
+                })
         }
 
         $('#cetakStok').on('click', function(){
