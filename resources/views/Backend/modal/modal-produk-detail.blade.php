@@ -9,7 +9,10 @@
                     <tbody>
                         <tr>
                             <td width="50%">Barcode Produk</td>
-                            <td width="50%"><strong>{{ $produk->barcode_produk }}</strong></td>
+                            <td width="50%"><strong>
+                                {!! DNS1D::getBarcodeHTML("$produk->barcode_produk",'PHARMA',2,50) !!}
+                                {{ $produk->barcode_produk }}</strong>
+                            </td>
                         </tr>
                         <tr>
                             <td>Nama Produk</td>

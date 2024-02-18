@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Cetak Berdasarkan Produk</label> 
                                     <div class="div" id="reloadSelect">
-                                        <select class="form-control produk"  style="width: 100%" name="id_produk" id="produk">   
+                                        <select class="form-control valueProduk"  style="width: 100%" name="id_produk" id="valueProduk">   
                                             <option value='0'> <font> -- Pilih Produk -- </font></option>
                                         </select>
                                     </div>
@@ -66,7 +66,7 @@
                         <div class="col-4">
                             <label for="exampleFormControlSelect1">Cetak Berdasarkan Kategori</label> 
                             <div class="div" id="reloadSelect">
-                                <select class="form-control"  style="width: 100%" id="kategoriProduk" name="id_produk">   
+                                <select class="form-control valueKategori"  style="width: 100%" id="kategoriProduk" name="id_produk">   
                                     <option value='0'> <font> -- Pilih Kategori Produk -- </font></option>
                                 </select>
                             </div>
@@ -81,15 +81,16 @@
                     <hr>
                 {{-- <div class="detailProduk mt-4">  --}}
                     <div class="div mt-4">
-                        <button type="button" class="btn btn-success btn-add">
-                            <i class="fas fa-print"></i> Cetak Lable Produk
+                        <button type="button" class="btn btn-success btn-cetak mr-1">
+                            <i class="fas fa-print"></i> Cetak Lable Produk Terpilih
                         </button>
                         <button type="button" class="btn btn-danger" id="resetProdukTerpilih">
-                            <i class="fas fa-print"></i> Cetak Lable Produk
+                            <i class="fas fa-recycle"></i> Reset Produk Terpilih
                         </button>
                     </div>
-                    <div class="" id="reloadTable">
+                    <div class="mt-2" id="reloadTable">
                         <div class="table-responsive mt-2">
+                            {{-- <h5>Produk Terpilih</h5> --}}
                             {!! $dataTable->table(['class' => 'table table-striped table-bordered no-wrap dataTable','style'=>'width:100%']) !!}
                         </div>
                     </div>
@@ -119,29 +120,27 @@
         // $('.detailProduk').hide();
         $('#alert').hide();
 
-        // event enter di scan barcode
-        $('#kodeBarcode').keydown(function(e){
-                if(e.keyCode==13){
-                    cekKode();
-                    e.preventDefault();
-                    // $("#kodeBarcode").val("");
-                }
-        })
 
-         // onclick button reset transaksi
-         $('#resetProdukTerpilih').on('click',function(){
+        // onclick button reset transaksi
+        $('#resetProdukTerpilih').on('click',function(){
             resetDataTerpilih();
         })
+        
+        // onclick button cetak data terpilih
+        $('.btn-cetak').on('click',function(){
+            cetakProdukTerpilih();
+        })
+
     
 
     // proses simpan data ke cart dengan select2
-    $(".produk").change(function(){
+    $(".valueProduk").change(function(){
                 event.preventDefault()
                 $.ajax({
                     method  : 'post',
                     url     : 'add-temp-produk-lable',
                     data    : {
-                           barcode : $('#produk').val(),
+                           barcode : $('#valueProduk').val(),
                     },
                     headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -153,9 +152,35 @@
                                 title   : res.status + ', ' + res.message,
                             })
                         window.LaravelDataTables["templableharga-table"].ajax.reload()
-                        // $('#reloadTotalBayar').load(window.location.href + " #reloadTotalBayar")
-                        // $('#reloadTotalProduk').load(window.location.href + " #reloadTotalProduk")
-                    // }
+                    }
+                })
+        });
+
+
+    // proses cetak lable harga produk by kategori
+    $("#kategoriProduk").change(function(){
+                event.preventDefault()
+                $.ajax({
+                    method  : 'post',
+                    url     : "{{ route('PDF.lableHargaByKategori') }}",
+                    data    : {
+                           fkid_jenis_produk : $('.valueKategori').val(),
+                    },
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    dataType: 'json',
+                    success : function(res){
+                        if(res.status == 'Gagal'){
+                            Swal.fire({
+                                icon    :  res.icon,
+                                title   :  res.status,
+                                text    :  res.message,
+                            })                   
+                        }
+                        else{
+                            newTabKategori();
+                        }
                     }
                 })
         });
@@ -185,7 +210,7 @@
 
     // function memanggil data produk untuk ditampilkan dalam select2
     function getDataProduk(){
-            $('.produk').select2({
+            $('.valueProduk').select2({
                 ajax: { 
                 url: "{{ route('getProduk') }}",
                 type: "post",
@@ -264,35 +289,39 @@
         });
     }
     
+    // function cetak lable produk terpilih
     function cetakProdukTerpilih(){
         $.ajax({
             method : 'get',
-            url : `{{ url('modal-show-pembayaran') }}`,
+            url : `{{ url('cetak-lable-produk-terpilih') }}`,
             data : {
-                    faktur         : $('#faktur').val(),
-                    totalBayar     : $('#totalbelanja').val(),
-                    fkid_pelanggan : $('#pelanggan').val(),
-                    user           : $('#user').val(),
-                    tanggal        : $('#tanggal').val(),
                     },
             headers : {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
             success : function(res){
-                if(res.status == 'Gagal'){
-                    Swal.fire({
+                    if(res.status == 'Gagal'){
+                        Swal.fire({
                             icon    :  res.icon,
                             title   :  res.status,
                             text    :  res.message,
-                        })
+                        })                   
                     }
                     else{
-                        $('#modalAction').find('.modal-dialog').html(res)
-                        $('#modalAction').modal('show');
-                        store();
+                        newTab();
                     }
                 }
         })
+    }
+
+
+    function newTab(){
+        var url = "{{ route('PDF.lableHargaByProduk') }}";
+            window.open(url, "_blank");
+    }
+    function newTabKategori(){
+        var url = "{{ route('PDF.getlableHargaByKategori') }}";
+            window.open(url, "_blank");
     }
 </script>
 @endsection

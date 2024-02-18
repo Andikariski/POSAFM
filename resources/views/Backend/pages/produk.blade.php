@@ -251,6 +251,12 @@ $(document).ready(function() {
                         })
                         window.LaravelDataTables["produk-table"].ajax.reload();
                         $('#totalProduk').load(window.location.href + " #totalProduk")
+                    },
+                    error: function(res){
+                        Toast.fire({
+                            icon    : 'warning',
+                            title   :  'Gagal, Database produk gagal tersimpan.',
+                        })
                     }
                 })
         })

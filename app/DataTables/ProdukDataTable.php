@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Produk;
+use Milon\Barcode\DNS1D;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,6 +28,10 @@ class ProdukDataTable extends DataTable
             ->editColumn('nama_produk',function(Produk $namaProduk){
                 return strtoupper($namaProduk['nama_produk']);
             })
+            // ->editColumn('barcode_produk', function(Produk $barcodeProduk){
+            //     return '{{!! DNS1D::getBarcodeHTML("'.$barcodeProduk['barcode_produk'].'",'. 'PHARMA'.',2,50) !!}}';
+            //     // return '<img src="data:image/png,' . 'DNS1D::getBarcodePNG('."4".', '."C39+".')' . '" alt="barcode"   />';
+            // })
             ->addIndexColumn()
             ->addColumn('fkid_tempat_produk', function(Produk $produk){
                 return $produk->tempatproduk->kode_rak;
@@ -86,6 +91,7 @@ class ProdukDataTable extends DataTable
             // Column::make('id_produk')->visible(false)->searchable(false)->printable(false),
             Column::make('DT_RowIndex')->title('No')->searchable(false)->orderable(false)->width(30),
             Column::make('nama_produk')->orderable(true),
+            // Column::make('barcode_produk')->title('Barcode Produk'),
             // Column::make('')->title('Jenis Produk')->data('kategori.kategori_produk')->name('kategori.kategori_produk')->width(50),
             Column::make('harga_jual_produk')->title('Harga Produk')->width(50),
             Column::make('stok_produk')->width(50),

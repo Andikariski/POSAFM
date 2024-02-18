@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pelanggan;
 use App\Models\Produk;
+// use App\DataTables\TempLableHargaDataTable;
+use App\Models\TempLableHarga;
 use App\Models\TransaksiPenjualan;
 // use Barryvdh\DomPDF\PDF as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -120,10 +122,53 @@ class GeneratePDFController extends Controller
     }
 
     public function generateLableHargaRak(){
-        $title  = 'Cetak PDF';
+        $title  = 'Lable Harga Semua Produk';
         $header = 'Data Pelanggan Andika Maros';
         $data = Produk::orderBy('nama_produk','ASC')->get();
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFlableHargaProdukRak',['data'=>$data,'title'=>$title,'header'=>$header])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function generateLableHargaRakByProduk(){
+        $title  = 'Lable Harga Berdasarkan Produk';
+        $data = TempLableHarga::all();
+
+
+        if(!$data->isEmpty()){
+            $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFlableHargaProdukRak',['data'=>$data,'title'=>$title])->setPaper('a4', 'landscape');
+            return $pdf->stream();
+        }
+        else{
+            return response()->json([
+                'icon' => 'warning',
+                'status' =>  'Gagal',
+                'message' => 'Tidak Ada Produk Yang Terpilih.',
+            ]);
+        }
+    }
+
+    public function generateLableByKategori(Request $request){
+        // dd($request->all());
+        $title  = 'Lable Harga Berdasarkan Kategori';
+        $data = Produk::where('fkid_jenis_produk',$request->fkid_jenis_produk)->get();
+        $imagePath = public_path('style/image/fanuris.png');
+
+        if(!$data->isEmpty()){
+            $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFlableHargaProdukRak',['data'=>$data,'title'=>$title,'image'=>$imagePath])->setPaper('a4', 'landscape');
+            return $pdf->stream();
+        }
+        else{
+            return response()->json([
+                'icon' => 'warning',
+                'status' =>  'Gagal',
+                'message' => 'Produk Tidak Ada',
+            ]);
+        }
+
+    }
+
+    public function invoicePenjualan(){
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('Backend.pdf.PDFinvoice',[])->setPaper('c8', 'portrait');
         return $pdf->stream();
     }
 }

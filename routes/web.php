@@ -86,8 +86,6 @@ Route::get('cek-harga-produk', [App\Http\Controllers\Backend\ProdukController::c
 Route::post('get-detail-harga-produk', [App\Http\Controllers\Backend\ProdukController::class, 'getDetailHargaProduk'])->name('getDetailHargaProduk');
 Route::get('cetak-lable-harga-produk', [App\Http\Controllers\Backend\ProdukController::class, 'cetakLableHargaProduk'])->name('cetakLableHarga');
 
-
-
 // Route Alamat Pelanggan
 Route::get('data-alamat-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'dataAlamat'])->name('dataAlamat');
 Route::post('storeAlamat', [App\Http\Controllers\Backend\PelangganController::class, 'simpanDataAlamat'])->name('storeDataAlamat');
@@ -135,7 +133,13 @@ Route::get('filter-data-transaksi/{filter}',[App\Http\Controllers\Backend\Lapora
 Route::get('filter-data-omsetprofit/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getDataOmsetDanProfit']);
 
 //Route Lable Harga
-Route::get('pdf-lable-harga-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRak'])->name('PDF.lableHarga');
 Route::post('add-temp-produk-lable', [App\Http\Controllers\Backend\ProdukController::class, 'addProdukToTempProduk'])->name('addProdukToTemp');
 Route::delete('hapus-temp-lable-harga/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'deleteTemplable'])->name('deleteTempLable');
 Route::delete('reset-produk-terpilih', [App\Http\Controllers\Backend\ProdukController::class, 'resetProdukTerpilih'])->name('resetProdukTerpilih');
+Route::get('pdf-lable-harga-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRak'])->name('PDF.lableHarga');
+Route::get('cetak-lable-produk-terpilih',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRakByProduk'])->name('PDF.lableHargaByProduk');
+Route::post('cetak-lable-produk-ByKategori',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableByKategori'])->name('PDF.lableHargaByKategori');
+Route::get('cetak-lable-kategori',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableByKategori'])->name('PDF.getlableHargaByKategori');
+
+
+Route::get('cetak-invoice',[App\Http\Controllers\Backend\GeneratePDFController::class,'invoicePenjualan'])->name('PDF.getInvoice');

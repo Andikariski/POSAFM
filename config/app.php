@@ -199,6 +199,7 @@ return [
         Yajra\DataTables\ButtonsServiceProvider::class,
         Yajra\DataTables\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
 
     ],
 
@@ -219,6 +220,8 @@ return [
         'Carbon'     => Illuminate\Support\Carbon::class,
         'Hashids'    => Vinkla\Hashids\Facades\Hashids::class,
         'Excel'      => Maatwebsite\Excel\Facades\Excel::class,
+        'DNS1D'      => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D'      => Milon\Barcode\Facades\DNS2DFacade::class,
     ])->toArray(),
 
 ];
