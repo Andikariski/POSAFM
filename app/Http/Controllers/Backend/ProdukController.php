@@ -197,21 +197,11 @@ class ProdukController extends Controller
         $namaFile = $file->getClientOriginalName();
         $file->move('FileDataProduk',$namaFile);
         $proses = Excel::import(new ImportProduk, public_path('/FileDataProduk/'.$namaFile));
-
-        if($proses){
             return response()->json([
                 'icon' => 'success',
                 'status' =>  'Berhasil',
-                'message' => 'Import data produk berhasil nih test.',
+                'message' => 'Import data produk berhasil.',
             ]);
-        }
-        else{
-            return response()->json([
-                'icon' => 'warning',
-                'status' =>  'Berhasil',
-                'message' => 'Import data tidak berhasil',
-            ]);
-        }
      
     }
 

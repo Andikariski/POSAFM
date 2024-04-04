@@ -255,7 +255,7 @@ $(document).ready(function() {
                     error: function(res){
                         Toast.fire({
                             icon    : 'warning',
-                            title   :  'Gagal, Database produk gagal tersimpan.',
+                            title   :  'Gagal mengimport data produk.',
                         })
                     }
                 })

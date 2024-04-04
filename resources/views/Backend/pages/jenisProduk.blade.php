@@ -47,6 +47,9 @@
     <div class="container-fluid">
     <!-- Container fluid  -->
             <div class="card cstm">
+                <div class="card-header">
+                    <h5 class="card-title"><font color="white">Jenis Produk</font></h5>
+                </div>
                 <div class="card-body">
                     <button type="button" class="btn btn-primary btn-add" id="btn-add"><i class="fas fa-plus-circle"></i> Tambah Jenis Produk</button>
                     <div class="table-responsive mt-4">
