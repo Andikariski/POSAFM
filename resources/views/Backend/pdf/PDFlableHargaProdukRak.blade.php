@@ -2,7 +2,7 @@
 <style>
      h2{
         font-family: sans-serif;
-        font-size: 30px;
+        font-size: 32px;
         margin: 10px;
         margin-left: 10px;
       }

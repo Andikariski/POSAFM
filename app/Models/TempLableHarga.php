@@ -15,5 +15,6 @@ class TempLableHarga extends Model
         'barcode_produk',
         'nama_produk',
         'harga_jual_produk',
+        'fkid_jenis_produk'
     ];
 }

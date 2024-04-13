@@ -36,6 +36,9 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('transaksi_penjualans', function (Blueprint $table) {
+        $table->dropForeign('fkid_user');
+    });
         Schema::dropIfExists('transaksi_penjualans');
     }
 };

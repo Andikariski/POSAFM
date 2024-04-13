@@ -55,7 +55,8 @@ class TempLableHargaDataTable extends DataTable
                     ->setTableId('templableharga-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->dom('rt')
+                    ->dom('rtip')
+                    // ->dom('')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('excel'),

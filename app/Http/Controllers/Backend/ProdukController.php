@@ -271,6 +271,42 @@ class ProdukController extends Controller
         // dd($getData);
     }
 
+
+    //  Bug di bagian taambah data by kategori(belum sempurna)
+    public function addProdukToTempProdukByKategori(Request $request){
+        $cekProdukTemp =  TempLableHarga::where('fkid_jenis_produk',$request->fkid_jenis_produk)->first();
+    
+        $getData = Produk::where('fkid_jenis_produk',$request->fkid_jenis_produk)->get();
+        $fieldDataProdukToTemp=[];
+        foreach($getData as $row){
+            $fieldDataProdukToTemp[] = [
+                'barcode_produk'      => $row['barcode_produk'],
+                'nama_produk'         => $row['nama_produk'],
+                'harga_jual_produk'   => $row['harga_jual_produk'],
+                'fkid_jenis_produk'   => $row['fkid_jenis_produk'],
+            ];
+        }
+
+        if($cekProdukTemp == null){
+            foreach($fieldDataProdukToTemp as $data){
+                TempLableHarga::create($data);
+            }
+            return response()->json([
+                'icon' => 'success',
+                'status' =>  'Berhasil',
+                'message' => 'Produk telah ditambahkan.',
+            ]);
+        }
+        else{
+            return response()->json([
+                'icon' => 'warning',
+                'status' =>  'Gagal',
+                'message' => 'Telah ada produk terpilih, reset untuk membuat daftar baru.',
+            ]);
+        }
+        // // dd($getData);
+    }
+
     public function deleteTemplable(Request $request){
         // dd($request->id);
         TempLableHarga::where('barcode_produk',$request->id)->delete();

@@ -162,7 +162,7 @@
                 event.preventDefault()
                 $.ajax({
                     method  : 'post',
-                    url     : "{{ route('PDF.lableHargaByKategori') }}",
+                    url     : "{{ route('add.ProdukToTempByKategori') }}",
                     data    : {
                            fkid_jenis_produk : $('.valueKategori').val(),
                     },
@@ -171,16 +171,11 @@
                     },
                     dataType: 'json',
                     success : function(res){
-                        if(res.status == 'Gagal'){
-                            Swal.fire({
-                                icon    :  res.icon,
-                                title   :  res.status,
-                                text    :  res.message,
-                            })                   
-                        }
-                        else{
-                            newTabKategori();
-                        }
+                        Toast.fire({
+                                icon    : res.icon,
+                                title   : res.status + ', ' + res.message,
+                            })
+                        window.LaravelDataTables["templableharga-table"].ajax.reload()
                     }
                 })
         });

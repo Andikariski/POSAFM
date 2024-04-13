@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('barcode_produk',100)->primary();
             $table->string('nama_produk')->nullable();
             $table->double('harga_jual_produk',10,0);
+            $table->string('fkid_jenis_produk');
             $table->timestamps();
         });
     }
