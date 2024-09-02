@@ -145,3 +145,6 @@ Route::post('add-temp-produk-lable-byKategori', [App\Http\Controllers\Backend\Pr
 
 
 Route::get('cetak-invoice',[App\Http\Controllers\Backend\GeneratePDFController::class,'invoicePenjualan'])->name('PDF.getInvoice');
+
+// Test API Produk
+Route::get('api-harga-produk/{id}',[App\Http\Controllers\Backend\APIhargaProduk::class,'show'])->name('api.produk');
