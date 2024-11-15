@@ -45,29 +45,29 @@ Route::get('/detail-Pelanggan-Toko/{id}', [App\Http\Controllers\Backend\Pelangga
 
 //Route Pelanggan PLN
 Route::get('pelanggan-PLN', [App\Http\Controllers\Backend\PelangganController::class, 'showIdPLN'])->name('dataPelangganPLN');
-Route::post('store-pelanggan-pln',[App\Http\Controllers\Backend\PelangganController::class, 'storePelangganPLN'])->name('simpanDataPelangganPLN');
-Route::get('get-data-pelanggan',[App\Http\Controllers\Backend\PelangganController::class, 'getDataPelanggan']);
-Route::delete('hapus-data-pelanggan-pln/{id}',[App\Http\Controllers\Backend\PelangganController::class, 'destroyPelangganPLN'])->name('hapusPelangganPLN');
-Route::get('ubah-pelanggan-PLN/{id}',[App\Http\Controllers\Backend\PelangganController::class,'showModalUbahDataPelangganPLN'])->name('show-modal-pelanggan-pln');
-Route::put('simpan-data-ubah-pelanggan-PLN/{id}',[App\Http\Controllers\Backend\PelangganController::class,'ubahDataPelangganPLN'])->name('simpan-data-ubah');
-Route::get('detail-pelanggan-PLN/{id}',[App\Http\Controllers\Backend\PelangganController::class,'showModalDetailDataPelangganPLN'])->name('show-modal-pelanggan-pln');
+Route::post('store-pelanggan-pln', [App\Http\Controllers\Backend\PelangganController::class, 'storePelangganPLN'])->name('simpanDataPelangganPLN');
+Route::get('get-data-pelanggan', [App\Http\Controllers\Backend\PelangganController::class, 'getDataPelanggan']);
+Route::delete('hapus-data-pelanggan-pln/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'destroyPelangganPLN'])->name('hapusPelangganPLN');
+Route::get('ubah-pelanggan-PLN/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'showModalUbahDataPelangganPLN'])->name('show-modal-pelanggan-pln');
+Route::put('simpan-data-ubah-pelanggan-PLN/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'ubahDataPelangganPLN'])->name('simpan-data-ubah');
+Route::get('detail-pelanggan-PLN/{id}', [App\Http\Controllers\Backend\PelangganController::class, 'showModalDetailDataPelangganPLN'])->name('show-modal-pelanggan-pln');
 
 //Route Transaksi Penjualan
-Route::get('transaksi-penjualan',[App\Http\Controllers\Backend\TransaksiController::class,'transaksiPenjualan'])->name('transaksiPenjualan');
-Route::post('add-tempTransaksi',[App\Http\Controllers\Backend\TransaksiController::class,'addProdukTempTransaksi'])->name('addProdukTempTransaksi');
-Route::delete('reset-transaksi',[\App\Http\Controllers\Backend\TransaksiController::class,'resetTransaksi']);
-Route::delete('hapus-item-transaksi/{id}',[\App\Http\Controllers\Backend\TransaksiController::class,'hapusItemTransaksi'])->name('hapusItemTransaksi');
-Route::post('get-produk',[App\Http\Controllers\Backend\TransaksiController::class,'getDataProduk'])->name('getProduk');
-Route::get('modal-show-pembayaran',[\App\Http\Controllers\Backend\TransaksiController::class,'showModalPembayarn'])->name('showModalPembayaran');
-Route::post('simpan-transaksi',[App\Http\Controllers\Backend\TransaksiController::class, 'simpanTransaksi'])->name('simpanTransaksi');
-Route::get('modal-tambah-jumlah/{id}',[\App\Http\Controllers\Backend\TransaksiController::class,'showModalTambahJumlah'])->name('showModalTambahJumlah');
-Route::post('tambah-jumlah-produk',[\App\Http\Controllers\Backend\TransaksiController::class,'tambahJumlahProduk'])->name('tambahJumlahProduk');
+Route::get('transaksi-penjualan', [App\Http\Controllers\Backend\TransaksiController::class, 'transaksiPenjualan'])->name('transaksiPenjualan');
+Route::post('add-tempTransaksi', [App\Http\Controllers\Backend\TransaksiController::class, 'addProdukTempTransaksi'])->name('addProdukTempTransaksi');
+Route::delete('reset-transaksi', [\App\Http\Controllers\Backend\TransaksiController::class, 'resetTransaksi']);
+Route::delete('hapus-item-transaksi/{id}', [\App\Http\Controllers\Backend\TransaksiController::class, 'hapusItemTransaksi'])->name('hapusItemTransaksi');
+Route::post('get-produk', [App\Http\Controllers\Backend\TransaksiController::class, 'getDataProduk'])->name('getProduk');
+Route::get('modal-show-pembayaran', [\App\Http\Controllers\Backend\TransaksiController::class, 'showModalPembayarn'])->name('showModalPembayaran');
+Route::post('simpan-transaksi', [App\Http\Controllers\Backend\TransaksiController::class, 'simpanTransaksi'])->name('simpanTransaksi');
+Route::get('modal-tambah-jumlah/{id}', [\App\Http\Controllers\Backend\TransaksiController::class, 'showModalTambahJumlah'])->name('showModalTambahJumlah');
+Route::post('tambah-jumlah-produk', [\App\Http\Controllers\Backend\TransaksiController::class, 'tambahJumlahProduk'])->name('tambahJumlahProduk');
 
 //Route Riwayat Transaksi
-Route::get('riwayat-penjualan',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'index'])->name('riwayatTransaksiPenjualan');
-Route::delete('hapus-riwayat-transaksi/{id}',[\App\Http\Controllers\Backend\RiwayatTransaksiController::class,'hapusRiwayatTransaksi'])->name('hapusRiwayatTransaksi');
-Route::get('detail-riwayat-transaksi/{id}',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'detailTransaksi'])->name('detailRiwayatTransaksi');
-Route::get('modal-show-detail-transaksi/{id}',[App\Http\Controllers\Backend\RiwayatTransaksiController::class,'showDetailTransaksi'])->name('detailRiwayatTransaksi.detail');
+Route::get('riwayat-penjualan', [App\Http\Controllers\Backend\RiwayatTransaksiController::class, 'index'])->name('riwayatTransaksiPenjualan');
+Route::delete('hapus-riwayat-transaksi/{id}', [\App\Http\Controllers\Backend\RiwayatTransaksiController::class, 'hapusRiwayatTransaksi'])->name('hapusRiwayatTransaksi');
+Route::get('detail-riwayat-transaksi/{id}', [App\Http\Controllers\Backend\RiwayatTransaksiController::class, 'detailTransaksi'])->name('detailRiwayatTransaksi');
+Route::get('modal-show-detail-transaksi/{id}', [App\Http\Controllers\Backend\RiwayatTransaksiController::class, 'showDetailTransaksi'])->name('detailRiwayatTransaksi.detail');
 
 // Route Produk
 Route::get('data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'index'])->name('dataProduk');
@@ -75,10 +75,10 @@ Route::get('detail-produk/{id}', [App\Http\Controllers\Backend\ProdukController:
 Route::post('storeProduk', [App\Http\Controllers\Backend\ProdukController::class, 'store'])->name('simpanDataProduk');
 Route::get('getDataProduk', [App\Http\Controllers\Backend\ProdukController::class, 'getDataProduk'])->name('getDataProduk');
 Route::delete('hapus-data-produk/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'destroy'])->name('hapusDataProduk');
-Route::get('modal-show-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalProduk'])->name('modal-show-produk');
-Route::get('modal-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'edit'])->name('modal-edit-produk');
-Route::put('simpan-data-ubah-produk/{id}',[App\Http\Controllers\Backend\ProdukController::class,'update'])->name('updateProduk');
-Route::get('modal-show-stok-produk',[App\Http\Controllers\Backend\ProdukController::class,'showModalCetakStokProduk'])->name('modal-show-stok-produk');
+Route::get('modal-show-produk', [App\Http\Controllers\Backend\ProdukController::class, 'showModalProduk'])->name('modal-show-produk');
+Route::get('modal-ubah-produk/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'edit'])->name('modal-edit-produk');
+Route::put('simpan-data-ubah-produk/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'update'])->name('updateProduk');
+Route::get('modal-show-stok-produk', [App\Http\Controllers\Backend\ProdukController::class, 'showModalCetakStokProduk'])->name('modal-show-stok-produk');
 Route::delete('reset-data-produk', [App\Http\Controllers\Backend\ProdukController::class, 'resetProduk'])->name('resetDataProduk');
 Route::post('import-produk', [App\Http\Controllers\Backend\ProdukController::class, 'importFileProduk'])->name('importProduk');
 Route::get('export-produk', [App\Http\Controllers\Backend\ProdukController::class, 'exportFileProduk'])->name('exportProduk');
@@ -94,57 +94,58 @@ Route::delete('hapusAlamat/{id}', [App\Http\Controllers\Backend\PelangganControl
 
 
 // Route Generate PDF
-Route::get('pdf-pelanggan',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFPelanggan'])->name('PDF.pelanggan');
-Route::get('pdf-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFProduk'])->name('PDF.produk');
-Route::post('pdf-stok-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generatePDFstokProduk'])->name('PDF.stokProduk');
+Route::get('pdf-pelanggan', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generatePDFPelanggan'])->name('PDF.pelanggan');
+Route::get('pdf-produk', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generatePDFProduk'])->name('PDF.produk');
+Route::post('pdf-stok-produk', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generatePDFstokProduk'])->name('PDF.stokProduk');
 
 // Route Fitur Hutang
-Route::get('hutang-pelanggan',[App\Http\Controllers\Backend\HutangController::class,'index'])->name('hutang');
-Route::get('modal-show-pembayaran-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'showModalPembayaranHutang'])->name('hutang.bayar');
-Route::get('modal-show-detail-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'showDetailHutang'])->name('hutang.detail');
-Route::get('rekapitulasi-hutang/{id}',[App\Http\Controllers\Backend\HutangController::class,'rekapitulasiHutang'])->name('hutang.rekapitulasi');
+Route::get('hutang-pelanggan', [App\Http\Controllers\Backend\HutangController::class, 'index'])->name('hutang');
+Route::get('modal-show-pembayaran-hutang/{id}', [App\Http\Controllers\Backend\HutangController::class, 'showModalPembayaranHutang'])->name('hutang.bayar');
+Route::get('modal-show-detail-hutang/{id}', [App\Http\Controllers\Backend\HutangController::class, 'showDetailHutang'])->name('hutang.detail');
+Route::get('rekapitulasi-hutang/{id}', [App\Http\Controllers\Backend\HutangController::class, 'rekapitulasiHutang'])->name('hutang.rekapitulasi');
 
 // Route Laporan
-Route::get('grafik-laporan',[App\Http\Controllers\Backend\LaporanController::class,'index'])->name('laporan');
+Route::get('grafik-laporan', [App\Http\Controllers\Backend\LaporanController::class, 'index'])->name('laporan');
 
 // Route JSON Output
 Route::get('data-transaksi-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'statusTransaksiMingguanJSON'])->name('json.transaksiMingguan');
 Route::get('data-pemasukan-mingguan', [App\Http\Controllers\Backend\DashboardController::class, 'dataPemasukanMingguanJSON'])->name('json.pemasukanMingguan');
 
-Route::get('data-jumlah-transaksi-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiJSON'])->name('json.transaksi');
-Route::get('data-pemasukan-bulanan',[App\Http\Controllers\Backend\LaporanController::class,'dataPemasukanJSON'])->name('json.pemasukan');
+Route::get('data-jumlah-transaksi-bulanan', [App\Http\Controllers\Backend\LaporanController::class, 'dataTransaksiJSON'])->name('json.transaksi');
+Route::get('data-pemasukan-bulanan', [App\Http\Controllers\Backend\LaporanController::class, 'dataPemasukanJSON'])->name('json.pemasukan');
 
-Route::get('data-jumlah-transaksi-tahunan',[App\Http\Controllers\Backend\LaporanController::class,'dataTransaksiTahunanJSON'])->name('json.transaksiTahunan');
+Route::get('data-jumlah-transaksi-tahunan', [App\Http\Controllers\Backend\LaporanController::class, 'dataTransaksiTahunanJSON'])->name('json.transaksiTahunan');
 
 //Route Manage User
-Route::get('data-user',[App\Http\Controllers\Backend\UserController::class,'index'])->name('user.index');
-Route::get('modal-show-user',[App\Http\Controllers\Backend\UserController::class,'create'])->name('user.create');
-Route::get('modal-show-edit-user/{id}',[App\Http\Controllers\Backend\UserController::class,'edit'])->name('user.edit');
-Route::post('simpan-user',[App\Http\Controllers\Backend\UserController::class,'store'])->name('user.simpan');
-Route::post('update-user',[App\Http\Controllers\Backend\UserController::class,'update'])->name('user.update');
-Route::delete('hapus-user/{id}',[App\Http\Controllers\Backend\UserController::class,'destroy'])->name('user.hapus');
+Route::get('data-user', [App\Http\Controllers\Backend\UserController::class, 'index'])->name('user.index');
+Route::get('modal-show-user', [App\Http\Controllers\Backend\UserController::class, 'create'])->name('user.create');
+Route::get('modal-show-edit-user/{id}', [App\Http\Controllers\Backend\UserController::class, 'edit'])->name('user.edit');
+Route::post('simpan-user', [App\Http\Controllers\Backend\UserController::class, 'store'])->name('user.simpan');
+Route::post('update-user', [App\Http\Controllers\Backend\UserController::class, 'update'])->name('user.update');
+Route::delete('hapus-user/{id}', [App\Http\Controllers\Backend\UserController::class, 'destroy'])->name('user.hapus');
 
 //Route Grafik laporan
-Route::get('laporan-transaksi',[App\Http\Controllers\Backend\LaporanController::class,'laporanTransaksi'])->name('laporan-transaksi');
+Route::get('laporan-transaksi', [App\Http\Controllers\Backend\LaporanController::class, 'laporanTransaksi'])->name('laporan-transaksi');
 // Route::get('filter-data/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getFilteredData']);
 
-Route::get('filter-data-transaksi/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'GetDataTransaksi']);
+Route::get('filter-data-transaksi/{filter}', [App\Http\Controllers\Backend\LaporanController::class, 'GetDataTransaksi']);
 
-Route::get('filter-data-omsetprofit/{filter}',[App\Http\Controllers\Backend\LaporanController::class,'getDataOmsetDanProfit']);
+Route::get('filter-data-omsetprofit/{filter}', [App\Http\Controllers\Backend\LaporanController::class, 'getDataOmsetDanProfit']);
 
 //Route Lable Harga
 Route::post('add-temp-produk-lable', [App\Http\Controllers\Backend\ProdukController::class, 'addProdukToTempProduk'])->name('add.ProdukToTemp');
 Route::delete('hapus-temp-lable-harga/{id}', [App\Http\Controllers\Backend\ProdukController::class, 'deleteTemplable'])->name('deleteTempLable');
 Route::delete('reset-produk-terpilih', [App\Http\Controllers\Backend\ProdukController::class, 'resetProdukTerpilih'])->name('resetProdukTerpilih');
-Route::get('pdf-lable-harga-produk',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRak'])->name('PDF.lableHarga');
-Route::get('cetak-lable-produk-terpilih',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableHargaRakByProduk'])->name('PDF.lableHargaByProduk');
-Route::post('cetak-lable-produk-ByKategori',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableByKategori'])->name('PDF.lableHargaByKategori');
+Route::get('pdf-lable-harga-produk', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generateLableHargaRak'])->name('PDF.lableHarga');
+Route::get('cetak-lable-produk-terpilih', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generateLableHargaRakByProduk'])->name('PDF.lableHargaByProduk');
+Route::post('cetak-lable-produk-ByKategori', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generateLableByKategori'])->name('PDF.lableHargaByKategori');
 
-Route::get('cetak-lable-kategori',[App\Http\Controllers\Backend\GeneratePDFController::class,'generateLableByKategori'])->name('PDF.getlableHargaByKategori');
+Route::get('cetak-lable-kategori', [App\Http\Controllers\Backend\GeneratePDFController::class, 'generateLableByKategori'])->name('PDF.getlableHargaByKategori');
 Route::post('add-temp-produk-lable-byKategori', [App\Http\Controllers\Backend\ProdukController::class, 'addProdukToTempProdukByKategori'])->name('add.ProdukToTempByKategori');
 
 
-Route::get('cetak-invoice',[App\Http\Controllers\Backend\GeneratePDFController::class,'invoicePenjualan'])->name('PDF.getInvoice');
+Route::get('cetak-invoice', [App\Http\Controllers\Backend\GeneratePDFController::class, 'invoicePenjualan'])->name('PDF.getInvoice');
 
-// Test API Produk
-Route::get('api-harga-produk/{id}',[App\Http\Controllers\Backend\APIhargaProduk::class,'show'])->name('api.produk');
+//Route absensi karyawan
+Route::get('absensi-karyawan', [App\Http\Controllers\Backend\AbsensiKaryawanController::class, 'index'])->name('absensi-karyawan');
+Route::get('absensi-karyawan/{id}', [App\Http\Controllers\Backend\AbsensiKaryawanController::class, 'show'])->name('detail-absensi-karyawan');

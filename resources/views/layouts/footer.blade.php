@@ -1,5 +1,5 @@
     <script>
-         const Toast = Swal.mixin({
+        const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
@@ -11,39 +11,39 @@
             }
         })
     </script>
-    <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{ url('style/assets/libs/jquery/dist/autoNumeric.js')}}"></script>
-    <script src="{{ url('style/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-    <script src="{{ url('style/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url('style/assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url('style/assets/libs/jquery/dist/autoNumeric.js') }}"></script>
+    <script src="{{ url('style/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
+    <script src="{{ url('style/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- apps -->
     <!-- apps -->
-    <script src="{{ url('style/dist/js/app-style-switcher.js')}}"></script>
-    <script src="{{ url('style/dist/js/feather.min.js')}}"></script>
-    <script src="{{ url('style/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
-    <script src="{{ url('style/dist/js/sidebarmenu.js')}}"></script>
+    <script src="{{ url('style/dist/js/app-style-switcher.js') }}"></script>
+    <script src="{{ url('style/dist/js/feather.min.js') }}"></script>
+    <script src="{{ url('style/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ url('style/dist/js/sidebarmenu.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="{{ url('style/dist/js/custom.min.js')}}"></script>
+    <script src="{{ url('style/dist/js/custom.min.js') }}"></script>
 
     <!--Script Datatables -->
-    <script src="{{ url('style/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ url('style/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
+    <script src="{{ url('style/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('style/dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
 
     {{-- SWEET ALERT --}}
-	{{-- <script src="{{ url('assets/js/plugin/sweetalert/sweetalert.min.js')}}"></script> --}}
-	<script src="{{ url('js/sweetalert/sweetalert2.all.min.js') }}"></script>
-	<script src="{{ url('js/sweetalert/sweet.js') }}"></script>
-	<script src="{{ url('js/app.js') }}"></script>
-    
+    {{-- <script src="{{ url('assets/js/plugin/sweetalert/sweetalert.min.js')}}"></script> --}}
+    <script src="{{ url('js/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ url('js/sweetalert/sweet.js') }}"></script>
+    <script src="{{ url('js/app.js') }}"></script>
+
     {{-- Costume JS --}}
-    <script src="{{  url('style/dist/js/custom.min.js')}}"></script>
+    <script src="{{ url('style/dist/js/custom.min.js') }}"></script>
 
     {{-- DataTables --}}
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ url('vendor/datatables/buttons.server-side.js') }}"></script>
     @stack('scripts')
 
-	<script src="{{ url('js/select2.js') }}"></script>
+    <script src="{{ url('js/select2.js') }}"></script>
     <!-- ============================================================== -->
     <footer class="footer text-center text-muted">
-        &#169; <?=date('Y') ?> All Rights Reserved - Fanuris Agro Farm.
-   </footer>
+        &#169; <?= date('Y') ?> All Rights Reserved - Fanuris Agro Farm.
+    </footer>
