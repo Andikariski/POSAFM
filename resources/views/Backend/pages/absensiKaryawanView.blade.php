@@ -13,7 +13,7 @@
                                 </div>
                                 <div>
                                     <p>Selamat Bekerja</p>
-                                    <h1>{{ $dataAbsensiKaryawan[0]->karyawan->name }}</h1>
+                                    <h1>{{ auth()->user()->name }}</h1>
                                 </div>
                             </div>
                         </div>
@@ -38,8 +38,8 @@
             </div>
             <div class="bg-white card">
                 <p class="text-white card-header bg-secondary">Absen Kamu Hari Ini</p>
-                <div class="table-responsive-lg overflow-hidden">
-                    <div class="px-4 d-flex align-items-center">
+                <div class="table-responsive px-4 mt-2">
+                    <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center mr-4">
                             <div class="bg-success" style="width: 12px; height:12px; border-radius: 2px;"></div>
                             <p class="mt-3 ml-2">tepat waktu</p>
@@ -57,7 +57,7 @@
                             <p class="mt-3 ml-2">belum absen</p>
                         </div>
                     </div>
-                    <table class="table mx-4 mt-0">
+                    <table class="table">
                         <thead class="thead-light">
                             <tr>
                                 <th>Masuk Pagi / 07:00</th>
@@ -67,7 +67,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataAbsensiKaryawan as $item)
+                            @forelse ($dataAbsensiKaryawan as $item)
                                 <tr>
                                     <td>
                                         @if ($item->masuk_pagi_status !== 'belum_absen')
@@ -138,7 +138,14 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <p>Kamu Belum Absen</p>
+                                        <button class="btn btn-md btn-primary btn-rounded">absen sekarang</button>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

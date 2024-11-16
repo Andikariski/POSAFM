@@ -38,8 +38,8 @@
             </div>
             <div class="bg-white card">
                 <p class="text-white card-header bg-secondary">Data Absen Karyawan Hari Ini</p>
-                <div class="table-responsive-lg overflow-hidden">
-                    <div class="px-4 d-flex align-items-center">
+                <div class="table-responsive px-4 mt-2">
+                    <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center mr-4">
                             <div class="bg-success" style="width: 12px; height:12px; border-radius: 2px;"></div>
                             <p class="mt-3 ml-2">tepat waktu</p>
@@ -57,7 +57,7 @@
                             <p class="mt-3 ml-2">belum absen</p>
                         </div>
                     </div>
-                    <table class="table mx-4 mt-0">
+                    <table class="table">
                         <thead class="thead-light">
                             <tr>
                                 <th>Nama</th>
@@ -68,7 +68,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($dataAbsensiKaryawanAll as $item)
+                            @forelse ($dataAbsensiKaryawanAll as $item)
                                 <tr>
                                     <td>{{ $item->karyawan->name }}</td>
                                     <td>
@@ -132,7 +132,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">karyawan belum absen</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
