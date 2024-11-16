@@ -10,32 +10,32 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('style/image/fanuris2.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url('style/image/fanuris2.png') }}">
     <title>{{ config('app.name') }}</title>
     <!-- Custom CSS -->
-    <link href="{{ url('style/assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet"/>
-    <link href="{{ url('style/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet"/>
-    <link href="{{ url('style/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
+    <link href="{{ url('style/assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('style/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet" />
+    <link href="{{ url('style/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet"/>
+    <link href="{{ url('style/dist/css/style.min.css') }}" rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href="{{ url('style/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
-    <link href="{{ url('style/dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{ url('style/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css') }}" rel="stylesheet">
+    <link href="{{ url('style/dist/css/style.min.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
-    <link href="{{ url('js/sweetalert/sweetalert2.min.css')}}" rel="stylesheet">
+    <link href="{{ url('js/sweetalert/sweetalert2.min.css') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> --}}
 
-    
+
     <!-- Select2 -->
-    <link href="{{ url('style/dist/css/select2.css')}}" rel="stylesheet">
+    <link href="{{ url('style/dist/css/select2.css') }}" rel="stylesheet">
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
     {{-- Calendar --}}
-    <link href="{{ url('style/assets/libs/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet" />
+    <link href="{{ url('style/assets/libs/fullcalendar/dist/fullcalendar.min.css') }}" rel="stylesheet" />
 
 
-    
-    
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

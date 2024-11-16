@@ -57,99 +57,131 @@
                             <p class="mt-3 ml-2">belum absen</p>
                         </div>
                     </div>
-                    <table class="table">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Masuk Pagi / 07:00</th>
-                                <th>Keluar Siang / 12:00</th>
-                                <th>Masuk Siang / 13:00</th>
-                                <th>Keluar Sore / 17:00</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($dataAbsensiKaryawan as $item)
-                                <tr>
-                                    <td>
-                                        @if ($item->masuk_pagi_status !== 'belum_absen')
-                                            <input type="checkbox" {{ $item->masuk_pagi ? 'checked' : '' }}
-                                                onclick="return false;">
-                                        @endif
-                                        @if ($item->masuk_pagi_status === 'belum_absen')
-                                            <button class="btn btn-sm btn-primary">tambah absen</button>
-                                        @elseif($item->masuk_pagi_status === 'tidak_hadir')
-                                            <label class="ml-2 text-danger">tidak hadir</label>
-                                        @elseif($item->masuk_pagi_status === 'terlambat')
-                                            <label
-                                                class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</label>
-                                        @else
-                                            <label
-                                                class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</label>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->keluar_siang_status !== 'belum_absen')
-                                            <input type="checkbox" {{ $item->keluar_siang ? 'checked' : '' }}
-                                                onclick="return false;">
-                                        @endif
-                                        @if ($item->keluar_siang_status === 'belum_absen')
-                                            <button class="btn btn-rounded btn-sm btn-primary">tambah absen</button>
-                                        @elseif($item->keluar_siang_status === 'tidak_hadir')
-                                            <label class="ml-2 text-danger">tidak hadir</label>
-                                        @elseif($item->keluar_siang_status === 'terlambat')
-                                            <label
-                                                class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</label>
-                                        @else
-                                            <label
-                                                class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</label>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->masuk_siang_status !== 'belum_absen')
-                                            <input type="checkbox" {{ $item->masuk_siang ? 'checked' : '' }}
-                                                onclick="return false;">
-                                        @endif
-                                        @if ($item->masuk_siang_status === 'belum_absen')
-                                            <button class="btn btn-rounded btn-sm btn-primary">tambah absen</button>
-                                        @elseif($item->masuk_siang_status === 'tidak_hadir')
-                                            <label class="ml-2 text-danger">tidak hadir</label>
-                                        @elseif($item->masuk_siang_status === 'terlambat')
-                                            <label
-                                                class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</label>
-                                        @else
-                                            <label
-                                                class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</label>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($item->keluar_siang_status !== 'belum_absen')
-                                            <input type="checkbox" {{ $item->keluar_siang ? 'checked' : '' }}
-                                                onclick="return false;">
-                                        @endif
-                                        @if ($item->keluar_sore_status === 'belum_absen')
-                                            <button class="btn btn-rounded btn-sm btn-primary">tambah absen</button>
-                                        @elseif($item->keluar_sore_status === 'tidak_hadir')
-                                            <label class="ml-2 text-danger">tidak hadir</label>
-                                        @elseif($item->keluar_sore_status === 'terlambat')
-                                            <label
-                                                class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}</label>
-                                        @else
-                                            <label
-                                                class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}</label>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="text-center">
-                                        <p>Kamu Belum Absen</p>
-                                        <button class="btn btn-md btn-primary btn-rounded">absen sekarang</button>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+
+                    @include('Backend.components.tabelAbsensiKaryawan', [
+                        'dataAbsensiKaryawan' => $dataAbsensiKaryawan,
+                    ])
+
                 </div>
             </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Set up CSRF token for all AJAX requests
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // menampilkan loading status di button input absensi
+            function setButtonLoading(button, isLoading) {
+                const spinner = button.find('.spinner-border');
+                const text = button.find('.button-text');
+
+                if (isLoading) {
+                    spinner.removeClass('d-none');
+                    text.addClass('d-none');
+                    button.prop('disabled', true);
+                } else {
+                    spinner.addClass('d-none');
+                    text.removeClass('d-none');
+                    button.prop('disabled', false);
+                }
+            }
+
+            function validateAttendanceTime(type) {
+                const hour = new Date().getHours();
+
+                switch (type) {
+                    case 'masuk_pagi':
+                        return hour >= 6 && hour <= 9;
+                    case 'keluar_siang':
+                        return hour >= 11 && hour < 13;
+                    case 'masuk_siang':
+                        return hour >= 13 && hour <= 14;
+                    case 'keluar_sore':
+                        return hour >= 16 && hour <= 18;
+                    default:
+                        return false;
+                }
+            }
+
+            // Handle button clicks
+            $(document).on("click", ".btn-absensi", function() {
+                let button = $(this);
+                let type = button.data('type');
+
+                // validasi jam absen karyawan
+                if (!validateAttendanceTime(type)) {
+                    Swal.fire({
+                        title: "Uppss",
+                        text: "bukan waktu untuk absen",
+                        icon: 'error',
+                    });
+                    return;
+                }
+
+                // menampilkan status loading
+                setButtonLoading(button, true)
+
+                // Disable button to prevent double submission
+                button.prop('disabled', true);
+
+                // Get current time in HH:mm format
+                let now = new Date();
+                let time = ('0' + now.getHours()).slice(-2) + ':' +
+                    ('0' + now.getMinutes()).slice(-2);
+
+                // make the AJAX request
+                $.ajax({
+                    url: '{{ route('tambah-absensi-karyawan') }}', // Make sure to define this route
+                    method: 'POST',
+                    data: {
+                        fkid_user: '{{ auth()->id() }}', // Assuming you're using auth
+                        type: type,
+                        time: time
+                    },
+                    success: function(response) {
+                        // Show success message
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Berhasil Melakukan Absen",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        $.ajax({
+                            url: '{{ route('data-absensi-updated') }}', // Define this route to fetch updated table data
+                            method: 'GET',
+                            success: function(data) {
+                                $('#tabel-absensi-karyawan').html(data);
+                            },
+                            error: function(xhr) {
+                                console.error('Gagal mengupdate data absen:',
+                                    xhr);
+                            }
+                        });
+                    },
+                    error: function(xhr) {
+                        // Handle errors
+                        let errorMessage = 'An error occurred';
+
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        alert('Error: ' + errorMessage);
+
+                        // Re-enable the button
+                        button.prop('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

@@ -1,4 +1,5 @@
 @include('layouts.head')
+
 <body>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
@@ -19,11 +20,11 @@
         @include('layouts.header')
         <!-- Header END -->
         <!-- ============================================================== -->
-        
+
         <!-- Sidebar START -->
         @include('layouts.sidebar')
         <!-- Sidebar END -->
-    
+
 
         <!-- Page wrapper START  -->
         <section class="content">
@@ -31,6 +32,7 @@
         </section>
         <!-- End Page wrapper  -->
     </div>
+    @include('layouts.footer')
 </body>
-@include('layouts.footer')
+
 </html>
