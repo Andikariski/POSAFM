@@ -64,6 +64,10 @@
                             <li class="sidebar-item"><a href="{{ route('absensi-karyawan') }}" class="sidebar-link">
                                     <span class="hide-menu">Absen Harian</span></a>
                             </li>
+                            <li class="sidebar-item"><a href="{{ route('absensi-karyawan-bulanan') }}"
+                                    class="sidebar-link">
+                                    <span class="hide-menu">Laporan Absensi</span></a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -145,7 +149,8 @@
                             <li class="sidebar-item"><a href="{{ route('absensi-karyawan') }}" class="sidebar-link">
                                     <span class="hide-menu">Absen Harian</span></a>
                             </li>
-                            <li class="sidebar-item"><a href="#" class="sidebar-link">
+                            <li class="sidebar-item"><a href="{{ route('absensi-karyawan-bulanan') }}"
+                                    class="sidebar-link">
                                     <span class="hide-menu">Laporan Absensi</span></a>
                             </li>
                         </ul>

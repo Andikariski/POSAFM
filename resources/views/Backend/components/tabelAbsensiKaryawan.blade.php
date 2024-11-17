@@ -10,117 +10,142 @@
     <tbody>
         @forelse ($dataAbsensiKaryawan as $item)
             <tr>
-                <td>
-                    @if ($item->masuk_pagi_status !== 'belum_absen')
-                        <input type="checkbox" {{ $item->masuk_pagi ? 'checked' : '' }} onclick="return false;">
-                    @endif
+                <td class="d-grid">
                     @if ($item->masuk_pagi_status === 'belum_absen')
-                        <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="masuk_pagi">
-                            <span class="button-text">absen sekarang</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status">
-                            </span>
-                        </button>
+                        @if ($jamSaatIni > 12)
+                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                        @else
+                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                                data-type="masuk_pagi">
+                                <span class="button-text">absen sekarang</span>
+                                <span class="spinner-border spinner-border-sm d-none" role="status">
+                                </span>
+                            </button>
+                        @endif
                     @elseif($item->masuk_pagi_status === 'tidak_hadir')
-                        <label class="ml-2 text-danger">tidak hadir</label>
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->masuk_pagi_status === 'terlambat')
-                        <label
-                            class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</label>
+                        <button class="col-12 btn btn-warning btn-rounded">
+                            {{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</button>
                     @else
-                        <label
-                            class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</label>
+                        <button
+                            class="col-12 btn btn-success btn-rounded">{{ \Carbon\Carbon::parse($item->masuk_pagi)->format('H : i') }}</button>
                     @endif
                 </td>
-                <td>
-                    @if ($item->keluar_siang_status !== 'belum_absen')
-                        <input type="checkbox" {{ $item->keluar_siang ? 'checked' : '' }} onclick="return false;">
-                    @endif
+                <td class="d-grid">
                     @if ($item->keluar_siang_status === 'belum_absen')
-                        <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="keluar_siang">
-                            <span class="button-text">absen sekarang</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status">
-                            </span>
-                        </button>
+                        @if ($jamSaatIni > 13)
+                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                        @else
+                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                                data-type="keluar_siang">
+                                <span class="button-text">absen sekarang</span>
+                                <span class=" spinner-border spinner-border-sm d-none" role="status">
+                                </span>
+                            </button>
+                        @endif
                     @elseif($item->keluar_siang_status === 'tidak_hadir')
-                        <label class="ml-2 text-danger">tidak hadir</label>
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->keluar_siang_status === 'terlambat')
-                        <label
-                            class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</label>
+                        <button
+                            class="col-12 btn btn-warning btn-rounded">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</button>
                     @else
-                        <label
-                            class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</label>
+                        <button
+                            class="col-12 btn btn-success btn-rounded">{{ \Carbon\Carbon::parse($item->keluar_siang)->format('H : i') }}</button>
                     @endif
                 </td>
-                <td>
-                    @if ($item->masuk_siang_status !== 'belum_absen')
-                        <input type="checkbox" {{ $item->masuk_siang ? 'checked' : '' }} onclick="return false;">
-                    @endif
+                <td class="d-grid">
                     @if ($item->masuk_siang_status === 'belum_absen')
-                        <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="masuk_siang">
-                            <span class="button-text">absen sekarang</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status">
+                        @if ($jamSaatIni > 17)
+                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                        @else
+                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                                data-type="masuk_siang">
+                                <span class="button-text">absen sekarang</span>
+                                <span class=" spinner-border spinner-border-sm d-none" role="status">
 
-                            </span>
-                        </button>
+                                </span>
+                            </button>
+                        @endif
                     @elseif($item->masuk_siang_status === 'tidak_hadir')
-                        <label class="ml-2 text-danger">tidak hadir</label>
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->masuk_siang_status === 'terlambat')
-                        <label
-                            class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</label>
+                        <button
+                            class="col-12 btn btn-warning  btn-rounded">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</button>
                     @else
-                        <label
-                            class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</label>
+                        <button
+                            class="col-12 btn btn-success  btn-rounded">{{ \Carbon\Carbon::parse($item->masuk_siang)->format('H : i') }}</button>
                     @endif
                 </td>
                 <td>
-                    @if ($item->keluar_sore_status !== 'belum_absen')
-                        <input type="checkbox" {{ $item->keluar_sore ? 'checked' : '' }} onclick="return false;">
-                    @endif
                     @if ($item->keluar_sore_status === 'belum_absen')
-                        <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="keluar_sore">
-                            <span class="button-text">absen sekarang</span>
-                            <span class="spinner-border spinner-border-sm d-none" role="status">
+                        @if ($jamSaatIni > 18)
+                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                        @else
+                            <button type="button" class="col-12 btn  btn-primary btn-rounded btn-absensi"
+                                data-type="keluar_sore">
+                                <span class="button-text">absen sekarang</span>
+                                <span class=" spinner-border spinner-border-sm d-none" role="status">
 
-                            </span>
-                        </button>
+                                </span>
+                            </button>
+                        @endif
                     @elseif($item->keluar_sore_status === 'tidak_hadir')
-                        <label class="ml-2 text-danger">tidak hadir</label>
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->keluar_sore_status === 'terlambat')
-                        <label
-                            class="ml-2 text-warning">{{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}</label>
+                        <p class="bg-warning py-2 text-center text-dark rounded-pill">
+                            {{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}
+                        </p>
                     @else
-                        <label
-                            class="ml-2 text-success">{{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}</label>
+                        <p class="bg-success py-2 text-center text-dark rounded-pill">
+                            {{ \Carbon\Carbon::parse($item->keluar_sore)->format('H : i') }}</p>
                     @endif
                 </td>
             </tr>
         @empty
             <tr>
                 <td>
-                    <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="masuk_pagi">
-                        <span class="button-text">absen sekarang</span>
-                        <span class="spinner-border spinner-border-sm d-none" role="status">
+                    @if ($jamSaatIni > 12)
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                    @else
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="masuk_pagi">
+                            <span class="button-text">absen sekarang</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status">
 
-                        </span>
-                    </button>
+                            </span>
+                        </button>
+                    @endif
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="keluar_siang">
-                        <span class="button-text">absen sekarang</span>
-                        <span class="spinner-border spinner-border-sm d-none" role="status">
+                    @if ($jamSaatIni > 13)
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                    @else
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="keluar_siang">
+                            <span class="button-text">absen sekarang</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status">
 
-                        </span>
-                    </button>
+                            </span>
+                        </button>
+                    @endif
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="masuk_siang">
-                        <span class="button-text">absen sekarang</span>
-                        <span class="spinner-border spinner-border-sm d-none" role="status">
+                    @if ($jamSaatIni > 17)
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                    @else
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="masuk_siang">
+                            <span class="button-text">absen sekarang</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status">
 
-                        </span>
-                    </button>
+                            </span>
+                        </button>
+                    @endif
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-rounded btn-absensi" data-type="keluar_sore">
+                    <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                        data-type="keluar_sore">
                         <span class="button-text">absen sekarang</span>
                         <span class="spinner-border spinner-border-sm d-none" role="status">
 

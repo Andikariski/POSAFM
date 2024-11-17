@@ -13,10 +13,11 @@ class AbsensiKaryawanController extends Controller
 {
     public function index()
     {
-        // tanggal hari ini
+        // tanggal dan jam hari ini
         Carbon::setLocale('id');
         $date = Carbon::now();
         $tanggalHariIni = $date->translatedFormat('d F Y');
+        $jamSaatIni = Carbon::now()->format('H');
 
         // jumlah karyawan
         $karyawan = User::all()->where('is_admin', false)->count();
@@ -36,7 +37,7 @@ class AbsensiKaryawanController extends Controller
                 if ($user->is_admin) {
                     return view('Backend.pages.absensiAdminView', compact('tanggalHariIni', 'karyawan', 'dataAbsensiKaryawanAll'));
                 }
-                return view('Backend.pages.absensiKaryawanView', compact('tanggalHariIni', 'dataAbsensiKaryawan'));
+                return view('Backend.pages.absensiKaryawanView', compact('tanggalHariIni', 'jamSaatIni', 'dataAbsensiKaryawan'));
             } else {
                 return redirect('login');
             }
@@ -70,14 +71,69 @@ class AbsensiKaryawanController extends Controller
         return response()->json(['message' => 'Attendance recorded', 'status' => $status]);
     }
 
-    // UTILITY FUNCTION
     // update data table absensi dengan ajax
     public function getDataAbsensiUpdated()
     {
+        $jamSaatIni = Carbon::now()->format('H');
         $dataAbsensiKaryawan = AbsensiKaryawan::with('karyawan')->whereDate('created_at', Carbon::now()->toDateString())->get();
-        return view('Backend.components.tabelAbsensiKaryawan', compact('dataAbsensiKaryawan'));
+        return view('Backend.components.tabelAbsensiKaryawan', compact('dataAbsensiKaryawan', 'jamSaatIni'));
     }
 
+    // get report data absensi bulanan karyawan
+    public function getDataAbsensiBulanan(Request $request)
+    {
+        $year = $request->get('year', date('Y'));
+        $month = $request->get('month', date('m'));
+
+        $absensiRecords = AbsensiKaryawan::with('karyawan')
+            ->whereYear('tanggal_absen', $year)
+            ->whereMonth('tanggal_absen', $month)
+            ->get()
+            ->groupBy('fkid_user');
+
+        $laporanAbsensi = [];
+        if ($absensiRecords->isNotEmpty()) {
+            foreach ($absensiRecords as $employeeId => $records) {
+                $laporanAbsensi[] = [
+                    'nama_karyawan' => $records->first()->karyawan->name,
+                    'total_hari' => $records->count(),
+                    // Masuk Pagi Statistics
+                    'masuk_pagi' => [
+                        'tepat_waktu' => $records->where('masuk_pagi_status', 'tepat_waktu')->count(),
+                        'terlambat' => $records->where('masuk_pagi_status', 'terlambat')->count(),
+                        'tidak_hadir' => $records->where('masuk_pagi_status', 'tidak_hadir')->count(),
+                        'sakit' => $records->where('masuk_pagi_status', 'sakit')->count(),
+                    ],
+                    // Keluar Siang Statistics
+                    'keluar_siang' => [
+                        'tepat_waktu' => $records->where('keluar_siang_status', 'tepat_waktu')->count(),
+                        'terlambat' => $records->where('keluar_siang_status', 'terlambat')->count(),
+                        'tidak_hadir' => $records->where('keluar_siang_status', 'tidak_hadir')->count(),
+                        'sakit' => $records->where('keluar_siang_status', 'sakit')->count(),
+                    ],
+                    // Masuk Siang Statistics
+                    'masuk_siang' => [
+                        'tepat_waktu' => $records->where('masuk_siang_status', 'tepat_waktu')->count(),
+                        'terlambat' => $records->where('masuk_siang_status', 'terlambat')->count(),
+                        'tidak_hadir' => $records->where('masuk_siang_status', 'tidak_hadir')->count(),
+                        'sakit' => $records->where('masuk_siang_status', 'sakit')->count(),
+                    ],
+                    // Keluar Sore Statistics
+                    'keluar_sore' => [
+                        'tepat_waktu' => $records->where('keluar_sore_status', 'tepat_waktu')->count(),
+                        'terlambat' => $records->where('keluar_sore_status', 'terlambat')->count(),
+                        'tidak_hadir' => $records->where('keluar_sore_status', 'tidak_hadir')->count(),
+                        'sakit' => $records->where('keluar_sore_status', 'sakit')->count(),
+                    ],
+                    'records' => $records
+                ];
+            }
+        }
+
+        return view('Backend.pages.absensiKaryawanBulanan', compact('laporanAbsensi'));
+    }
+
+    // UTILITY FUNCTION
     //menghitung status keterlambatan
     private function menghitungStatusKeterlambatan($type, $time)
     {

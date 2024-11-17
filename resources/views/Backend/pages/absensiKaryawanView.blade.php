@@ -50,11 +50,7 @@
                         </div>
                         <div class="d-flex align-items-center mr-4">
                             <div class="bg-danger" style="width: 12px; height:12px; border-radius: 2px;"></div>
-                            <p class="mt-3 ml-2">tidak hadir</p>
-                        </div>
-                        <div class="d-flex align-items-center mr-4">
-                            <div class="bg-secondary" style="width: 12px; height:12px; border-radius: 2px;"></div>
-                            <p class="mt-3 ml-2">belum absen</p>
+                            <p class="mt-3 ml-2">tidak absen / tidak hadir</p>
                         </div>
                     </div>
 
@@ -70,7 +66,6 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            // Set up CSRF token for all AJAX requests
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -98,13 +93,13 @@
 
                 switch (type) {
                     case 'masuk_pagi':
-                        return hour >= 6 && hour <= 9;
+                        return hour >= 6 && hour <= 11;
                     case 'keluar_siang':
                         return hour >= 11 && hour < 13;
                     case 'masuk_siang':
-                        return hour >= 13 && hour <= 14;
+                        return hour >= 13 && hour <= 16;
                     case 'keluar_sore':
-                        return hour >= 16 && hour <= 18;
+                        return hour >= 16 && hour <= 20;
                     default:
                         return false;
                 }

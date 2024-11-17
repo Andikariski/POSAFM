@@ -149,6 +149,6 @@ Route::get('cetak-invoice', [App\Http\Controllers\Backend\GeneratePDFController:
 
 //Route absensi karyawan
 Route::get('absensi-karyawan', [App\Http\Controllers\Backend\AbsensiKaryawanController::class, 'index'])->name('absensi-karyawan');
-Route::get('absensi-karyawan/{id}', [App\Http\Controllers\Backend\AbsensiKaryawanController::class, 'show'])->name('detail-absensi-karyawan');
+Route::get('absensi-karyawan-bulanan', [App\Http\Controllers\Backend\AbsensiKaryawanController::class, 'getDataAbsensiBulanan'])->name('absensi-karyawan-bulanan');
 Route::post('absensi-karyawan', [AbsensiKaryawanController::class, 'store'])->name('tambah-absensi-karyawan');
 Route::get('data-absensi-updated', [AbsensiKaryawanController::class, 'getDataAbsensiUpdated'])->name('data-absensi-updated');
