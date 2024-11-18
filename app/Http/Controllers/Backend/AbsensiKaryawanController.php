@@ -88,7 +88,7 @@ class AbsensiKaryawanController extends Controller
             $user = auth()->user();
 
             if ($user) {
-                $absensiRecords = AbsensiKaryawan::with('karyawan')
+                $absensiRecords = AbsensiKaryawan::latest()->with('karyawan')
                     ->whereYear('tanggal_absen', $year)
                     ->whereMonth('tanggal_absen', $month)
                     ->get()
