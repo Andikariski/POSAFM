@@ -8,6 +8,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use TimeHelper;
 
 class AbsensiKaryawanController extends Controller
 {
@@ -17,22 +19,21 @@ class AbsensiKaryawanController extends Controller
         Carbon::setLocale('id');
         $date = Carbon::now();
         $tanggalHariIni = $date->translatedFormat('d F Y');
-        $jamSaatIni = Carbon::now()->format('H');
+        $jamSaatIni = TimeHelper::getCurrentHour();
 
         // jumlah karyawan
         $karyawan = User::all()->where('is_admin', false)->count();
 
         // data absensi semua karyawan hari ini
-        $user = auth()->user();
         $dataAbsensiKaryawanAll = AbsensiKaryawan::with('karyawan')->whereDate('created_at', Carbon::now()->toDateString())->get();
-        $dataAbsensiKaryawan = AbsensiKaryawan::with('karyawan')
-            ->whereDate('created_at', Carbon::now()->toDateString())
-            ->where('fkid_user', $user->id)
-            ->get();
         try {
             $user = auth()->user(); // Make sure to get the authenticated user
 
             if ($user) {
+                $dataAbsensiKaryawan = AbsensiKaryawan::with('karyawan')
+                    ->whereDate('created_at', Carbon::now()->toDateString())
+                    ->where('fkid_user', $user->id)
+                    ->get();
                 if ($user->is_admin) {
                     return view('Backend.pages.absensiAdminView', compact('tanggalHariIni', 'karyawan', 'jamSaatIni', 'dataAbsensiKaryawanAll'));
                 }
@@ -51,30 +52,92 @@ class AbsensiKaryawanController extends Controller
         $validated = $request->validate([
             'fkid_user' => 'required|exists:users,id',
             'type' => 'required|in:masuk_pagi,keluar_siang,masuk_siang,keluar_sore',
-            'time' => 'required|date_format:H:i',
+            'time' => 'required|date_format:H:i'
         ]);
 
         $now = now();
         $record = AbsensiKaryawan::firstOrCreate([
             'fkid_user' => $validated['fkid_user'],
-            'tanggal_absen' => $now->toDateString(),
+            'tanggal_absen' => $now->toDateString()
         ]);
 
+        //konfigurasi absen
+        $konfigAbsensi = [
+            'masuk_pagi' => [
+                'order' => 0,
+                'start_time' => '07:00',
+                'end_time' => '10:00'
+            ],
+            'keluar_siang' => [
+                'order' => 1,
+                'start_time' => '12:00',
+                'end_time' => '13:00'
+            ],
+            'masuk_siang' => [
+                'order' => 2,
+                'start_time' => '13:00',
+                'end_time' => '16:00'
+            ],
+            'keluar_sore' => [
+                'order' => 3,
+                'start_time' => '17:00',
+                'end_time' => '20:00'
+            ],
+        ];
+
+        $currentType = $validated['type'];
+        $currentOrder = $konfigAbsensi[$currentType]['order'];
+
+        //prepare update data
+        $updateData = [];
+        //process absensi sebelumnya yang tidak terisi (tidak hadir)
+        foreach ($konfigAbsensi as $type => $config) {
+            if ($config['order'] < $currentOrder) {
+                if (is_null($record->{$type}) || $record->{$type . '_status'} === 'belum_absen') {
+                    $updateData[$type . '_status'] = 'tidak_hadir';
+                }
+            }
+        }
+
+        // menentukan status kehadiran (terlambat, tepat waktu, dll)
         $status = $this->menghitungStatusKeterlambatan($validated['type'], $validated['time']);
 
-        $record->update([
-            $validated['type'] => $validated['time'],
-            $validated['type'] . '_status' => $status
-        ]);
+        // menambahkan data absen saat ini
+        $updateData[$currentType] = $validated['time'];
+        $updateData[$currentType . '_status'] = $status;
 
-        return response()->json(['message' => 'Attendance recorded', 'status' => $status]);
+        // menyimpan ke database
+        try {
+            DB::beginTransaction();
+            //update data
+            $record->update($updateData);
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Berhasil Melakukan Absen',
+                'status' => $status
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => 'gagal melakukan absen',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     // update data table absensi dengan ajax
     public function getDataAbsensiUpdated()
     {
-        $jamSaatIni = Carbon::now()->format('H');
-        $dataAbsensiKaryawan = AbsensiKaryawan::with('karyawan')->whereDate('created_at', Carbon::now()->toDateString())->get();
+        $jamSaatIni = TimeHelper::getCurrentHour();
+        $query = AbsensiKaryawan::with('karyawan')
+            ->whereDate('created_at', Carbon::now()->toDateString());
+        if (!auth()->user()->is_admin) {
+            $query->where('fkid_user', auth()->id());
+        }
+
+        $dataAbsensiKaryawan = $query->get();
         return view('Backend.components.tabelAbsensiKaryawan', compact('dataAbsensiKaryawan', 'jamSaatIni'));
     }
 

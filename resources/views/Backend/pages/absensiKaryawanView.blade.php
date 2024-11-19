@@ -93,13 +93,13 @@
 
                 switch (type) {
                     case 'masuk_pagi':
-                        return hour >= 6 && hour <= 11;
+                        return hour >= 6 && hour <= 9;
                     case 'keluar_siang':
                         return hour >= 11 && hour < 13;
                     case 'masuk_siang':
-                        return hour >= 13 && hour <= 16;
+                        return hour >= 13 && hour < 16;
                     case 'keluar_sore':
-                        return hour >= 16 && hour <= 20;
+                        return hour >= 17 && hour < 20;
                     default:
                         return false;
                 }

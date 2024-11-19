@@ -12,16 +12,12 @@
             <tr>
                 <td class="d-grid">
                     @if ($item->masuk_pagi_status === 'belum_absen')
-                        @if ($jamSaatIni > 12)
-                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
-                        @else
-                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
-                                data-type="masuk_pagi">
-                                <span class="button-text">absen sekarang</span>
-                                <span class="spinner-border spinner-border-sm d-none" role="status">
-                                </span>
-                            </button>
-                        @endif
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="masuk_pagi">
+                            <span class="button-text">absen sekarang</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status">
+                            </span>
+                        </button>
                     @elseif($item->masuk_pagi_status === 'tidak_hadir')
                         <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->masuk_pagi_status === 'terlambat')
@@ -34,16 +30,12 @@
                 </td>
                 <td class="d-grid">
                     @if ($item->keluar_siang_status === 'belum_absen')
-                        @if ($jamSaatIni > 13)
-                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
-                        @else
-                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
-                                data-type="keluar_siang">
-                                <span class="button-text">absen sekarang</span>
-                                <span class=" spinner-border spinner-border-sm d-none" role="status">
-                                </span>
-                            </button>
-                        @endif
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="keluar_siang">
+                            <span class="button-text">absen sekarang</span>
+                            <span class=" spinner-border spinner-border-sm d-none" role="status">
+                            </span>
+                        </button>
                     @elseif($item->keluar_siang_status === 'tidak_hadir')
                         <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->keluar_siang_status === 'terlambat')
@@ -56,17 +48,13 @@
                 </td>
                 <td class="d-grid">
                     @if ($item->masuk_siang_status === 'belum_absen')
-                        @if ($jamSaatIni > 17)
-                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
-                        @else
-                            <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
-                                data-type="masuk_siang">
-                                <span class="button-text">absen sekarang</span>
-                                <span class=" spinner-border spinner-border-sm d-none" role="status">
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="masuk_siang">
+                            <span class="button-text">absen sekarang</span>
+                            <span class=" spinner-border spinner-border-sm d-none" role="status">
 
-                                </span>
-                            </button>
-                        @endif
+                            </span>
+                        </button>
                     @elseif($item->masuk_siang_status === 'tidak_hadir')
                         <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->masuk_siang_status === 'terlambat')
@@ -79,17 +67,13 @@
                 </td>
                 <td>
                     @if ($item->keluar_sore_status === 'belum_absen')
-                        @if ($jamSaatIni > 18)
-                            <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
-                        @else
-                            <button type="button" class="col-12 btn  btn-primary btn-rounded btn-absensi"
-                                data-type="keluar_sore">
-                                <span class="button-text">absen sekarang</span>
-                                <span class=" spinner-border spinner-border-sm d-none" role="status">
+                        <button type="button" class="col-12 btn  btn-primary btn-rounded btn-absensi"
+                            data-type="keluar_sore">
+                            <span class="button-text">absen sekarang</span>
+                            <span class=" spinner-border spinner-border-sm d-none" role="status">
 
-                                </span>
-                            </button>
-                        @endif
+                            </span>
+                        </button>
                     @elseif($item->keluar_sore_status === 'tidak_hadir')
                         <p class="bg-danger py-2 text-center text-white rounded-pill">tidak hadir</p>
                     @elseif($item->keluar_sore_status === 'terlambat')
@@ -105,7 +89,7 @@
         @empty
             <tr>
                 <td>
-                    @if ($jamSaatIni > 12)
+                    @if ($jamSaatIni > 9)
                         <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
                     @else
                         <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
@@ -131,7 +115,7 @@
                     @endif
                 </td>
                 <td>
-                    @if ($jamSaatIni > 17)
+                    @if ($jamSaatIni > 16)
                         <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
                     @else
                         <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
@@ -144,13 +128,17 @@
                     @endif
                 </td>
                 <td>
-                    <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
-                        data-type="keluar_sore">
-                        <span class="button-text">absen sekarang</span>
-                        <span class="spinner-border spinner-border-sm d-none" role="status">
+                    @if ($jamSaatIni > 20)
+                        <p class="bg-danger py-2 text-center text-white rounded-pill">kamu tidak absen</p>
+                    @else
+                        <button type="button" class="col-12 btn btn-primary btn-rounded btn-absensi"
+                            data-type="keluar_sore">
+                            <span class="button-text">absen sekarang</span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status">
 
-                        </span>
-                    </button>
+                            </span>
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforelse
