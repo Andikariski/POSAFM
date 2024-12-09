@@ -12,7 +12,7 @@ class RegisterController extends BaseController
 {
     /**
      * register api
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -39,7 +39,7 @@ class RegisterController extends BaseController
 
     /**
      * login api
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
@@ -55,5 +55,13 @@ class RegisterController extends BaseController
         } else {
             return $this->sendError('Unauthorized', ['error' => 'Unauthorized']);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        // Revoke all tokens for the user
+        $request->user()->tokens()->delete();
+
+        return $this->sendResponse([], 'User logged out successfully.');
     }
 }
