@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AbsensiKaryawancontroller;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Backend\ProdukController;
@@ -32,4 +33,5 @@ Route::middleware('auth:sanctum')->post('logout', [RegisterController::class, 'l
 // In routes/api.php
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('products/{barcode_produk}', [ProductController::class, 'show']);
+    Route::post('absensi-karyawan', [AbsensiKaryawancontroller::class, 'store']);
 });
