@@ -32,4 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('products/{barcode_produk}', [ProductController::class, 'show']);
     Route::get('products', [ProductController::class, 'index']);
     Route::post('absensi-karyawan', [AbsensiKaryawancontroller::class, 'store']);
+    Route::get('absensi-karyawan-hari-ini', [AbsensiKaryawancontroller::class, 'index']);
+    Route::get('absensi-karyawan-bulanan', [AbsensiKaryawancontroller::class, 'getDataAbsensiBulanan']);
 });
