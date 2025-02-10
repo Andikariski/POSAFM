@@ -10,20 +10,21 @@ class ProductController extends BaseController
 {
     public function index(Request $request)
     {
-        if (!$request->user()) {
+        if (! $request->user()) {
             return $this->sendError('Unauthorized', [], 401);
         }
 
         $search = $request->query('search');
-        $perPage = 2;
+        $perPage = 4;
 
         $products = Produk::with(['kategori', 'tempatproduk'])
             ->when($search, function ($query) use ($search) {
                 // Remove extra spaces and special characters from search term
                 $search = trim($search);
+
                 return $query->where(function ($q) use ($search) {
-                    $q->where('nama_produk', 'LIKE', "%{$search}%")
-                        ->orWhere('barcode_produk', 'LIKE', "%{$search}%");
+                    $q->whereRaw('LOWER(nama_produk) LIKE LOWER(?)', ["%{$search}%"])
+                        ->orWhereRaw('LOWER(barcode_produk) LIKE LOWER(?)', ["%{$search}%"]);
                 });
             })
             ->paginate($perPage);
@@ -43,13 +44,13 @@ class ProductController extends BaseController
             'per_page' => $products->perPage(),
             'prev_page_url' => $products->previousPageUrl(),
             'to' => $products->lastItem(),
-            'total' => $products->total()
+            'total' => $products->total(),
         ], 'berhasil mengambil data produk');
     }
 
     public function show(Request $request, $barcode_produk)
     {
-        if (!$request->user()) {
+        if (! $request->user()) {
             return $this->sendError('Unauthorized', [], 401);
         }
 
